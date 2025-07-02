@@ -10,14 +10,11 @@ interface DataCardProps {
 }
 
 export default function DataCard({ id, index, spell }: DataCardProps) {
-  console.log("Card id:" + id + 
-    " index:" + index + 
-    " spell:" + spell.spellName);
 
   return (
     <Draggable key={id} draggableId={id} index={index}>
       {(provided) => (
-        <div
+        <div className=""
           {...provided.dragHandleProps}
           {...provided.draggableProps}
           ref={provided.innerRef}
@@ -29,7 +26,7 @@ export default function DataCard({ id, index, spell }: DataCardProps) {
   );
 }
 
-function Icon({ url }: { url: string }) {
+export function Icon({ url }: { url: string }) {
   return (
     <div className="aspect-square w-32">
       <ImageUnop alt="Spell Sprite" src={GITSPRITEURL(url)} />

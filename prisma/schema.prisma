@@ -48,6 +48,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
+  tierLists Tierlist[]
+
   @@map("users")
 }
 
@@ -73,4 +75,32 @@ view SpellsView {
 enum Role {
   USER
   ADMIN
+}
+
+model Tierlist {
+  id String @id @default(cuid())
+  name String?
+  descripton String?
+  likes Int @default(0)
+  tiers Tier[]
+
+  author User @relation(fields: [authorId],references: [id], onDelete: Cascade)
+  authorId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tier_list")
+}
+
+model Tier{
+  id String @id @default(cuid())  //unique id for db 
+  tierId String //The id used to order them and unique to droppable
+  name String //Display name of tier list
+  
+  parent_list Tierlist @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId String
+
+  spells String[] //Must be from the Spells List in the db
+
 }
