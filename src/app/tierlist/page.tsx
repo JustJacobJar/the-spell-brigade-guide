@@ -1,51 +1,112 @@
-export default function TierlistPage() {
+// "use client";
+// import { getAllSpells } from "@/server/fetchActions";
+// import TierForm from "./TierForm";
+// import { Spell, Tier } from "@/lib/types";
+// import useSWR from "swr";
+
+// const starterTiers = [
+//   {
+//     tierId: "0",
+//     tierName: "S",
+//     tierItems: [
+//       { spellName: "Aether_beam" },
+//       { spellName: "Arcane_broadsword" },
+//     ],
+//   },
+//   { tierId: "1", tierName: "A", tierItems: [{ spellName: "Astral_orbs" }] },
+//   { tierId: "2", tierName: "B", tierItems: [{ spellName: "Aurora_wings" }] },
+// ];
+
+// export default function TierlistPage() {
+//   const { data, error, isLoading } = useSWR("key", getAllSpells);
+//   // const [data, setData] = useState<Tier[]> ()
+
+//   // const spells = getAllSpells();
+//   if(!data) return
+//   const yea = data.map((spell) => {
+//     return { spellName: spell.name } as Spell;
+//   });
+//   const baseTierlist: Tier[] = [
+//     { tierId: "0", tierName: "S", tierItems: [] },
+//     { tierId: "1", tierName: "A", tierItems: [] },
+//     { tierId: "2", tierName: "B", tierItems: [] },
+//     { tierId: "3", tierName: "C", tierItems: [] },
+//     { tierId: "4", tierName: "D", tierItems: [] },
+//     {
+//       tierId: "5",
+//       tierName: "F",
+//       tierItems: [...yea],
+//     },
+//   ];
+
+//   //if we are editing, get the tier list we are going to edit
+
+//   return (
+//     <>
+//       {/* <>
+//         {data.map((spell, index) => (
+//           <p key={index}>{spell.spellName}</p>
+//         ))}
+//       </> */}
+//       <TierForm tierData={baseTierlist ? baseTierlist : starterTiers} />
+//       {/* <TierList /> */}
+//     </>
+//   );
+// }
+
+"use server";
+import { getAllSpells } from "@/server/fetchActions";
+import TierForm from "./TierForm";
+import { Spell, Tier } from "@/lib/types";
+import NoSsr from "../../components/NoSsr";
+import { Suspense } from "react";
+
+const starterTiers = [
+  {
+    tierId: "0",
+    tierName: "S",
+    tierItems: [
+      { spellName: "Aether_beam" },
+      { spellName: "Arcane_broadsword" },
+    ],
+  },
+  { tierId: "1", tierName: "A", tierItems: [{ spellName: "Astral_orbs" }] },
+  { tierId: "2", tierName: "B", tierItems: [{ spellName: "Aurora_wings" }] },
+];
+
+export default async function TierlistPage() {
+  const spells = await getAllSpells();
+
+  const yea = spells.map((spell) => {
+    return { spellName: spell.name } as Spell;
+  });
+  const baseTierlist: Tier[] = [
+    { tierId: "0", tierName: "S", tierItems: [] },
+    { tierId: "1", tierName: "A", tierItems: [] },
+    { tierId: "2", tierName: "B", tierItems: [] },
+    { tierId: "3", tierName: "C", tierItems: [] },
+    { tierId: "4", tierName: "D", tierItems: [] },
+    {
+      tierId: "5",
+      tierName: "F",
+      tierItems: [...yea],
+    },
+  ];
+
   return (
     <>
-      <TierList />
+      {/* <>
+        {data.map((spell, index) => (
+          <p key={index}>{spell.spellName}</p>
+        ))}
+      </> */}
+      <NoSsr>
+        <Suspense fallback={<p>Gaming</p>}>
+          <TierForm tierData={baseTierlist ? baseTierlist : starterTiers} />
+        </Suspense>
+      </NoSsr>
+
+      {/* <TierList /> */}
     </>
-  );
-}
-
-function Icon() {
-  return (
-    <div className="aspect-square w-32">
-      <img
-        src={
-          "https://raw.githubusercontent.com/JustJacobJar/the-spell-brigade-sprites/master/sprites/spells/Aether_beam.png"
-        }
-      />
-    </div>
-  );
-}
-
-function TierRow({ tier, data }: { tier: string; data: number }) {
-  const gaming = () => {
-    const arr = [];
-    for (let index = 0; index < data; index++) {
-      arr.push(<Icon key={index} />);
-    }
-    return arr;
-  };
-
-  return (
-    <div className="flex w-full flex-row outline">
-      <label className="h-full min-w-fit content-center bg-red-500 px-2 outline">
-        {tier}
-      </label>
-      <div className="flex w-full flex-row flex-wrap">{gaming()}</div>
-    </div>
-  );
-}
-
-function TierList() {
-  return (
-    <div className="grid-flow-rows grid w-2xl gap-2 divide-dotted divide-amber-50 p-2 outline">
-      <TierRow tier="T0" data={3} />
-      <TierRow tier="T1" data={2} />
-      <TierRow tier="T2" data={5} />
-      <TierRow tier="T3" data={2} />
-      <TierRow tier="T4" data={1} />
-      <TierRow tier="T5" data={7} />
-    </div>
   );
 }
