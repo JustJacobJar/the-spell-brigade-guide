@@ -1,7 +1,7 @@
 generator client {
   provider        = "prisma-client-js"
   output          = "../generated/prisma"
-  previewFeatures = ["driverAdapters"]
+  previewFeatures = ["driverAdapters", "views"]
 }
 
 datasource db {
@@ -10,38 +10,32 @@ datasource db {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String  @map("user_id")
-  type               String
-  provider           String
-  providerAccountId  String  @map("provider_account_id")
-  refresh_token      String? @db.Text
-  access_token       String? @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String? @db.Text
-  session_state      String?
- 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@unique([provider, providerAccountId])
   @@map("accounts")
 }
- 
+
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique @map("session_token")
   userId       String   @map("user_id")
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  @@map("sessions")
-}
 
-enum Role{
-  USER
-  ADMIN
+  @@map("sessions")
 }
 
 model User {
@@ -50,18 +44,63 @@ model User {
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
-  role          Role @default(USER)
+  role          Role      @default(USER)
   accounts      Account[]
   sessions      Session[]
- 
+
+  tierLists Tierlist[]
+
   @@map("users")
 }
- 
+
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
+
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+model Spell {
+  name String @unique
+}
+
+/// The underlying view does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+view SpellsView {
+  name String @unique
+  @@map("spells_view")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Tierlist {
+  id String @id @default(cuid())
+  name String?
+  descripton String?
+  likes Int @default(0)
+  tiers Tier[]
+
+  author User @relation(fields: [authorId],references: [id], onDelete: Cascade)
+  authorId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tier_list")
+}
+
+model Tier{
+  id String @id @default(cuid())  //unique id for db 
+  tierId String //The id used to order them and unique to droppable
+  name String //Display name of tier list
+  
+  parent_list Tierlist @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId String
+
+  spells String[] //Must be from the Spells List in the db
+
 }
