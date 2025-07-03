@@ -4,6 +4,7 @@ import TierForm from "./TierForm";
 import { Spell, Tier } from "@/lib/types";
 import useSWR from "swr";
 import TierListSkeleton from "@/components/skeletons/tierListSkeleton";
+import TierFormNoSub from "./TierFormNoSub";
 
 export default function TierlistPage() {
   const { data, error, isLoading } = useSWR("key", getAllSpells);
@@ -60,7 +61,8 @@ export default function TierlistPage() {
           tierItems: [...spellData],
         },
       ];
-      return <TierForm tierData={baseTierlist} />;
+      // return <TierForm tierData={baseTierlist} />; //THIS IS FOR SUB FORM
+      return <TierFormNoSub tierData={baseTierlist} />; //THIS NO SUB FORM
     }
     return <p>Error fetching spells</p>;
   };
@@ -70,11 +72,7 @@ export default function TierlistPage() {
   return (
     <>
       <div className="place-items-center">
-        {isLoading ? (
-          <TierListSkeleton />
-        ) : (
-          loadingList()
-        )}
+        {isLoading ? <TierListSkeleton /> : loadingList()}
       </div>
     </>
   );

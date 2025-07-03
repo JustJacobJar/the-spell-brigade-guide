@@ -1,31 +1,23 @@
-import { Icon } from "@/components/dnd/DataCard";
-import { prisma } from "@/lib/prisma";
-import { Spell, Tier } from "@/lib/types";
-import { cn, tierClassNameLookup } from "@/lib/utils";
-import { Tierlist } from "../../../../generated/prisma";
 import { tlConstructor } from "@/server/serverUtils";
+import { prisma } from "@/lib/prisma";
 import TierRow from "@/components/TierRow";
+import { Suspense } from "react";
 
-export default async function ViewTierListPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-
+export default async function MetaReportPage() {
   //get tl id
-  const tl = await prisma.tierlist.findUnique({ where: { id: id } });
+  const tl = await prisma.tierlist.findUnique({
+    where: { id: "cmcmmil5j0001hopk1ia9vppb" },
+  });
 
   if (!tl) return <p>Not found</p>;
 
   const author = await prisma.user.findUnique({ where: { id: tl.authorId } });
-
   const theData = await tlConstructor(tl);
 
   return !tl ? (
     <p>No data???</p>
   ) : (
-    <div className="place-items-center">
+    <div className="place-items-center p-2">
       <div className="flex flex-col gap-2 rounded-md border-2 bg-neutral-900 p-2">
         <div className="pl-1">
           <h1 className="text-2xl">{tl.name}</h1>
@@ -36,6 +28,7 @@ export default async function ViewTierListPage({
         {/* Table */}
         <div>
           {theData.map((tier, index) => {
+            if (tier.tierName === "?") return;
             return <TierRow tier={tier} key={index} />;
           })}
         </div>
