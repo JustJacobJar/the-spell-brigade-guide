@@ -1,8 +1,4 @@
-import { Icon } from "@/components/dnd/DataCard";
 import { prisma } from "@/lib/prisma";
-import { Spell, Tier } from "@/lib/types";
-import { cn, tierClassNameLookup } from "@/lib/utils";
-import { Tierlist } from "../../../../generated/prisma";
 import { tlConstructor } from "@/server/serverUtils";
 import TierRow from "@/components/TierRow";
 

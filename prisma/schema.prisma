@@ -1,6 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
-  output          = "../generated/prisma"
+  output        = "../src/generated/client" // it is better to include the generator inside `src/` or `app/` if `src/` not available.
   binaryTargets = ["native", "linux-musl", "rhel-openssl-3.0.x"]  // first one is for cross-platform, second one for docker, last one for serverless environment. safe to include all
   previewFeatures = ["driverAdapters", "views"]
 }

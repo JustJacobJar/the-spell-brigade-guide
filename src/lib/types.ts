@@ -1,5 +1,5 @@
+import { Role } from "@/generated/client";
 import { DefaultSession } from "next-auth";
-import { Role } from "../../generated/prisma";
 
 export type Tier = {
   tierId: string;

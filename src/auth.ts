@@ -4,7 +4,7 @@ import { PoolConfig } from "@neondatabase/serverless";
 import { PrismaNeon } from "@prisma/adapter-neon";
 import { Provider } from "next-auth/providers";
 import GitHub from "next-auth/providers/github";
-import { PrismaClient } from "../generated/prisma";
+import { PrismaClient } from "./generated/client";
 
 const neon: PoolConfig = {
   connectionString: process.env.AUTH_POSTGRES_PRISMA_URL,
@@ -30,7 +30,6 @@ export const providerMap = providers
     }
   })
   .filter((provider) => provider.id !== "credentials");
-
 
 export const {
   handlers,

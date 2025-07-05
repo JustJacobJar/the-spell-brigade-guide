@@ -1,6 +1,6 @@
 "use server";
+import { Tierlist } from "@/generated/client";
 import { prisma } from "@/lib/prisma";
-import { Tierlist } from "../../generated/prisma";
 import { Spell, Tier } from "@/lib/types";
 import { tierClassNameLookup } from "@/lib/utils";
 
