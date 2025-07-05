@@ -20,6 +20,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   experimental: {
     nodeMiddleware: true,
+    authInterrupts: true,
   },
   images: {
     remotePatterns: [
