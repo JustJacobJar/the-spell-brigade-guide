@@ -68,13 +68,6 @@ export const {
   providers: providers,
   session: { strategy: "database" },
   callbacks: {
-    // Callback to manage the session object
-    // session: async ({ session, token }) => {
-    //   if (token) {
-    //     session.user.id = token.id as string;
-    //   }
-    //   return session;
-    // },
 
     session({ session, user }) {
       session.user.role = user.role;
