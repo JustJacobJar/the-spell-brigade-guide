@@ -4,7 +4,7 @@ import { useCreateBlogPostSWR } from "@/lib/SwrHooks";
 import { MDXEditorMethods } from "@mdxeditor/editor";
 import { useRef, useState } from "react";
 
-export default function CreateGuidePage({ edit = false }: { edit: boolean }) {
+export default function CreateGuidePage() {
   const editor = useRef<MDXEditorMethods>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("# Create a Post!");
@@ -16,12 +16,7 @@ export default function CreateGuidePage({ edit = false }: { edit: boolean }) {
   } = useCreateBlogPostSWR(title, content);
 
   function onSubmitData() {
-    if (edit) {
-      //Mutate
-    } else {
-      //Create
-      create();
-    }
+    create();
     return;
   }
 
