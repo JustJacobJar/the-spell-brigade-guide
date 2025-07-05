@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
@@ -17,11 +18,13 @@
     "@hello-pangea/dnd": "^18.0.1",
     "@mdxeditor/editor": "^3.39.0",
     "@neondatabase/serverless": "^1.0.1",
+    "@next/bundle-analyzer": "^15.3.5",
     "@prisma/adapter-neon": "^6.10.1",
     "@prisma/client": "^6.10.1",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "clsx": "^2.1.1",
+    "cross-env": "^7.0.3",
     "dotenv": "^17.0.0",
     "next": "15.3.4",
     "next-auth": "^5.0.0-beta.29",

@@ -11,6 +11,13 @@ const nextConfig: NextConfig = {
     formats: ["image/webp"],
     minimumCacheTTL: 2678400,
   },
+  
 };
 
 export default nextConfig;
+
+// import WithBundleAnalyzer from "@next/bundle-analyzer";
+
+// export default WithBundleAnalyzer({
+//   enabled: process.env.ANALYZE === "true"
+// })({});
