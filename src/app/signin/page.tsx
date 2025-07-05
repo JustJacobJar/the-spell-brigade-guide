@@ -1,4 +1,4 @@
-import { providerMap } from "@/auth.config";
+import { providerMap } from "@/auth";
 import { SignOut } from "@/components/signout";
 import { SignInToProvider } from "@/server/signInActions";
 import Link from "next/link";
