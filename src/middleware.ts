@@ -15,7 +15,7 @@ export default auth(async (request: NextAuthRequest) => {
   return NextResponse.next();
 });
 export const config = {
-  runtime: "nodejs",
+  // runtime: "nodejs",
   matcher: ["/curator/(.*)"],
 };
 
