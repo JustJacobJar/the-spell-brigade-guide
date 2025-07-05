@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+ "dev": "next dev --turbopack",
+    "vercel-build": "bunx prisma generate && bun run build",
     "build": "next build",
+    "postinstall": "bunx prisma generate",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate",
     "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
@@ -21,6 +22,7 @@
     "@next/bundle-analyzer": "15.3.5",
     "@prisma/adapter-neon": "^6.10.1",
     "@prisma/client": "^6.10.1",
+    "@prisma/nextjs-monorepo-workaround-plugin": "^6.11.1",
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
     "dotenv": "^17.0.0",
