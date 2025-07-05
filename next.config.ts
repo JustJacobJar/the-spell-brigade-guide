@@ -12,7 +12,6 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   /* config options here */
   experimental: {
-    nodeMiddleware: true,
     authInterrupts: true,
   },
   images: {

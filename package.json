@@ -26,7 +26,7 @@
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
     "dotenv": "^17.0.0",
-    "next": "^15.4.0-canary.114",
+    "next": "^15.3.5",
     "next-auth": "^5.0.0-beta.29",
     "postgres": "^3.4.7",
     "react": "19.1.0",
