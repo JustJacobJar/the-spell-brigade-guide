@@ -1,32 +1,39 @@
-import { DefaultSession, NextAuthConfig } from "next-auth";
+import NextAuth, { DefaultSession } from "next-auth";
 import { Provider } from "next-auth/providers";
 import GitHub from "next-auth/providers/github";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { prisma } from "./prisma";
-import { Role } from "../../generated/prisma";
+import { PrismaClient, Role } from "../generated/prisma";
+import { PoolConfig } from "@neondatabase/serverless";
+import { PrismaNeon } from "@prisma/adapter-neon";
+
+const neon: PoolConfig = {
+  connectionString: process.env.AUTH_POSTGRES_PRISMA_URL,
+};
+const adapter = new PrismaNeon(neon);
+const prisma = new PrismaClient({ adapter });
 
 declare module "next-auth" {
-    /**
+  /**
    * The shape of the user object returned in the OAuth providers' `profile` callback,
    * or the second parameter of the `session` callback, when using a database.
    */
   interface User {
-    role: Role
+    role: Role;
   }
   /**
    * The shape of the account object returned in the OAuth providers' `account` callback,
    * Usually contains information about the provider being used, like OAuth tokens (`access_token`, etc).
    */
   // interface Account {}
- 
+
   /**
    * Returned by `useSession`, `auth`, contains information about the active session.
    */
   interface Session {
-    user:{
-      role:string
-    } & DefaultSession["user"]
-  } 
+    user: {
+      role: string;
+    } & DefaultSession["user"];
+  }
 }
 
 const providers: Provider[] = [
@@ -48,13 +55,18 @@ export const providerMap = providers
   })
   .filter((provider) => provider.id !== "credentials");
 
-  
-export default {
-    adapter: PrismaAdapter(prisma),
-  
+export const {
+  handlers,
+  auth,
+  signIn,
+  signOut,
+  unstable_update: update,
+} = NextAuth({
+  adapter: PrismaAdapter(prisma),
+
   // pages: { signIn: "/signin" },
   providers: providers,
-  session: {strategy:"database"},
+  session: { strategy: "database" },
   callbacks: {
     // Callback to manage the session object
     // session: async ({ session, token }) => {
@@ -64,8 +76,7 @@ export default {
     //   return session;
     // },
 
-    
-    session({ session,user }) {
+    session({ session, user }) {
       session.user.role = user.role;
       return session;
     },
@@ -75,4 +86,4 @@ export default {
       return !!auth;
     },
   },
-} satisfies NextAuthConfig;
+});

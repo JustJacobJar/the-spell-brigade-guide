@@ -9,6 +9,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// datasource db {
+//   provider  = "postgres"
+//   url       = env("AUTH_POSTGRES_PRISMA_URL")
+//   directUrl = env("AUTH_POSTGRES_URL_NON_POOLING")
+// }
+
+
 model Account {
   id                String  @id @default(cuid())
   userId            String  @map("user_id")
@@ -49,6 +56,7 @@ model User {
   sessions      Session[]
 
   tierLists Tierlist[]
+  blog_posts BlogPost[]
 
   @@map("users")
 }
@@ -74,6 +82,7 @@ view SpellsView {
 
 enum Role {
   USER
+  CURATOR
   ADMIN
 }
 
@@ -103,4 +112,26 @@ model Tier{
 
   spells String[] //Must be from the Spells List in the db
 
+}
+
+model BlogPost{
+  id String @id @default(cuid()) 
+  title String
+
+  content BlogContent @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  contentId String @unique
+
+  author User @relation(fields: [authorId],references: [id], onDelete: Cascade)
+  authorId String
+
+  @@map("blog_post")
+}
+
+model BlogContent{
+  id String @id @default(cuid()) 
+  content String
+
+  parent BlogPost?
+
+  @@map("blog_content")
 }

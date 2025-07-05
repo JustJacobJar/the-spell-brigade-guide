@@ -15,9 +15,12 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dotenvx/dotenvx": "^1.45.1",
     "@hello-pangea/dnd": "^18.0.1",
+    "@mdxeditor/editor": "^3.39.0",
     "@neondatabase/serverless": "^1.0.1",
     "@prisma/adapter-neon": "^6.10.1",
     "@prisma/client": "^6.10.1",
+    "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
     "clsx": "^2.1.1",
     "dotenv": "^17.0.0",
     "next": "15.3.4",
@@ -25,6 +28,7 @@
     "postgres": "^3.4.7",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-markdown": "^10.1.0",
     "swr": "^2.3.3",
     "tailwind-merge": "^3.3.1",
     "zod": "^3.25.68"
@@ -32,6 +36,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
