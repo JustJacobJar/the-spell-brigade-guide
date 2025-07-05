@@ -1,6 +1,7 @@
 generator client {
   provider        = "prisma-client-js"
   output          = "../generated/prisma"
+  binaryTargets = ["native", "linux-musl", "rhel-openssl-3.0.x"]  // first one is for cross-platform, second one for docker, last one for serverless environment. safe to include all
   previewFeatures = ["driverAdapters", "views"]
 }
 
@@ -8,6 +9,13 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// datasource db {
+//   provider  = "postgres"
+//   url       = env("AUTH_POSTGRES_PRISMA_URL")
+//   directUrl = env("AUTH_POSTGRES_URL_NON_POOLING")
+// }
+
 
 model Account {
   id                String  @id @default(cuid())
@@ -49,6 +57,7 @@ model User {
   sessions      Session[]
 
   tierLists Tierlist[]
+  blog_posts BlogPost[]
 
   @@map("users")
 }
@@ -74,6 +83,7 @@ view SpellsView {
 
 enum Role {
   USER
+  CURATOR
   ADMIN
 }
 
@@ -103,4 +113,26 @@ model Tier{
 
   spells String[] //Must be from the Spells List in the db
 
+}
+
+model BlogPost{
+  id String @id @default(cuid()) 
+  title String
+
+  content BlogContent @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  contentId String @unique
+
+  author User @relation(fields: [authorId],references: [id], onDelete: Cascade)
+  authorId String
+
+  @@map("blog_post")
+}
+
+model BlogContent{
+  id String @id @default(cuid()) 
+  content String
+
+  parent BlogPost?
+
+  @@map("blog_content")
 }
