@@ -10,13 +10,6 @@ const thing = WithBundleAnalyzer({
 
 const nextConfig: NextConfig = {
   devIndicators: false,
-
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.plugins = [...config.plugins, new PrismaPlugin()];
-    }
-    return config;
-  },
   /* config options here */
   experimental: {
     nodeMiddleware: true,
@@ -30,6 +23,12 @@ const nextConfig: NextConfig = {
     ],
     formats: ["image/webp"],
     minimumCacheTTL: 2678400,
+  },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.plugins = [...config.plugins, new PrismaPlugin()];
+    }
+    return config;
   },
   ...thing,
 };
