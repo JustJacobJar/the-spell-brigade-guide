@@ -10,10 +10,10 @@ export default async function SignInPage(props: {
   const callbackUrl = await props.searchParams;
 
   return (
-    <div className="grid min-h-screen w-full grid-rows-[20px_.5fr_1fr_20px] flex-col place-items-center pt-16 pb-20">
+    <div className="grid h-full w-full grid-rows-[20px_.5fr_1fr_20px] flex-col place-items-center pt-16 pb-20">
       <div className="row-start-2 flex flex-col place-items-center gap-16 text-center">
         <h1 className="place-self-center text-center text-5xl font-black">
-          My <span className="text-primary">Poke Team</span> Creator
+          Spell Brig Guide
         </h1>
         {/* Logo */}
         <div className="stroke-foreground size-64">Logo Area</div>

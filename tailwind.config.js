@@ -5,7 +5,7 @@ module.exports = {
       typography: () => ({
         pink: {
           css: {
-            "--tw-prose-body": "var(--color-pink-800)",
+            "--tw-prose-body": "#ffffff",
             "--tw-prose-headings": "var(--color-pink-900)",
             "--tw-prose-lead": "var(--color-pink-700)",
             "--tw-prose-links": "var(--color-pink-900)",
