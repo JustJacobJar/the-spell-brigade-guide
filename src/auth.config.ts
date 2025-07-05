@@ -1,10 +1,10 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PoolConfig } from "@neondatabase/serverless";
 import { PrismaNeon } from "@prisma/adapter-neon";
-import { PrismaClient } from "@prisma/client";
 import { NextAuthConfig } from "next-auth";
 import { Provider } from "next-auth/providers";
 import GitHub from "next-auth/providers/github";
+import { PrismaClient } from "../generated/prisma";
 
 const providers: Provider[] = [
   GitHub({
