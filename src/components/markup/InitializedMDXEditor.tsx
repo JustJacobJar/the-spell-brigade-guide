@@ -84,9 +84,9 @@ export default function InitializedMDXEditor({
 export function InitializedMDXViewer({ ...props }: MDXEditorProps) {
   return (
     <MDXEditor
-      className="dark-theme dark-editor bg-amber-50/10"
+      className="dark-theme dark-editor bg-base-300 flex flex-grow"
       readOnly
-      contentEditableClassName="prose prose-pink max-w-full w-full"
+      contentEditableClassName="prose prose-pink max-w-max w-full"
       plugins={[
         // Example Plugin Usage
         headingsPlugin(),

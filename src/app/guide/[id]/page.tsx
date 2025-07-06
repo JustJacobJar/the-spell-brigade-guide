@@ -15,7 +15,7 @@ export default async function GuideViewPage({
   if (!blog) return <h1>Blog Content not found</h1>;
 
   return (
-    <div className="flex max-w-7xl">
+    <div className="flex max-w-7xl w-full h-full">
       <InitializedMDXViewer markdown={blog.content.content} />
     </div>
   );

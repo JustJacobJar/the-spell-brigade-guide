@@ -119,8 +119,7 @@ model BlogPost{
   id String @id @default(cuid()) 
   title String
 
-  content BlogContent @relation(fields: [contentId], references: [id], onDelete: Cascade)
-  contentId String @unique
+  content BlogContent?
 
   author User @relation(fields: [authorId],references: [id], onDelete: Cascade)
   authorId String
@@ -132,7 +131,8 @@ model BlogContent{
   id String @id @default(cuid()) 
   content String
 
-  parent BlogPost?
+  parent BlogPost @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  blogId String @unique
 
   @@map("blog_content")
 }

@@ -14,7 +14,7 @@ export async function getBlogPost(id: string) {
 
   const content = await prisma.blogContent.findUnique({
     where: {
-      id: blog.contentId,
+      blogId: blog.id,
     },
   });
 

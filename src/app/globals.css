@@ -1,87 +1,50 @@
 @import url("@radix-ui/colors/tomato-dark.css");
 @import url("@radix-ui/colors/mauve-dark.css");
 @import "tailwindcss";
+
 @plugin "@tailwindcss/typography";
 @config "../../tailwind.config.js";
 
-@theme {
-  --color-somecolour: oklch(0.7 0.2368 44.47);
+@plugin "daisyui" {
+  themes:
+    light --default,
+    dark --default;
 }
-/* 
-.mdxeditor {
-  width: 100%;
+
+@plugin "daisyui/theme" {
+  name: "PumpkinMoon";
+  default: true;
+  prefersdark: false;
+  color-scheme: "dark";
+  --color-base-100: oklch(14% 0.004 49.25);
+  --color-base-200: oklch(21% 0.006 56.043);
+  --color-base-300: oklch(26% 0.007 34.298);
+  --color-base-content: oklch(97% 0.001 106.424);
+  --color-primary: oklch(55% 0.195 38.402);
+  --color-primary-content: oklch(100% 0 0);
+  --color-secondary: oklch(51% 0.262 276.966);
+  --color-secondary-content: oklch(96% 0.018 272.314);
+  --color-accent: oklch(68% 0.162 75.834);
+  --color-accent-content: oklch(28% 0.066 53.813);
+  --color-neutral: oklch(44% 0.011 73.639);
+  --color-neutral-content: oklch(98% 0.001 106.423);
+  --color-info: oklch(75% 0.183 55.934);
+  --color-info-content: oklch(26% 0.079 36.259);
+  --color-success: oklch(79% 0.209 151.711);
+  --color-success-content: oklch(26% 0.065 152.934);
+  --color-warning: oklch(85% 0.199 91.936);
+  --color-warning-content: oklch(28% 0.066 53.813);
+  --color-error: oklch(70% 0.191 22.216);
+  --color-error-content: oklch(25% 0.092 26.042);
+  --radius-selector: 0.25rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1.5px;
+  --depth: 1;
+  --noise: 0;
 }
-.mdxeditor-root-contenteditable {
-  width: 100%;
-}
-.mdxeditor-rich-text-editor {
-  width: 100%;
-}
-.mdxeditor-popup-container {
-  width: 100%;
-} */
-/* .dark-editor {
-  --accentBase: var(--tomato-1);
-  --accentBgSubtle: var(--tomato-2);
-  --accentBg: var(--tomato-3);
-  --accentBgHover: var(--tomato-4);
-  --accentBgActive: var(--tomato-5);
-  --accentLine: var(--tomato-6);
-  --accentBorder: var(--tomato-7);
-  --accentBorderHover: var(--tomato-8);
-  --accentSolid: var(--tomato-9);
-  --accentSolidHover: var(--tomato-10);
-  --accentText: var(--tomato-11);
-  --accentTextContrast: var(--tomato-12);
-
-  --baseBase: var(--mauve-1);
-  --baseBgSubtle: var(--mauve-2);
-  --baseBg: var(--mauve-3);
-  --baseBgHover: var(--mauve-4);
-  --baseBgActive: var(--mauve-5);
-  --baseLine: var(--mauve-6);
-  --baseBorder: var(--mauve-7);
-  --baseBorderHover: var(--mauve-8);
-  --baseSolid: var(--mauve-9);
-  --baseSolidHover: var(--mauve-10);
-  --baseText: var(--mauve-11);
-  --baseTextContrast: var(--mauve-12);
-
-  --admonitionTipBg: var(--cyan4);
-  --admonitionTipBorder: var(--cyan8);
-
-  --admonitionInfoBg: var(--grass4);
-  --admonitionInfoBorder: var(--grass8);
-
-  --admonitionCautionBg: var(--amber4);
-  --admonitionCautionBorder: var(--amber8);
-
-  --admonitionDangerBg: var(--red4);
-  --admonitionDangerBorder: var(--red8);
-
-  --admonitionNoteBg: var(--mauve-4);
-  --admonitionNoteBorder: var(--mauve-8);
-
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    "Open Sans",
-    "Helvetica Neue",
-    sans-serif;
-  --font-mono:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
-
-  color: var(--baseText);
-  --basePageBg: black;
-  background: var(--basePageBg);
-} */
 
 :root {
   --background: #ffffff;

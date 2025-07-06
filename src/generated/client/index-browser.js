@@ -182,13 +182,13 @@ exports.Prisma.TierScalarFieldEnum = {
 exports.Prisma.BlogPostScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  contentId: 'contentId',
   authorId: 'authorId'
 };
 
 exports.Prisma.BlogContentScalarFieldEnum = {
   id: 'id',
-  content: 'content'
+  content: 'content',
+  blogId: 'blogId'
 };
 
 exports.Prisma.SpellsViewScalarFieldEnum = {
