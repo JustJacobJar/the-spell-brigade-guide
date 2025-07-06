@@ -1,6 +1,7 @@
 export default async function Home() {
   return (
-    <div className="prose prose-pink flex w-5xl flex-col place-self-center p-2">
+    <>
+    <div className="prose flex w-5xl flex-col h-full p-2">
       <h1>Welcome to the spell brigade guide</h1>
       <h2>Get Started</h2>
       <p>
@@ -17,5 +18,6 @@ export default async function Home() {
         <li>Lots more...</li>
       </ul>
     </div>
+    </>
   );
 }
