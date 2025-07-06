@@ -159,8 +159,6 @@ function SideLink({
   icon: ReactNode;
 }) {
   const path = usePathname();
-  console.log(path);
-
   return (
     <li>
       <Link

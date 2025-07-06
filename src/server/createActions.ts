@@ -4,7 +4,6 @@ import * as z from "zod/v4";
 import { auth } from "@/auth";
 import { Tier } from "@/lib/types";
 import { prisma } from "@/lib/prisma";
-import { id } from "zod/v4/locales";
 
 export async function createTierlist(
   tierList: Tier[],
@@ -88,16 +87,15 @@ export async function CreateBlogPost(title: string, content: string) {
 
   //Upload to db
   try {
-    const blogContent = await prisma.blogContent.create({
-      data: {
-        content: validatedContent.data,
-      },
-    });
     const blog = await prisma.blogPost.create({
       data: {
         title: validatedTitle.data,
         authorId: session.user.id!,
-        contentId: blogContent.id,
+        content: {
+          create: {
+            content: validatedContent.data,
+          },
+        },
       },
     });
     return blog.id;
@@ -135,11 +133,11 @@ export async function EditBlogPost(id: string, title: string, content: string) {
       },
       data: {
         title: validatedTitle.data,
-        authorId: session.user.id!,
+        authorId: session.user.id,
       },
     });
     await prisma.blogContent.update({
-      where: { id: blog.contentId },
+      where: { blogId: blog.id },
       data: { content: validatedContent.data },
     });
     return blog.id;

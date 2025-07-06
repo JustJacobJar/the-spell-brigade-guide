@@ -9,10 +9,10 @@ export const tlConstructor = async (tlData: Tierlist) => {
     where: { listId: tlData.id },
   });
 
-  const tiersFormatted: Tier[] = [
+  const tiersFormatted = [
     ...tlTiers.map((tier) => {
       const tierRow: Tier = {
-        tierId: tier.listId,
+        tierId: tier.tierId,
         tierName: tier.name,
         tierClassname: tierClassNameLookup(tier.name),
         tierItems: [
@@ -24,5 +24,5 @@ export const tlConstructor = async (tlData: Tierlist) => {
       return tierRow;
     }),
   ];
-  return tiersFormatted;
+  return tiersFormatted.sort((a, b) => Number(a.tierId) - Number(b.tierId));
 };

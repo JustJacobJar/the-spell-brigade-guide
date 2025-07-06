@@ -16,10 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`flex h-screen w-screen antialiased`}>
+      <body className={`flex min-h-screen w-screen antialiased`}>
         <SideBar />
         <TopBar />
-        <div className="mt-16 ml-64 w-full bg-base-200">{children}</div>
+        <div className="mt-16 ml-64 w-full bg-base-200 place-items-center">{children}</div>
       </body>
     </html>
   );

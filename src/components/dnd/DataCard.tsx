@@ -28,7 +28,7 @@ export default function DataCard({ id, index, spell }: DataCardProps) {
 
 export function Icon({ url }: { url: string }) {
   return (
-    <div className="aspect-square w-32">
+    <div className="aspect-square w-24">
       <ImageUnop alt="Spell Sprite" src={GITSPRITEURL(url)} />
     </div>
   );

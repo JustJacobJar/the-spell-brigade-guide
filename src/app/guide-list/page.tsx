@@ -14,7 +14,7 @@ export default async function GuideListPage() {
   const editButton = (id: string) => {
     return (
       <Link
-        className="h-full place-content-center bg-neutral-600 px-1"
+        className="btn btn-square btn-soft bg-secondary stroke-secondary-content"
         href={`/curator/guide/edit/${id}`}
       >
         <svg
@@ -23,7 +23,6 @@ export default async function GuideListPage() {
           height="24"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#000000"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -36,13 +35,14 @@ export default async function GuideListPage() {
   };
 
   return (
-    <div className="flex h-full w-full flex-col gap-4 p-2 pl-16">
-      <h1 className="text-5xl font-bold">Guides</h1>
-      <div className="grid h-full w-2xl grid-cols-2 gap-8">
+    <div className="flex w-full h-full place-self-center outline flex-col gap-4 p-2">
+      <h1 className="text-5xl font-bold text-center">Guides</h1>
+      <div className="grid h-full w-5xl place-self-center grid-cols-2 gap-8">
         {guides.map((post, index) => {
           return (
             <div
-              className="flex h-16 w-full flex-row place-content-between place-items-center overflow-clip rounded-lg bg-neutral-800"
+              // className="flex h-16 w-full flex-row place-content-between place-items-center overflow-clip rounded-lg bg-neutral-800"
+              className="btn btn-xl bg-neutral"
               key={index}
             >
               <Link

@@ -1,6 +1,5 @@
 "use client";
 import { getAllSpells } from "@/server/fetchActions";
-import TierForm from "./TierForm";
 import { Spell, Tier } from "@/lib/types";
 import useSWR from "swr";
 import TierListSkeleton from "@/components/skeletons/tierListSkeleton";
