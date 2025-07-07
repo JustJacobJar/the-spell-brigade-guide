@@ -8,8 +8,7 @@
     "postinstall": "npx prisma generate",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "next lint",
-    "analyze": "cross-env ANALYZE=true next build"
+    "lint": "next lint"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
@@ -17,11 +16,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@hello-pangea/dnd": "^18.0.1",
     "@mdxeditor/editor": "^3.39.0",
-    "@neondatabase/serverless": "^1.0.1",
-    "@next/bundle-analyzer": "15.3.5",
-    "@prisma/adapter-neon": "^6.10.1",
     "@prisma/client": "^6.10.1",
-    "@prisma/nextjs-monorepo-workaround-plugin": "^6.11.1",
     "better-auth": "^1.2.12",
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
