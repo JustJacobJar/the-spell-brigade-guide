@@ -1,5 +1,5 @@
-import SignIn from "@/components/SignIn";
-import SignOut from "@/components/SignOut";
+import SignInClient from "@/components/SignInClient";
+import SignOutClient from "@/components/SignOutClient";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -20,7 +20,7 @@ export default async function SignInPage(props: {
       {/* Buttons */}
       <div className="row-start-3 my-16 flex flex-col place-items-center gap-6 self-start">
         <h4 className="text-lg">Sign in using</h4>
-        <SignIn />
+        <SignInClient />
 
         {/* <Suspense fallback={<p>Loading...</p>}>
           {Object.values(providerMap).map((provider) => (
@@ -44,7 +44,7 @@ export default async function SignInPage(props: {
         </Link>
       </div>
       <div className="flex flex-row justify-center gap-8"></div>
-      <SignOut />
+      <SignOutClient />
     </div>
   );
 }
