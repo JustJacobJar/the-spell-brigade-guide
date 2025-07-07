@@ -5,9 +5,17 @@ import TierRow from "@/components/TierRow";
 export default async function MetaReportPage() {
   //get tl id
 
+  // const tl = async () => {
   const tl = await prisma.tierlist.findUnique({
     where: { id: "cmcmmil5j0001hopk1ia9vppb" },
   });
+  // };
+
+  // const tl = await prisma.tierlist.findUnique({
+  //   where: { id: "cmcmmil5j0001hopk1ia9vppb" },
+  // });
+
+  // console.log(tl);
 
   if (!tl) return <p>Not found</p>;
 
