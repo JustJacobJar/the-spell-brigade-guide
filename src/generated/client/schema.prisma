@@ -18,6 +18,10 @@ datasource db {
 //   directUrl = env("AUTH_POSTGRES_URL_NON_POOLING")
 // }
 
+model MetaReport {
+  id String @unique
+}
+
 model Spell {
   name String @unique
 }

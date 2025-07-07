@@ -120,6 +120,10 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.MetaReportScalarFieldEnum = {
+  id: 'id'
+};
+
 exports.Prisma.SpellScalarFieldEnum = {
   name: 'name'
 };
@@ -226,6 +230,7 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
+  MetaReport: 'MetaReport',
   Spell: 'Spell',
   Tierlist: 'Tierlist',
   Tier: 'Tier',

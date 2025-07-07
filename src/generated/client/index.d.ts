@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model MetaReport
+ * 
+ */
+export type MetaReport = $Result.DefaultSelection<Prisma.$MetaReportPayload>
+/**
  * Model Spell
  * 
  */
@@ -89,8 +94,8 @@ export const Role: typeof $Enums.Role
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Spells
- * const spells = await prisma.spell.findMany()
+ * // Fetch zero or more MetaReports
+ * const metaReports = await prisma.metaReport.findMany()
  * ```
  *
  *
@@ -110,8 +115,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Spells
-   * const spells = await prisma.spell.findMany()
+   * // Fetch zero or more MetaReports
+   * const metaReports = await prisma.metaReport.findMany()
    * ```
    *
    *
@@ -208,6 +213,16 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.metaReport`: Exposes CRUD operations for the **MetaReport** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MetaReports
+    * const metaReports = await prisma.metaReport.findMany()
+    * ```
+    */
+  get metaReport(): Prisma.MetaReportDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.spell`: Exposes CRUD operations for the **Spell** model.
     * Example usage:
     * ```ts
@@ -746,6 +761,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    MetaReport: 'MetaReport',
     Spell: 'Spell',
     Tierlist: 'Tierlist',
     Tier: 'Tier',
@@ -774,10 +790,84 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "spell" | "tierlist" | "tier" | "blogPost" | "blogContent" | "verification" | "user" | "session" | "account" | "spellsView"
+      modelProps: "metaReport" | "spell" | "tierlist" | "tier" | "blogPost" | "blogContent" | "verification" | "user" | "session" | "account" | "spellsView"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      MetaReport: {
+        payload: Prisma.$MetaReportPayload<ExtArgs>
+        fields: Prisma.MetaReportFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MetaReportFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetaReportPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MetaReportFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetaReportPayload>
+          }
+          findFirst: {
+            args: Prisma.MetaReportFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetaReportPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MetaReportFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetaReportPayload>
+          }
+          findMany: {
+            args: Prisma.MetaReportFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetaReportPayload>[]
+          }
+          create: {
+            args: Prisma.MetaReportCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetaReportPayload>
+          }
+          createMany: {
+            args: Prisma.MetaReportCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MetaReportCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetaReportPayload>[]
+          }
+          delete: {
+            args: Prisma.MetaReportDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetaReportPayload>
+          }
+          update: {
+            args: Prisma.MetaReportUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetaReportPayload>
+          }
+          deleteMany: {
+            args: Prisma.MetaReportDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MetaReportUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MetaReportUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetaReportPayload>[]
+          }
+          upsert: {
+            args: Prisma.MetaReportUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetaReportPayload>
+          }
+          aggregate: {
+            args: Prisma.MetaReportAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMetaReport>
+          }
+          groupBy: {
+            args: Prisma.MetaReportGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MetaReportGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MetaReportCountArgs<ExtArgs>
+            result: $Utils.Optional<MetaReportCountAggregateOutputType> | number
+          }
+        }
+      }
       Spell: {
         payload: Prisma.$SpellPayload<ExtArgs>
         fields: Prisma.SpellFieldRefs
@@ -1606,6 +1696,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    metaReport?: MetaReportOmit
     spell?: SpellOmit
     tierlist?: TierlistOmit
     tier?: TierOmit
@@ -1797,6 +1888,949 @@ export namespace Prisma {
   /**
    * Models
    */
+
+  /**
+   * Model MetaReport
+   */
+
+  export type AggregateMetaReport = {
+    _count: MetaReportCountAggregateOutputType | null
+    _min: MetaReportMinAggregateOutputType | null
+    _max: MetaReportMaxAggregateOutputType | null
+  }
+
+  export type MetaReportMinAggregateOutputType = {
+    id: string | null
+  }
+
+  export type MetaReportMaxAggregateOutputType = {
+    id: string | null
+  }
+
+  export type MetaReportCountAggregateOutputType = {
+    id: number
+    _all: number
+  }
+
+
+  export type MetaReportMinAggregateInputType = {
+    id?: true
+  }
+
+  export type MetaReportMaxAggregateInputType = {
+    id?: true
+  }
+
+  export type MetaReportCountAggregateInputType = {
+    id?: true
+    _all?: true
+  }
+
+  export type MetaReportAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MetaReport to aggregate.
+     */
+    where?: MetaReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MetaReports to fetch.
+     */
+    orderBy?: MetaReportOrderByWithRelationInput | MetaReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MetaReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MetaReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MetaReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MetaReports
+    **/
+    _count?: true | MetaReportCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MetaReportMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MetaReportMaxAggregateInputType
+  }
+
+  export type GetMetaReportAggregateType<T extends MetaReportAggregateArgs> = {
+        [P in keyof T & keyof AggregateMetaReport]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMetaReport[P]>
+      : GetScalarType<T[P], AggregateMetaReport[P]>
+  }
+
+
+
+
+  export type MetaReportGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MetaReportWhereInput
+    orderBy?: MetaReportOrderByWithAggregationInput | MetaReportOrderByWithAggregationInput[]
+    by: MetaReportScalarFieldEnum[] | MetaReportScalarFieldEnum
+    having?: MetaReportScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MetaReportCountAggregateInputType | true
+    _min?: MetaReportMinAggregateInputType
+    _max?: MetaReportMaxAggregateInputType
+  }
+
+  export type MetaReportGroupByOutputType = {
+    id: string
+    _count: MetaReportCountAggregateOutputType | null
+    _min: MetaReportMinAggregateOutputType | null
+    _max: MetaReportMaxAggregateOutputType | null
+  }
+
+  type GetMetaReportGroupByPayload<T extends MetaReportGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MetaReportGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MetaReportGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MetaReportGroupByOutputType[P]>
+            : GetScalarType<T[P], MetaReportGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MetaReportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+  }, ExtArgs["result"]["metaReport"]>
+
+  export type MetaReportSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+  }, ExtArgs["result"]["metaReport"]>
+
+  export type MetaReportSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+  }, ExtArgs["result"]["metaReport"]>
+
+  export type MetaReportSelectScalar = {
+    id?: boolean
+  }
+
+  export type MetaReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id", ExtArgs["result"]["metaReport"]>
+
+  export type $MetaReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MetaReport"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+    }, ExtArgs["result"]["metaReport"]>
+    composites: {}
+  }
+
+  type MetaReportGetPayload<S extends boolean | null | undefined | MetaReportDefaultArgs> = $Result.GetResult<Prisma.$MetaReportPayload, S>
+
+  type MetaReportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MetaReportFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MetaReportCountAggregateInputType | true
+    }
+
+  export interface MetaReportDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MetaReport'], meta: { name: 'MetaReport' } }
+    /**
+     * Find zero or one MetaReport that matches the filter.
+     * @param {MetaReportFindUniqueArgs} args - Arguments to find a MetaReport
+     * @example
+     * // Get one MetaReport
+     * const metaReport = await prisma.metaReport.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MetaReportFindUniqueArgs>(args: SelectSubset<T, MetaReportFindUniqueArgs<ExtArgs>>): Prisma__MetaReportClient<$Result.GetResult<Prisma.$MetaReportPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MetaReport that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MetaReportFindUniqueOrThrowArgs} args - Arguments to find a MetaReport
+     * @example
+     * // Get one MetaReport
+     * const metaReport = await prisma.metaReport.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MetaReportFindUniqueOrThrowArgs>(args: SelectSubset<T, MetaReportFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MetaReportClient<$Result.GetResult<Prisma.$MetaReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MetaReport that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MetaReportFindFirstArgs} args - Arguments to find a MetaReport
+     * @example
+     * // Get one MetaReport
+     * const metaReport = await prisma.metaReport.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MetaReportFindFirstArgs>(args?: SelectSubset<T, MetaReportFindFirstArgs<ExtArgs>>): Prisma__MetaReportClient<$Result.GetResult<Prisma.$MetaReportPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MetaReport that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MetaReportFindFirstOrThrowArgs} args - Arguments to find a MetaReport
+     * @example
+     * // Get one MetaReport
+     * const metaReport = await prisma.metaReport.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MetaReportFindFirstOrThrowArgs>(args?: SelectSubset<T, MetaReportFindFirstOrThrowArgs<ExtArgs>>): Prisma__MetaReportClient<$Result.GetResult<Prisma.$MetaReportPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MetaReports that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MetaReportFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MetaReports
+     * const metaReports = await prisma.metaReport.findMany()
+     * 
+     * // Get first 10 MetaReports
+     * const metaReports = await prisma.metaReport.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const metaReportWithIdOnly = await prisma.metaReport.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MetaReportFindManyArgs>(args?: SelectSubset<T, MetaReportFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MetaReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MetaReport.
+     * @param {MetaReportCreateArgs} args - Arguments to create a MetaReport.
+     * @example
+     * // Create one MetaReport
+     * const MetaReport = await prisma.metaReport.create({
+     *   data: {
+     *     // ... data to create a MetaReport
+     *   }
+     * })
+     * 
+     */
+    create<T extends MetaReportCreateArgs>(args: SelectSubset<T, MetaReportCreateArgs<ExtArgs>>): Prisma__MetaReportClient<$Result.GetResult<Prisma.$MetaReportPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MetaReports.
+     * @param {MetaReportCreateManyArgs} args - Arguments to create many MetaReports.
+     * @example
+     * // Create many MetaReports
+     * const metaReport = await prisma.metaReport.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MetaReportCreateManyArgs>(args?: SelectSubset<T, MetaReportCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MetaReports and returns the data saved in the database.
+     * @param {MetaReportCreateManyAndReturnArgs} args - Arguments to create many MetaReports.
+     * @example
+     * // Create many MetaReports
+     * const metaReport = await prisma.metaReport.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MetaReports and only return the `id`
+     * const metaReportWithIdOnly = await prisma.metaReport.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MetaReportCreateManyAndReturnArgs>(args?: SelectSubset<T, MetaReportCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MetaReportPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MetaReport.
+     * @param {MetaReportDeleteArgs} args - Arguments to delete one MetaReport.
+     * @example
+     * // Delete one MetaReport
+     * const MetaReport = await prisma.metaReport.delete({
+     *   where: {
+     *     // ... filter to delete one MetaReport
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MetaReportDeleteArgs>(args: SelectSubset<T, MetaReportDeleteArgs<ExtArgs>>): Prisma__MetaReportClient<$Result.GetResult<Prisma.$MetaReportPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MetaReport.
+     * @param {MetaReportUpdateArgs} args - Arguments to update one MetaReport.
+     * @example
+     * // Update one MetaReport
+     * const metaReport = await prisma.metaReport.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MetaReportUpdateArgs>(args: SelectSubset<T, MetaReportUpdateArgs<ExtArgs>>): Prisma__MetaReportClient<$Result.GetResult<Prisma.$MetaReportPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MetaReports.
+     * @param {MetaReportDeleteManyArgs} args - Arguments to filter MetaReports to delete.
+     * @example
+     * // Delete a few MetaReports
+     * const { count } = await prisma.metaReport.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MetaReportDeleteManyArgs>(args?: SelectSubset<T, MetaReportDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MetaReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MetaReportUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MetaReports
+     * const metaReport = await prisma.metaReport.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MetaReportUpdateManyArgs>(args: SelectSubset<T, MetaReportUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MetaReports and returns the data updated in the database.
+     * @param {MetaReportUpdateManyAndReturnArgs} args - Arguments to update many MetaReports.
+     * @example
+     * // Update many MetaReports
+     * const metaReport = await prisma.metaReport.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MetaReports and only return the `id`
+     * const metaReportWithIdOnly = await prisma.metaReport.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MetaReportUpdateManyAndReturnArgs>(args: SelectSubset<T, MetaReportUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MetaReportPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MetaReport.
+     * @param {MetaReportUpsertArgs} args - Arguments to update or create a MetaReport.
+     * @example
+     * // Update or create a MetaReport
+     * const metaReport = await prisma.metaReport.upsert({
+     *   create: {
+     *     // ... data to create a MetaReport
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MetaReport we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MetaReportUpsertArgs>(args: SelectSubset<T, MetaReportUpsertArgs<ExtArgs>>): Prisma__MetaReportClient<$Result.GetResult<Prisma.$MetaReportPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MetaReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MetaReportCountArgs} args - Arguments to filter MetaReports to count.
+     * @example
+     * // Count the number of MetaReports
+     * const count = await prisma.metaReport.count({
+     *   where: {
+     *     // ... the filter for the MetaReports we want to count
+     *   }
+     * })
+    **/
+    count<T extends MetaReportCountArgs>(
+      args?: Subset<T, MetaReportCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MetaReportCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MetaReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MetaReportAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MetaReportAggregateArgs>(args: Subset<T, MetaReportAggregateArgs>): Prisma.PrismaPromise<GetMetaReportAggregateType<T>>
+
+    /**
+     * Group by MetaReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MetaReportGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MetaReportGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MetaReportGroupByArgs['orderBy'] }
+        : { orderBy?: MetaReportGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MetaReportGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMetaReportGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MetaReport model
+   */
+  readonly fields: MetaReportFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MetaReport.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MetaReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MetaReport model
+   */
+  interface MetaReportFieldRefs {
+    readonly id: FieldRef<"MetaReport", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MetaReport findUnique
+   */
+  export type MetaReportFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetaReport
+     */
+    select?: MetaReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MetaReport
+     */
+    omit?: MetaReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MetaReport to fetch.
+     */
+    where: MetaReportWhereUniqueInput
+  }
+
+  /**
+   * MetaReport findUniqueOrThrow
+   */
+  export type MetaReportFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetaReport
+     */
+    select?: MetaReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MetaReport
+     */
+    omit?: MetaReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MetaReport to fetch.
+     */
+    where: MetaReportWhereUniqueInput
+  }
+
+  /**
+   * MetaReport findFirst
+   */
+  export type MetaReportFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetaReport
+     */
+    select?: MetaReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MetaReport
+     */
+    omit?: MetaReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MetaReport to fetch.
+     */
+    where?: MetaReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MetaReports to fetch.
+     */
+    orderBy?: MetaReportOrderByWithRelationInput | MetaReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MetaReports.
+     */
+    cursor?: MetaReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MetaReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MetaReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MetaReports.
+     */
+    distinct?: MetaReportScalarFieldEnum | MetaReportScalarFieldEnum[]
+  }
+
+  /**
+   * MetaReport findFirstOrThrow
+   */
+  export type MetaReportFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetaReport
+     */
+    select?: MetaReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MetaReport
+     */
+    omit?: MetaReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MetaReport to fetch.
+     */
+    where?: MetaReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MetaReports to fetch.
+     */
+    orderBy?: MetaReportOrderByWithRelationInput | MetaReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MetaReports.
+     */
+    cursor?: MetaReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MetaReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MetaReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MetaReports.
+     */
+    distinct?: MetaReportScalarFieldEnum | MetaReportScalarFieldEnum[]
+  }
+
+  /**
+   * MetaReport findMany
+   */
+  export type MetaReportFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetaReport
+     */
+    select?: MetaReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MetaReport
+     */
+    omit?: MetaReportOmit<ExtArgs> | null
+    /**
+     * Filter, which MetaReports to fetch.
+     */
+    where?: MetaReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MetaReports to fetch.
+     */
+    orderBy?: MetaReportOrderByWithRelationInput | MetaReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MetaReports.
+     */
+    cursor?: MetaReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MetaReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MetaReports.
+     */
+    skip?: number
+    distinct?: MetaReportScalarFieldEnum | MetaReportScalarFieldEnum[]
+  }
+
+  /**
+   * MetaReport create
+   */
+  export type MetaReportCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetaReport
+     */
+    select?: MetaReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MetaReport
+     */
+    omit?: MetaReportOmit<ExtArgs> | null
+    /**
+     * The data needed to create a MetaReport.
+     */
+    data: XOR<MetaReportCreateInput, MetaReportUncheckedCreateInput>
+  }
+
+  /**
+   * MetaReport createMany
+   */
+  export type MetaReportCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MetaReports.
+     */
+    data: MetaReportCreateManyInput | MetaReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MetaReport createManyAndReturn
+   */
+  export type MetaReportCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetaReport
+     */
+    select?: MetaReportSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MetaReport
+     */
+    omit?: MetaReportOmit<ExtArgs> | null
+    /**
+     * The data used to create many MetaReports.
+     */
+    data: MetaReportCreateManyInput | MetaReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MetaReport update
+   */
+  export type MetaReportUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetaReport
+     */
+    select?: MetaReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MetaReport
+     */
+    omit?: MetaReportOmit<ExtArgs> | null
+    /**
+     * The data needed to update a MetaReport.
+     */
+    data: XOR<MetaReportUpdateInput, MetaReportUncheckedUpdateInput>
+    /**
+     * Choose, which MetaReport to update.
+     */
+    where: MetaReportWhereUniqueInput
+  }
+
+  /**
+   * MetaReport updateMany
+   */
+  export type MetaReportUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MetaReports.
+     */
+    data: XOR<MetaReportUpdateManyMutationInput, MetaReportUncheckedUpdateManyInput>
+    /**
+     * Filter which MetaReports to update
+     */
+    where?: MetaReportWhereInput
+    /**
+     * Limit how many MetaReports to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MetaReport updateManyAndReturn
+   */
+  export type MetaReportUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetaReport
+     */
+    select?: MetaReportSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MetaReport
+     */
+    omit?: MetaReportOmit<ExtArgs> | null
+    /**
+     * The data used to update MetaReports.
+     */
+    data: XOR<MetaReportUpdateManyMutationInput, MetaReportUncheckedUpdateManyInput>
+    /**
+     * Filter which MetaReports to update
+     */
+    where?: MetaReportWhereInput
+    /**
+     * Limit how many MetaReports to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MetaReport upsert
+   */
+  export type MetaReportUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetaReport
+     */
+    select?: MetaReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MetaReport
+     */
+    omit?: MetaReportOmit<ExtArgs> | null
+    /**
+     * The filter to search for the MetaReport to update in case it exists.
+     */
+    where: MetaReportWhereUniqueInput
+    /**
+     * In case the MetaReport found by the `where` argument doesn't exist, create a new MetaReport with this data.
+     */
+    create: XOR<MetaReportCreateInput, MetaReportUncheckedCreateInput>
+    /**
+     * In case the MetaReport was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MetaReportUpdateInput, MetaReportUncheckedUpdateInput>
+  }
+
+  /**
+   * MetaReport delete
+   */
+  export type MetaReportDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetaReport
+     */
+    select?: MetaReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MetaReport
+     */
+    omit?: MetaReportOmit<ExtArgs> | null
+    /**
+     * Filter which MetaReport to delete.
+     */
+    where: MetaReportWhereUniqueInput
+  }
+
+  /**
+   * MetaReport deleteMany
+   */
+  export type MetaReportDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MetaReports to delete
+     */
+    where?: MetaReportWhereInput
+    /**
+     * Limit how many MetaReports to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MetaReport without action
+   */
+  export type MetaReportDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetaReport
+     */
+    select?: MetaReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MetaReport
+     */
+    omit?: MetaReportOmit<ExtArgs> | null
+  }
+
 
   /**
    * Model Spell
@@ -12499,6 +13533,13 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const MetaReportScalarFieldEnum: {
+    id: 'id'
+  };
+
+  export type MetaReportScalarFieldEnum = (typeof MetaReportScalarFieldEnum)[keyof typeof MetaReportScalarFieldEnum]
+
+
   export const SpellScalarFieldEnum: {
     name: 'name'
   };
@@ -12712,6 +13753,38 @@ export namespace Prisma {
    * Deep Input Types
    */
 
+
+  export type MetaReportWhereInput = {
+    AND?: MetaReportWhereInput | MetaReportWhereInput[]
+    OR?: MetaReportWhereInput[]
+    NOT?: MetaReportWhereInput | MetaReportWhereInput[]
+    id?: StringFilter<"MetaReport"> | string
+  }
+
+  export type MetaReportOrderByWithRelationInput = {
+    id?: SortOrder
+  }
+
+  export type MetaReportWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MetaReportWhereInput | MetaReportWhereInput[]
+    OR?: MetaReportWhereInput[]
+    NOT?: MetaReportWhereInput | MetaReportWhereInput[]
+  }, "id">
+
+  export type MetaReportOrderByWithAggregationInput = {
+    id?: SortOrder
+    _count?: MetaReportCountOrderByAggregateInput
+    _max?: MetaReportMaxOrderByAggregateInput
+    _min?: MetaReportMinOrderByAggregateInput
+  }
+
+  export type MetaReportScalarWhereWithAggregatesInput = {
+    AND?: MetaReportScalarWhereWithAggregatesInput | MetaReportScalarWhereWithAggregatesInput[]
+    OR?: MetaReportScalarWhereWithAggregatesInput[]
+    NOT?: MetaReportScalarWhereWithAggregatesInput | MetaReportScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MetaReport"> | string
+  }
 
   export type SpellWhereInput = {
     AND?: SpellWhereInput | SpellWhereInput[]
@@ -13314,6 +14387,34 @@ export namespace Prisma {
     OR?: SpellsViewScalarWhereWithAggregatesInput[]
     NOT?: SpellsViewScalarWhereWithAggregatesInput | SpellsViewScalarWhereWithAggregatesInput[]
     name?: StringWithAggregatesFilter<"SpellsView"> | string
+  }
+
+  export type MetaReportCreateInput = {
+    id: string
+  }
+
+  export type MetaReportUncheckedCreateInput = {
+    id: string
+  }
+
+  export type MetaReportUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MetaReportUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MetaReportCreateManyInput = {
+    id: string
+  }
+
+  export type MetaReportUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MetaReportUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
   }
 
   export type SpellCreateInput = {
@@ -13972,16 +15073,16 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type SpellCountOrderByAggregateInput = {
-    name?: SortOrder
+  export type MetaReportCountOrderByAggregateInput = {
+    id?: SortOrder
   }
 
-  export type SpellMaxOrderByAggregateInput = {
-    name?: SortOrder
+  export type MetaReportMaxOrderByAggregateInput = {
+    id?: SortOrder
   }
 
-  export type SpellMinOrderByAggregateInput = {
-    name?: SortOrder
+  export type MetaReportMinOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -14000,6 +15101,18 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type SpellCountOrderByAggregateInput = {
+    name?: SortOrder
+  }
+
+  export type SpellMaxOrderByAggregateInput = {
+    name?: SortOrder
+  }
+
+  export type SpellMinOrderByAggregateInput = {
+    name?: SortOrder
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {

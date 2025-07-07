@@ -11,9 +11,14 @@ import { useState } from "react";
 interface TierFormProps {
   tierData: Tier[];
   edit?: boolean;
+  tlId?: string;
 }
 
-export default function TierForm({ tierData, edit = false }: TierFormProps) {
+export default function TierForm({
+  tierData,
+  edit = false,
+  tlId,
+}: TierFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tiers, setTiers] = useState<Tier[]>(tierData);
@@ -23,8 +28,6 @@ export default function TierForm({ tierData, edit = false }: TierFormProps) {
     trigger: create,
     isMutating,
   } = useCreateTierListSWR(tiers, title, description);
-
-  console.log("err " + typeof error);
 
   function onSubmitData() {
     if (edit) {

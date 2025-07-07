@@ -1,30 +1,18 @@
 import { tlConstructor } from "@/server/serverUtils";
 import { prisma } from "@/lib/prisma";
 import TierRow from "@/components/TierRow";
-import { id } from "zod/v4/locales";
 
 export default async function MetaReportPage() {
-  //get tl id
 
-  // async function doThing() {
-  //   try {
-  //     return await prisma.tierlist.findUnique({
-  //       where: { id: "cmcmmil5j0001hopk1ia9vppb" },
-  //     });
-  //   } catch (error) {
-  //     return "Not found";
-  //   }
-  // }
+  const metaReportId = await prisma.metaReport.findFirst();
 
-  // const tl = await doThing();
+  if (!metaReportId) return <p>There are no meta reports as of now</p>;
 
-  // console.log(tl);
+  const tl = await prisma.tierlist.findUnique({
+    where: { id: metaReportId.id },
+  });
 
-  // if (tl === "Not found" || tl === null) return <p>Not found</p>;
-
-  const tl = await prisma.tierlist.findFirst({ where: { id: "fakeID" } });
-
-  if(!tl) return <p> Some error</p>
+  if (!tl) return <p>The meta report is empty!</p>;
 
   const author = await prisma.user.findUnique({ where: { id: tl.authorId } });
   const tiers = await tlConstructor(tl);
