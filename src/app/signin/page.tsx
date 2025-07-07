@@ -1,6 +1,5 @@
-import { providerMap } from "@/auth";
-import { SignOut } from "@/components/signout";
-import { SignInToProvider } from "@/server/signInActions";
+import SignIn from "@/components/SignIn";
+import SignOut from "@/components/SignOut";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -21,7 +20,9 @@ export default async function SignInPage(props: {
       {/* Buttons */}
       <div className="row-start-3 my-16 flex flex-col place-items-center gap-6 self-start">
         <h4 className="text-lg">Sign in using</h4>
-        <Suspense fallback={<p>Loading...</p>}>
+        <SignIn />
+
+        {/* <Suspense fallback={<p>Loading...</p>}>
           {Object.values(providerMap).map((provider) => (
             <form
               className="w-fit"
@@ -34,7 +35,7 @@ export default async function SignInPage(props: {
               <SigninButton provider={provider} />
             </form>
           ))}
-        </Suspense>
+        </Suspense> */}
         <Link
           className="bg-card text-card-foreground min-w-full rounded-md border-2 p-2 px-4 text-center text-xl font-bold transition-all duration-150 hover:inset-ring-1 hover:brightness-75 disabled:brightness-50"
           href={"/dashboard"}

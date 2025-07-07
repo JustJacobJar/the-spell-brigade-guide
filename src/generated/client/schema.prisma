@@ -1,7 +1,9 @@
 generator client {
   provider        = "prisma-client-js"
-  output          = "../src/generated/client" // it is better to include the generator inside `src/` or `app/` if `src/` not available.
-  binaryTargets   = ["native", "linux-musl", "rhel-openssl-3.0.x"] // first one is for cross-platform, second one for docker, last one for serverless environment. safe to include all
+  output          = "../src/generated/client"
+  // it is better to include the generator inside `src/` or `app/` if `src/` not available.
+  binaryTargets   = ["native", "linux-musl", "rhel-openssl-3.0.x"]
+  // first one is for cross-platform, second one for docker, last one for serverless environment. safe to include all
   previewFeatures = ["driverAdapters", "views"]
 }
 
@@ -16,65 +18,12 @@ datasource db {
 //   directUrl = env("AUTH_POSTGRES_URL_NON_POOLING")
 // }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String  @map("user_id")
-  type              String
-  provider          String
-  providerAccountId String  @map("provider_account_id")
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-  @@map("accounts")
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique @map("session_token")
-  userId       String   @map("user_id")
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("sessions")
-}
-
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
-  image         String?
-  role          Role      @default(USER)
-  accounts      Account[]
-  sessions      Session[]
-
-  tierLists  Tierlist[]
-  blog_posts BlogPost[]
-
-  @@map("users")
-}
-
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
-
-  @@unique([identifier, token])
-  @@map("verification_tokens")
-}
-
 model Spell {
   name String @unique
 }
 
 /// The underlying view does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+
 view SpellsView {
   name String @unique
 
@@ -104,10 +53,9 @@ model Tierlist {
 }
 
 model Tier {
-  id     String @id @default(cuid()) //unique id for db 
-  tierId String //The id used to order them and unique to droppable
-  name   String //Display name of tier list
-
+  id          String   @id @default(cuid()) //unique id for db 
+  tierId      String //The id used to order them and unique to droppable
+  name        String //Display name of tier list
   parent_list Tierlist @relation(fields: [listId], references: [id], onDelete: Cascade)
   listId      String
 
@@ -134,4 +82,72 @@ model BlogContent {
   blogId String   @unique
 
   @@map("blog_content")
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean
+  image         String?
+  createdAt     DateTime
+  updatedAt     DateTime
+  role          String?
+  banned        Boolean?
+  banReason     String?
+  banExpires    DateTime?
+  sessions      Session[]
+  accounts      Account[]
+
+  blogs     BlogPost[]
+  tierLists Tierlist[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id             String   @id
+  expiresAt      DateTime
+  token          String
+  createdAt      DateTime
+  updatedAt      DateTime
+  ipAddress      String?
+  userAgent      String?
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  impersonatedBy String?
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
 }

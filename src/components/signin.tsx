@@ -1,14 +1,13 @@
-import { signIn } from "@/auth"
- 
-export function SignIn() {
+"use client";
+import { signIn } from "@/lib/auth-client";
+
+export default function SignIn() {
   return (
-    <form
-      action={async () => {
-        "use server"
-        await signIn()
-      }}
+    <button
+      className="btn"
+      onClick={() => signIn.social({ provider: "github" })}
     >
-      <button type="submit">Sign in</button>
-    </form>
-  )
+      Github
+    </button>
+  );
 }

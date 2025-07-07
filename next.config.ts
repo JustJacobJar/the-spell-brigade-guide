@@ -2,18 +2,12 @@
 import { PrismaPlugin } from "@prisma/nextjs-monorepo-workaround-plugin";
 import type { NextConfig } from "next";
 
-import WithBundleAnalyzer from "@next/bundle-analyzer";
-
-const thing = WithBundleAnalyzer({
-  enabled: process.env.ANALYZE === "true",
-})({});
-
 const nextConfig: NextConfig = {
-  devIndicators: false,
-  /* config options here */
-  experimental: {
-    authInterrupts: true,
-  },
+  // devIndicators: false,
+  // /* config options here */
+  // experimental: {
+  //   authInterrupts: true,
+  // },
   images: {
     remotePatterns: [
       new URL(
@@ -23,13 +17,14 @@ const nextConfig: NextConfig = {
     formats: ["image/webp"],
     minimumCacheTTL: 2678400,
   },
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.plugins = [...config.plugins, new PrismaPlugin()];
-    }
-    return config;
-  },
-  ...thing,
+  // webpack: (config, { isServer }) => {
+  //   if (isServer) {
+  //     config.plugins = [...config.plugins, new PrismaPlugin()];
+  //   }
+  //   return config;
+  // },
+  // ...thing,
+  output: "standalone",
 };
 
 export default nextConfig;

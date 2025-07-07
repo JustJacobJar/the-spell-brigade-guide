@@ -1,9 +1,12 @@
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { headers } from "next/headers";
 import Link from "next/link";
 
 export default async function GuideListPage() {
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   const roll = session ? session.user.role : "";
   //get all guides
@@ -35,9 +38,9 @@ export default async function GuideListPage() {
   };
 
   return (
-    <div className="flex w-full h-full place-self-center outline flex-col gap-4 p-2">
-      <h1 className="text-5xl font-bold text-center">Guides</h1>
-      <div className="grid h-full w-5xl place-self-center grid-cols-2 gap-8">
+    <div className="flex h-full w-full flex-col gap-4 place-self-center p-2 outline">
+      <h1 className="text-center text-5xl font-bold">Guides</h1>
+      <div className="grid h-full w-5xl grid-cols-2 gap-8 place-self-center">
         {guides.map((post, index) => {
           return (
             <div

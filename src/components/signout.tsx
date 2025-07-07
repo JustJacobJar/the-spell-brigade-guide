@@ -1,14 +1,10 @@
-import { signOut } from "@/auth";
+"use client";
+import { signOut } from "@/lib/auth-client";
 
-export function SignOut() {
+export default function SignOut() {
   return (
-    <form
-      action={async () => {
-        "use server";
-        await signOut();
-      }}
-    >
-      <button type="submit">Sign Out</button>
-    </form>
+    <button className="btn" onClick={async () => await signOut()}>
+      Github
+    </button>
   );
 }

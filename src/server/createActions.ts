@@ -1,9 +1,10 @@
 "use server";
 
 import * as z from "zod/v4";
-import { auth } from "@/auth";
 import { Tier } from "@/lib/types";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export async function createTierlist(
   tierList: Tier[],
@@ -11,7 +12,9 @@ export async function createTierlist(
   description: string,
 ) {
   //Auth user
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   if (!session) {
     //Not auth to make a list
@@ -69,7 +72,9 @@ const ZtierList = z.array(
 
 export async function CreateBlogPost(title: string, content: string) {
   //Auth user
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   if (!session) {
     //Not auth to make a list
@@ -107,7 +112,9 @@ export async function CreateBlogPost(title: string, content: string) {
 
 export async function EditBlogPost(id: string, title: string, content: string) {
   //Auth user
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   if (!session) {
     //Not auth to make a list
@@ -149,7 +156,9 @@ export async function EditBlogPost(id: string, title: string, content: string) {
 
 export async function DeleteBlogPost(id: string) {
   //Auth user
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   if (!session) {
     //Not auth to make a list
