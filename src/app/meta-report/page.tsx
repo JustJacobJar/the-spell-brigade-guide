@@ -5,19 +5,25 @@ import TierRow from "@/components/TierRow";
 export default async function MetaReportPage() {
   //get tl id
 
-  // const tl = async () => {
-  const tl = await prisma.tierlist.findUnique({
-    where: { id: "cmcmmil5j0001hopk1ia9vppb" },
-  });
-  // };
+  async function doThing() {
+    try {
+      return await prisma.tierlist.findUnique({
+        where: { id: "cmcmmil5j0001hopk1ia9vppb" },
+      });
+    } catch (error) {
+      // if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      //   console.log("ERROR:", error);
+      // }
+      return "Not found";
+    }
+  }
 
-  // const tl = await prisma.tierlist.findUnique({
-  //   where: { id: "cmcmmil5j0001hopk1ia9vppb" },
-  // });
+  const tl = await doThing();
 
-  // console.log(tl);
 
-  if (!tl) return <p>Not found</p>;
+  console.log(tl);
+
+  if (tl === "Not found" || tl === null) return <p>Not found</p>;
 
   const author = await prisma.user.findUnique({ where: { id: tl.authorId } });
   const tiers = await tlConstructor(tl);
