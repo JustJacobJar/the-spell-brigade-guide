@@ -1,8 +1,11 @@
+"use server";
 import SpellLink from "@/components/SpellLink";
 import { getAllSpells } from "@/server/fetchActions";
 
 export default async function SpellsPage() {
   const spells = await getAllSpells();
+
+  if (spells.length <= 0) return <p>Spell Button List</p>;
 
   const spellButtons = () => {
     return spells.map((spell, index) => {
