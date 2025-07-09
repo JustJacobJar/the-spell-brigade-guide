@@ -7,3 +7,11 @@ export type Tier = {
 export type Spell = { spellName: string }; //Spell name should match api for images and such
 export const GITSPRITEURL = (spellName: string) =>
   `https://raw.githubusercontent.com/JustJacobJar/the-spell-brigade-sprites/master/sprites/spells/${spellName}.png`;
+
+export type SpellAbout = {
+  intro: string;
+  mageInfo: string;
+  augments: string[];
+  upgrades: string[];
+  overview: string;
+};

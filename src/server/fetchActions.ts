@@ -1,5 +1,6 @@
 "use server";
 
+import { SpellAbout } from "@/generated/client";
 import { prisma } from "@/lib/prisma";
 
 export async function getAllSpells() {
@@ -29,4 +30,26 @@ export async function getAllGuides() {
   throw "No guides found";
 
   return guides;
+}
+
+export async function getSpellAbout(spellName: string) {
+  //verify spellName is in the spells_view list
+  const spells = await getAllSpells();
+  const spellList = spells.map((s) => s.name);
+  if (!spellList.includes(spellName)) {
+    //not in there, spell does not exist throw error
+    throw `Input Spell "${spellName}" does not exist!`;
+  }
+
+  try {
+    const spellAbout = await prisma.spellAbout.findUnique({
+      where: {
+        spellName: spellName,
+      },
+    });
+    return spellAbout as SpellAbout;
+  } catch (error) {
+    console.log(error);
+    throw "Unable to find about data for spell: " + spellName;
+  }
 }

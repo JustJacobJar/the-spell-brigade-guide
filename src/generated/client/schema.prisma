@@ -23,7 +23,24 @@ model MetaReport {
 }
 
 model Spell {
-  name String @unique
+  name         String      @unique
+  aboutContent SpellAbout?
+}
+
+model SpellAbout {
+  parentSpell Spell  @relation(fields: [spellName], references: [name], onDelete: Cascade)
+  spellName   String @unique
+
+  introduction String
+  mageInfo     String
+  augments     String[]
+  upgrades     String[]
+  overview     String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("spell_about")
 }
 
 /// The underlying view does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
