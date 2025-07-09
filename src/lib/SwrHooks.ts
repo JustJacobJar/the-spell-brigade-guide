@@ -5,9 +5,10 @@ import {
   createTierlist,
   DeleteBlogPost,
   EditBlogPost,
+  UpdateSpellAbout,
 } from "@/server/createActions";
 import useSWRMutation from "swr/mutation";
-import { Tier } from "./types";
+import { SpellAbout, Tier } from "./types";
 import useSWR from "swr";
 import { getAllGuides, getBlogPost } from "@/server/fetchActions";
 import { useRouter } from "next/navigation";
@@ -93,4 +94,20 @@ export function useAllGuides() {
   });
 
   return { data, error, isLoading };
+}
+
+export function useUpdateSpellAboutSWR(spellName: string, aboutData:SpellAbout) {
+  const { data, error, isMutating, trigger } = useSWRMutation(
+    `update/about/${spellName}`,
+    () => UpdateSpellAbout(spellName, aboutData),
+    {
+      throwOnError: false,
+      onSuccess() {
+        //return it is success
+        //repopulate page with optimistic data entered
+      },
+    },
+  );
+
+  return { data, error, isMutating, trigger } as const;
 }

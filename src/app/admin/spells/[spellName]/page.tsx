@@ -9,5 +9,9 @@ export default async function EditSpellsPage({
 
   //fetch data for that spell
 
-  return <SpellsForm />;
+  return (
+    <SpellsForm
+      spellName={spellName.charAt(0).toUpperCase() + spellName.slice(1)}
+    />
+  );
 }

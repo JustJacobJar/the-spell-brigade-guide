@@ -24,6 +24,11 @@ export type MetaReport = $Result.DefaultSelection<Prisma.$MetaReportPayload>
  */
 export type Spell = $Result.DefaultSelection<Prisma.$SpellPayload>
 /**
+ * Model SpellAbout
+ * 
+ */
+export type SpellAbout = $Result.DefaultSelection<Prisma.$SpellAboutPayload>
+/**
  * Model Tierlist
  * 
  */
@@ -231,6 +236,16 @@ export class PrismaClient<
     * ```
     */
   get spell(): Prisma.SpellDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.spellAbout`: Exposes CRUD operations for the **SpellAbout** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SpellAbouts
+    * const spellAbouts = await prisma.spellAbout.findMany()
+    * ```
+    */
+  get spellAbout(): Prisma.SpellAboutDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.tierlist`: Exposes CRUD operations for the **Tierlist** model.
@@ -763,6 +778,7 @@ export namespace Prisma {
   export const ModelName: {
     MetaReport: 'MetaReport',
     Spell: 'Spell',
+    SpellAbout: 'SpellAbout',
     Tierlist: 'Tierlist',
     Tier: 'Tier',
     BlogPost: 'BlogPost',
@@ -790,7 +806,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "metaReport" | "spell" | "tierlist" | "tier" | "blogPost" | "blogContent" | "verification" | "user" | "session" | "account" | "spellsView"
+      modelProps: "metaReport" | "spell" | "spellAbout" | "tierlist" | "tier" | "blogPost" | "blogContent" | "verification" | "user" | "session" | "account" | "spellsView"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -939,6 +955,80 @@ export namespace Prisma {
           count: {
             args: Prisma.SpellCountArgs<ExtArgs>
             result: $Utils.Optional<SpellCountAggregateOutputType> | number
+          }
+        }
+      }
+      SpellAbout: {
+        payload: Prisma.$SpellAboutPayload<ExtArgs>
+        fields: Prisma.SpellAboutFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SpellAboutFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellAboutPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SpellAboutFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellAboutPayload>
+          }
+          findFirst: {
+            args: Prisma.SpellAboutFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellAboutPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SpellAboutFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellAboutPayload>
+          }
+          findMany: {
+            args: Prisma.SpellAboutFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellAboutPayload>[]
+          }
+          create: {
+            args: Prisma.SpellAboutCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellAboutPayload>
+          }
+          createMany: {
+            args: Prisma.SpellAboutCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SpellAboutCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellAboutPayload>[]
+          }
+          delete: {
+            args: Prisma.SpellAboutDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellAboutPayload>
+          }
+          update: {
+            args: Prisma.SpellAboutUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellAboutPayload>
+          }
+          deleteMany: {
+            args: Prisma.SpellAboutDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SpellAboutUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SpellAboutUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellAboutPayload>[]
+          }
+          upsert: {
+            args: Prisma.SpellAboutUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellAboutPayload>
+          }
+          aggregate: {
+            args: Prisma.SpellAboutAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSpellAbout>
+          }
+          groupBy: {
+            args: Prisma.SpellAboutGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SpellAboutGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SpellAboutCountArgs<ExtArgs>
+            result: $Utils.Optional<SpellAboutCountAggregateOutputType> | number
           }
         }
       }
@@ -1698,6 +1788,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     metaReport?: MetaReportOmit
     spell?: SpellOmit
+    spellAbout?: SpellAboutOmit
     tierlist?: TierlistOmit
     tier?: TierOmit
     blogPost?: BlogPostOmit
@@ -2964,6 +3055,7 @@ export namespace Prisma {
 
   export type SpellSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     name?: boolean
+    aboutContent?: boolean | Spell$aboutContentArgs<ExtArgs>
   }, ExtArgs["result"]["spell"]>
 
   export type SpellSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2979,10 +3071,17 @@ export namespace Prisma {
   }
 
   export type SpellOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"name", ExtArgs["result"]["spell"]>
+  export type SpellInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    aboutContent?: boolean | Spell$aboutContentArgs<ExtArgs>
+  }
+  export type SpellIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SpellIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $SpellPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Spell"
-    objects: {}
+    objects: {
+      aboutContent: Prisma.$SpellAboutPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       name: string
     }, ExtArgs["result"]["spell"]>
@@ -3379,6 +3478,7 @@ export namespace Prisma {
    */
   export interface Prisma__SpellClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    aboutContent<T extends Spell$aboutContentArgs<ExtArgs> = {}>(args?: Subset<T, Spell$aboutContentArgs<ExtArgs>>): Prisma__SpellAboutClient<$Result.GetResult<Prisma.$SpellAboutPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3426,6 +3526,10 @@ export namespace Prisma {
      */
     omit?: SpellOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellInclude<ExtArgs> | null
+    /**
      * Filter, which Spell to fetch.
      */
     where: SpellWhereUniqueInput
@@ -3444,6 +3548,10 @@ export namespace Prisma {
      */
     omit?: SpellOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellInclude<ExtArgs> | null
+    /**
      * Filter, which Spell to fetch.
      */
     where: SpellWhereUniqueInput
@@ -3461,6 +3569,10 @@ export namespace Prisma {
      * Omit specific fields from the Spell
      */
     omit?: SpellOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellInclude<ExtArgs> | null
     /**
      * Filter, which Spell to fetch.
      */
@@ -3510,6 +3622,10 @@ export namespace Prisma {
      */
     omit?: SpellOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellInclude<ExtArgs> | null
+    /**
      * Filter, which Spell to fetch.
      */
     where?: SpellWhereInput
@@ -3558,6 +3674,10 @@ export namespace Prisma {
      */
     omit?: SpellOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellInclude<ExtArgs> | null
+    /**
      * Filter, which Spells to fetch.
      */
     where?: SpellWhereInput
@@ -3600,6 +3720,10 @@ export namespace Prisma {
      * Omit specific fields from the Spell
      */
     omit?: SpellOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellInclude<ExtArgs> | null
     /**
      * The data needed to create a Spell.
      */
@@ -3648,6 +3772,10 @@ export namespace Prisma {
      * Omit specific fields from the Spell
      */
     omit?: SpellOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellInclude<ExtArgs> | null
     /**
      * The data needed to update a Spell.
      */
@@ -3715,6 +3843,10 @@ export namespace Prisma {
      */
     omit?: SpellOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellInclude<ExtArgs> | null
+    /**
      * The filter to search for the Spell to update in case it exists.
      */
     where: SpellWhereUniqueInput
@@ -3741,6 +3873,10 @@ export namespace Prisma {
      */
     omit?: SpellOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellInclude<ExtArgs> | null
+    /**
      * Filter which Spell to delete.
      */
     where: SpellWhereUniqueInput
@@ -3761,6 +3897,25 @@ export namespace Prisma {
   }
 
   /**
+   * Spell.aboutContent
+   */
+  export type Spell$aboutContentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellAbout
+     */
+    select?: SpellAboutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellAbout
+     */
+    omit?: SpellAboutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellAboutInclude<ExtArgs> | null
+    where?: SpellAboutWhereInput
+  }
+
+  /**
    * Spell without action
    */
   export type SpellDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3772,6 +3927,1099 @@ export namespace Prisma {
      * Omit specific fields from the Spell
      */
     omit?: SpellOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SpellAbout
+   */
+
+  export type AggregateSpellAbout = {
+    _count: SpellAboutCountAggregateOutputType | null
+    _min: SpellAboutMinAggregateOutputType | null
+    _max: SpellAboutMaxAggregateOutputType | null
+  }
+
+  export type SpellAboutMinAggregateOutputType = {
+    spellName: string | null
+    introduction: string | null
+    mageInfo: string | null
+    overview: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SpellAboutMaxAggregateOutputType = {
+    spellName: string | null
+    introduction: string | null
+    mageInfo: string | null
+    overview: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SpellAboutCountAggregateOutputType = {
+    spellName: number
+    introduction: number
+    mageInfo: number
+    augments: number
+    upgrades: number
+    overview: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SpellAboutMinAggregateInputType = {
+    spellName?: true
+    introduction?: true
+    mageInfo?: true
+    overview?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SpellAboutMaxAggregateInputType = {
+    spellName?: true
+    introduction?: true
+    mageInfo?: true
+    overview?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SpellAboutCountAggregateInputType = {
+    spellName?: true
+    introduction?: true
+    mageInfo?: true
+    augments?: true
+    upgrades?: true
+    overview?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SpellAboutAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SpellAbout to aggregate.
+     */
+    where?: SpellAboutWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SpellAbouts to fetch.
+     */
+    orderBy?: SpellAboutOrderByWithRelationInput | SpellAboutOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SpellAboutWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SpellAbouts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SpellAbouts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SpellAbouts
+    **/
+    _count?: true | SpellAboutCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SpellAboutMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SpellAboutMaxAggregateInputType
+  }
+
+  export type GetSpellAboutAggregateType<T extends SpellAboutAggregateArgs> = {
+        [P in keyof T & keyof AggregateSpellAbout]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSpellAbout[P]>
+      : GetScalarType<T[P], AggregateSpellAbout[P]>
+  }
+
+
+
+
+  export type SpellAboutGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SpellAboutWhereInput
+    orderBy?: SpellAboutOrderByWithAggregationInput | SpellAboutOrderByWithAggregationInput[]
+    by: SpellAboutScalarFieldEnum[] | SpellAboutScalarFieldEnum
+    having?: SpellAboutScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SpellAboutCountAggregateInputType | true
+    _min?: SpellAboutMinAggregateInputType
+    _max?: SpellAboutMaxAggregateInputType
+  }
+
+  export type SpellAboutGroupByOutputType = {
+    spellName: string
+    introduction: string
+    mageInfo: string
+    augments: string[]
+    upgrades: string[]
+    overview: string
+    createdAt: Date
+    updatedAt: Date
+    _count: SpellAboutCountAggregateOutputType | null
+    _min: SpellAboutMinAggregateOutputType | null
+    _max: SpellAboutMaxAggregateOutputType | null
+  }
+
+  type GetSpellAboutGroupByPayload<T extends SpellAboutGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SpellAboutGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SpellAboutGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SpellAboutGroupByOutputType[P]>
+            : GetScalarType<T[P], SpellAboutGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SpellAboutSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    spellName?: boolean
+    introduction?: boolean
+    mageInfo?: boolean
+    augments?: boolean
+    upgrades?: boolean
+    overview?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    parentSpell?: boolean | SpellDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["spellAbout"]>
+
+  export type SpellAboutSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    spellName?: boolean
+    introduction?: boolean
+    mageInfo?: boolean
+    augments?: boolean
+    upgrades?: boolean
+    overview?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    parentSpell?: boolean | SpellDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["spellAbout"]>
+
+  export type SpellAboutSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    spellName?: boolean
+    introduction?: boolean
+    mageInfo?: boolean
+    augments?: boolean
+    upgrades?: boolean
+    overview?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    parentSpell?: boolean | SpellDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["spellAbout"]>
+
+  export type SpellAboutSelectScalar = {
+    spellName?: boolean
+    introduction?: boolean
+    mageInfo?: boolean
+    augments?: boolean
+    upgrades?: boolean
+    overview?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SpellAboutOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"spellName" | "introduction" | "mageInfo" | "augments" | "upgrades" | "overview" | "createdAt" | "updatedAt", ExtArgs["result"]["spellAbout"]>
+  export type SpellAboutInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parentSpell?: boolean | SpellDefaultArgs<ExtArgs>
+  }
+  export type SpellAboutIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parentSpell?: boolean | SpellDefaultArgs<ExtArgs>
+  }
+  export type SpellAboutIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parentSpell?: boolean | SpellDefaultArgs<ExtArgs>
+  }
+
+  export type $SpellAboutPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SpellAbout"
+    objects: {
+      parentSpell: Prisma.$SpellPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      spellName: string
+      introduction: string
+      mageInfo: string
+      augments: string[]
+      upgrades: string[]
+      overview: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["spellAbout"]>
+    composites: {}
+  }
+
+  type SpellAboutGetPayload<S extends boolean | null | undefined | SpellAboutDefaultArgs> = $Result.GetResult<Prisma.$SpellAboutPayload, S>
+
+  type SpellAboutCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SpellAboutFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SpellAboutCountAggregateInputType | true
+    }
+
+  export interface SpellAboutDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SpellAbout'], meta: { name: 'SpellAbout' } }
+    /**
+     * Find zero or one SpellAbout that matches the filter.
+     * @param {SpellAboutFindUniqueArgs} args - Arguments to find a SpellAbout
+     * @example
+     * // Get one SpellAbout
+     * const spellAbout = await prisma.spellAbout.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SpellAboutFindUniqueArgs>(args: SelectSubset<T, SpellAboutFindUniqueArgs<ExtArgs>>): Prisma__SpellAboutClient<$Result.GetResult<Prisma.$SpellAboutPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SpellAbout that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SpellAboutFindUniqueOrThrowArgs} args - Arguments to find a SpellAbout
+     * @example
+     * // Get one SpellAbout
+     * const spellAbout = await prisma.spellAbout.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SpellAboutFindUniqueOrThrowArgs>(args: SelectSubset<T, SpellAboutFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SpellAboutClient<$Result.GetResult<Prisma.$SpellAboutPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SpellAbout that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpellAboutFindFirstArgs} args - Arguments to find a SpellAbout
+     * @example
+     * // Get one SpellAbout
+     * const spellAbout = await prisma.spellAbout.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SpellAboutFindFirstArgs>(args?: SelectSubset<T, SpellAboutFindFirstArgs<ExtArgs>>): Prisma__SpellAboutClient<$Result.GetResult<Prisma.$SpellAboutPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SpellAbout that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpellAboutFindFirstOrThrowArgs} args - Arguments to find a SpellAbout
+     * @example
+     * // Get one SpellAbout
+     * const spellAbout = await prisma.spellAbout.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SpellAboutFindFirstOrThrowArgs>(args?: SelectSubset<T, SpellAboutFindFirstOrThrowArgs<ExtArgs>>): Prisma__SpellAboutClient<$Result.GetResult<Prisma.$SpellAboutPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SpellAbouts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpellAboutFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SpellAbouts
+     * const spellAbouts = await prisma.spellAbout.findMany()
+     * 
+     * // Get first 10 SpellAbouts
+     * const spellAbouts = await prisma.spellAbout.findMany({ take: 10 })
+     * 
+     * // Only select the `spellName`
+     * const spellAboutWithSpellNameOnly = await prisma.spellAbout.findMany({ select: { spellName: true } })
+     * 
+     */
+    findMany<T extends SpellAboutFindManyArgs>(args?: SelectSubset<T, SpellAboutFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpellAboutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SpellAbout.
+     * @param {SpellAboutCreateArgs} args - Arguments to create a SpellAbout.
+     * @example
+     * // Create one SpellAbout
+     * const SpellAbout = await prisma.spellAbout.create({
+     *   data: {
+     *     // ... data to create a SpellAbout
+     *   }
+     * })
+     * 
+     */
+    create<T extends SpellAboutCreateArgs>(args: SelectSubset<T, SpellAboutCreateArgs<ExtArgs>>): Prisma__SpellAboutClient<$Result.GetResult<Prisma.$SpellAboutPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SpellAbouts.
+     * @param {SpellAboutCreateManyArgs} args - Arguments to create many SpellAbouts.
+     * @example
+     * // Create many SpellAbouts
+     * const spellAbout = await prisma.spellAbout.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SpellAboutCreateManyArgs>(args?: SelectSubset<T, SpellAboutCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SpellAbouts and returns the data saved in the database.
+     * @param {SpellAboutCreateManyAndReturnArgs} args - Arguments to create many SpellAbouts.
+     * @example
+     * // Create many SpellAbouts
+     * const spellAbout = await prisma.spellAbout.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SpellAbouts and only return the `spellName`
+     * const spellAboutWithSpellNameOnly = await prisma.spellAbout.createManyAndReturn({
+     *   select: { spellName: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SpellAboutCreateManyAndReturnArgs>(args?: SelectSubset<T, SpellAboutCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpellAboutPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SpellAbout.
+     * @param {SpellAboutDeleteArgs} args - Arguments to delete one SpellAbout.
+     * @example
+     * // Delete one SpellAbout
+     * const SpellAbout = await prisma.spellAbout.delete({
+     *   where: {
+     *     // ... filter to delete one SpellAbout
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SpellAboutDeleteArgs>(args: SelectSubset<T, SpellAboutDeleteArgs<ExtArgs>>): Prisma__SpellAboutClient<$Result.GetResult<Prisma.$SpellAboutPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SpellAbout.
+     * @param {SpellAboutUpdateArgs} args - Arguments to update one SpellAbout.
+     * @example
+     * // Update one SpellAbout
+     * const spellAbout = await prisma.spellAbout.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SpellAboutUpdateArgs>(args: SelectSubset<T, SpellAboutUpdateArgs<ExtArgs>>): Prisma__SpellAboutClient<$Result.GetResult<Prisma.$SpellAboutPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SpellAbouts.
+     * @param {SpellAboutDeleteManyArgs} args - Arguments to filter SpellAbouts to delete.
+     * @example
+     * // Delete a few SpellAbouts
+     * const { count } = await prisma.spellAbout.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SpellAboutDeleteManyArgs>(args?: SelectSubset<T, SpellAboutDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SpellAbouts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpellAboutUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SpellAbouts
+     * const spellAbout = await prisma.spellAbout.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SpellAboutUpdateManyArgs>(args: SelectSubset<T, SpellAboutUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SpellAbouts and returns the data updated in the database.
+     * @param {SpellAboutUpdateManyAndReturnArgs} args - Arguments to update many SpellAbouts.
+     * @example
+     * // Update many SpellAbouts
+     * const spellAbout = await prisma.spellAbout.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SpellAbouts and only return the `spellName`
+     * const spellAboutWithSpellNameOnly = await prisma.spellAbout.updateManyAndReturn({
+     *   select: { spellName: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SpellAboutUpdateManyAndReturnArgs>(args: SelectSubset<T, SpellAboutUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpellAboutPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SpellAbout.
+     * @param {SpellAboutUpsertArgs} args - Arguments to update or create a SpellAbout.
+     * @example
+     * // Update or create a SpellAbout
+     * const spellAbout = await prisma.spellAbout.upsert({
+     *   create: {
+     *     // ... data to create a SpellAbout
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SpellAbout we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SpellAboutUpsertArgs>(args: SelectSubset<T, SpellAboutUpsertArgs<ExtArgs>>): Prisma__SpellAboutClient<$Result.GetResult<Prisma.$SpellAboutPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SpellAbouts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpellAboutCountArgs} args - Arguments to filter SpellAbouts to count.
+     * @example
+     * // Count the number of SpellAbouts
+     * const count = await prisma.spellAbout.count({
+     *   where: {
+     *     // ... the filter for the SpellAbouts we want to count
+     *   }
+     * })
+    **/
+    count<T extends SpellAboutCountArgs>(
+      args?: Subset<T, SpellAboutCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SpellAboutCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SpellAbout.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpellAboutAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SpellAboutAggregateArgs>(args: Subset<T, SpellAboutAggregateArgs>): Prisma.PrismaPromise<GetSpellAboutAggregateType<T>>
+
+    /**
+     * Group by SpellAbout.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpellAboutGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SpellAboutGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SpellAboutGroupByArgs['orderBy'] }
+        : { orderBy?: SpellAboutGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SpellAboutGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpellAboutGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SpellAbout model
+   */
+  readonly fields: SpellAboutFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SpellAbout.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SpellAboutClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    parentSpell<T extends SpellDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SpellDefaultArgs<ExtArgs>>): Prisma__SpellClient<$Result.GetResult<Prisma.$SpellPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SpellAbout model
+   */
+  interface SpellAboutFieldRefs {
+    readonly spellName: FieldRef<"SpellAbout", 'String'>
+    readonly introduction: FieldRef<"SpellAbout", 'String'>
+    readonly mageInfo: FieldRef<"SpellAbout", 'String'>
+    readonly augments: FieldRef<"SpellAbout", 'String[]'>
+    readonly upgrades: FieldRef<"SpellAbout", 'String[]'>
+    readonly overview: FieldRef<"SpellAbout", 'String'>
+    readonly createdAt: FieldRef<"SpellAbout", 'DateTime'>
+    readonly updatedAt: FieldRef<"SpellAbout", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SpellAbout findUnique
+   */
+  export type SpellAboutFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellAbout
+     */
+    select?: SpellAboutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellAbout
+     */
+    omit?: SpellAboutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellAboutInclude<ExtArgs> | null
+    /**
+     * Filter, which SpellAbout to fetch.
+     */
+    where: SpellAboutWhereUniqueInput
+  }
+
+  /**
+   * SpellAbout findUniqueOrThrow
+   */
+  export type SpellAboutFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellAbout
+     */
+    select?: SpellAboutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellAbout
+     */
+    omit?: SpellAboutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellAboutInclude<ExtArgs> | null
+    /**
+     * Filter, which SpellAbout to fetch.
+     */
+    where: SpellAboutWhereUniqueInput
+  }
+
+  /**
+   * SpellAbout findFirst
+   */
+  export type SpellAboutFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellAbout
+     */
+    select?: SpellAboutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellAbout
+     */
+    omit?: SpellAboutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellAboutInclude<ExtArgs> | null
+    /**
+     * Filter, which SpellAbout to fetch.
+     */
+    where?: SpellAboutWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SpellAbouts to fetch.
+     */
+    orderBy?: SpellAboutOrderByWithRelationInput | SpellAboutOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SpellAbouts.
+     */
+    cursor?: SpellAboutWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SpellAbouts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SpellAbouts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SpellAbouts.
+     */
+    distinct?: SpellAboutScalarFieldEnum | SpellAboutScalarFieldEnum[]
+  }
+
+  /**
+   * SpellAbout findFirstOrThrow
+   */
+  export type SpellAboutFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellAbout
+     */
+    select?: SpellAboutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellAbout
+     */
+    omit?: SpellAboutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellAboutInclude<ExtArgs> | null
+    /**
+     * Filter, which SpellAbout to fetch.
+     */
+    where?: SpellAboutWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SpellAbouts to fetch.
+     */
+    orderBy?: SpellAboutOrderByWithRelationInput | SpellAboutOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SpellAbouts.
+     */
+    cursor?: SpellAboutWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SpellAbouts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SpellAbouts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SpellAbouts.
+     */
+    distinct?: SpellAboutScalarFieldEnum | SpellAboutScalarFieldEnum[]
+  }
+
+  /**
+   * SpellAbout findMany
+   */
+  export type SpellAboutFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellAbout
+     */
+    select?: SpellAboutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellAbout
+     */
+    omit?: SpellAboutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellAboutInclude<ExtArgs> | null
+    /**
+     * Filter, which SpellAbouts to fetch.
+     */
+    where?: SpellAboutWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SpellAbouts to fetch.
+     */
+    orderBy?: SpellAboutOrderByWithRelationInput | SpellAboutOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SpellAbouts.
+     */
+    cursor?: SpellAboutWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SpellAbouts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SpellAbouts.
+     */
+    skip?: number
+    distinct?: SpellAboutScalarFieldEnum | SpellAboutScalarFieldEnum[]
+  }
+
+  /**
+   * SpellAbout create
+   */
+  export type SpellAboutCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellAbout
+     */
+    select?: SpellAboutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellAbout
+     */
+    omit?: SpellAboutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellAboutInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SpellAbout.
+     */
+    data: XOR<SpellAboutCreateInput, SpellAboutUncheckedCreateInput>
+  }
+
+  /**
+   * SpellAbout createMany
+   */
+  export type SpellAboutCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SpellAbouts.
+     */
+    data: SpellAboutCreateManyInput | SpellAboutCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SpellAbout createManyAndReturn
+   */
+  export type SpellAboutCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellAbout
+     */
+    select?: SpellAboutSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellAbout
+     */
+    omit?: SpellAboutOmit<ExtArgs> | null
+    /**
+     * The data used to create many SpellAbouts.
+     */
+    data: SpellAboutCreateManyInput | SpellAboutCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellAboutIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SpellAbout update
+   */
+  export type SpellAboutUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellAbout
+     */
+    select?: SpellAboutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellAbout
+     */
+    omit?: SpellAboutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellAboutInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SpellAbout.
+     */
+    data: XOR<SpellAboutUpdateInput, SpellAboutUncheckedUpdateInput>
+    /**
+     * Choose, which SpellAbout to update.
+     */
+    where: SpellAboutWhereUniqueInput
+  }
+
+  /**
+   * SpellAbout updateMany
+   */
+  export type SpellAboutUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SpellAbouts.
+     */
+    data: XOR<SpellAboutUpdateManyMutationInput, SpellAboutUncheckedUpdateManyInput>
+    /**
+     * Filter which SpellAbouts to update
+     */
+    where?: SpellAboutWhereInput
+    /**
+     * Limit how many SpellAbouts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SpellAbout updateManyAndReturn
+   */
+  export type SpellAboutUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellAbout
+     */
+    select?: SpellAboutSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellAbout
+     */
+    omit?: SpellAboutOmit<ExtArgs> | null
+    /**
+     * The data used to update SpellAbouts.
+     */
+    data: XOR<SpellAboutUpdateManyMutationInput, SpellAboutUncheckedUpdateManyInput>
+    /**
+     * Filter which SpellAbouts to update
+     */
+    where?: SpellAboutWhereInput
+    /**
+     * Limit how many SpellAbouts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellAboutIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SpellAbout upsert
+   */
+  export type SpellAboutUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellAbout
+     */
+    select?: SpellAboutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellAbout
+     */
+    omit?: SpellAboutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellAboutInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SpellAbout to update in case it exists.
+     */
+    where: SpellAboutWhereUniqueInput
+    /**
+     * In case the SpellAbout found by the `where` argument doesn't exist, create a new SpellAbout with this data.
+     */
+    create: XOR<SpellAboutCreateInput, SpellAboutUncheckedCreateInput>
+    /**
+     * In case the SpellAbout was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SpellAboutUpdateInput, SpellAboutUncheckedUpdateInput>
+  }
+
+  /**
+   * SpellAbout delete
+   */
+  export type SpellAboutDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellAbout
+     */
+    select?: SpellAboutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellAbout
+     */
+    omit?: SpellAboutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellAboutInclude<ExtArgs> | null
+    /**
+     * Filter which SpellAbout to delete.
+     */
+    where: SpellAboutWhereUniqueInput
+  }
+
+  /**
+   * SpellAbout deleteMany
+   */
+  export type SpellAboutDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SpellAbouts to delete
+     */
+    where?: SpellAboutWhereInput
+    /**
+     * Limit how many SpellAbouts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SpellAbout without action
+   */
+  export type SpellAboutDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellAbout
+     */
+    select?: SpellAboutSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellAbout
+     */
+    omit?: SpellAboutOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellAboutInclude<ExtArgs> | null
   }
 
 
@@ -13547,6 +14795,20 @@ export namespace Prisma {
   export type SpellScalarFieldEnum = (typeof SpellScalarFieldEnum)[keyof typeof SpellScalarFieldEnum]
 
 
+  export const SpellAboutScalarFieldEnum: {
+    spellName: 'spellName',
+    introduction: 'introduction',
+    mageInfo: 'mageInfo',
+    augments: 'augments',
+    upgrades: 'upgrades',
+    overview: 'overview',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SpellAboutScalarFieldEnum = (typeof SpellAboutScalarFieldEnum)[keyof typeof SpellAboutScalarFieldEnum]
+
+
   export const TierlistScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -13703,20 +14965,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -13727,6 +14975,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -13791,10 +15053,12 @@ export namespace Prisma {
     OR?: SpellWhereInput[]
     NOT?: SpellWhereInput | SpellWhereInput[]
     name?: StringFilter<"Spell"> | string
+    aboutContent?: XOR<SpellAboutNullableScalarRelationFilter, SpellAboutWhereInput> | null
   }
 
   export type SpellOrderByWithRelationInput = {
     name?: SortOrder
+    aboutContent?: SpellAboutOrderByWithRelationInput
   }
 
   export type SpellWhereUniqueInput = Prisma.AtLeast<{
@@ -13802,6 +15066,7 @@ export namespace Prisma {
     AND?: SpellWhereInput | SpellWhereInput[]
     OR?: SpellWhereInput[]
     NOT?: SpellWhereInput | SpellWhereInput[]
+    aboutContent?: XOR<SpellAboutNullableScalarRelationFilter, SpellAboutWhereInput> | null
   }, "name">
 
   export type SpellOrderByWithAggregationInput = {
@@ -13816,6 +15081,76 @@ export namespace Prisma {
     OR?: SpellScalarWhereWithAggregatesInput[]
     NOT?: SpellScalarWhereWithAggregatesInput | SpellScalarWhereWithAggregatesInput[]
     name?: StringWithAggregatesFilter<"Spell"> | string
+  }
+
+  export type SpellAboutWhereInput = {
+    AND?: SpellAboutWhereInput | SpellAboutWhereInput[]
+    OR?: SpellAboutWhereInput[]
+    NOT?: SpellAboutWhereInput | SpellAboutWhereInput[]
+    spellName?: StringFilter<"SpellAbout"> | string
+    introduction?: StringFilter<"SpellAbout"> | string
+    mageInfo?: StringFilter<"SpellAbout"> | string
+    augments?: StringNullableListFilter<"SpellAbout">
+    upgrades?: StringNullableListFilter<"SpellAbout">
+    overview?: StringFilter<"SpellAbout"> | string
+    createdAt?: DateTimeFilter<"SpellAbout"> | Date | string
+    updatedAt?: DateTimeFilter<"SpellAbout"> | Date | string
+    parentSpell?: XOR<SpellScalarRelationFilter, SpellWhereInput>
+  }
+
+  export type SpellAboutOrderByWithRelationInput = {
+    spellName?: SortOrder
+    introduction?: SortOrder
+    mageInfo?: SortOrder
+    augments?: SortOrder
+    upgrades?: SortOrder
+    overview?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    parentSpell?: SpellOrderByWithRelationInput
+  }
+
+  export type SpellAboutWhereUniqueInput = Prisma.AtLeast<{
+    spellName?: string
+    AND?: SpellAboutWhereInput | SpellAboutWhereInput[]
+    OR?: SpellAboutWhereInput[]
+    NOT?: SpellAboutWhereInput | SpellAboutWhereInput[]
+    introduction?: StringFilter<"SpellAbout"> | string
+    mageInfo?: StringFilter<"SpellAbout"> | string
+    augments?: StringNullableListFilter<"SpellAbout">
+    upgrades?: StringNullableListFilter<"SpellAbout">
+    overview?: StringFilter<"SpellAbout"> | string
+    createdAt?: DateTimeFilter<"SpellAbout"> | Date | string
+    updatedAt?: DateTimeFilter<"SpellAbout"> | Date | string
+    parentSpell?: XOR<SpellScalarRelationFilter, SpellWhereInput>
+  }, "spellName">
+
+  export type SpellAboutOrderByWithAggregationInput = {
+    spellName?: SortOrder
+    introduction?: SortOrder
+    mageInfo?: SortOrder
+    augments?: SortOrder
+    upgrades?: SortOrder
+    overview?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SpellAboutCountOrderByAggregateInput
+    _max?: SpellAboutMaxOrderByAggregateInput
+    _min?: SpellAboutMinOrderByAggregateInput
+  }
+
+  export type SpellAboutScalarWhereWithAggregatesInput = {
+    AND?: SpellAboutScalarWhereWithAggregatesInput | SpellAboutScalarWhereWithAggregatesInput[]
+    OR?: SpellAboutScalarWhereWithAggregatesInput[]
+    NOT?: SpellAboutScalarWhereWithAggregatesInput | SpellAboutScalarWhereWithAggregatesInput[]
+    spellName?: StringWithAggregatesFilter<"SpellAbout"> | string
+    introduction?: StringWithAggregatesFilter<"SpellAbout"> | string
+    mageInfo?: StringWithAggregatesFilter<"SpellAbout"> | string
+    augments?: StringNullableListFilter<"SpellAbout">
+    upgrades?: StringNullableListFilter<"SpellAbout">
+    overview?: StringWithAggregatesFilter<"SpellAbout"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SpellAbout"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SpellAbout"> | Date | string
   }
 
   export type TierlistWhereInput = {
@@ -14419,18 +15754,22 @@ export namespace Prisma {
 
   export type SpellCreateInput = {
     name: string
+    aboutContent?: SpellAboutCreateNestedOneWithoutParentSpellInput
   }
 
   export type SpellUncheckedCreateInput = {
     name: string
+    aboutContent?: SpellAboutUncheckedCreateNestedOneWithoutParentSpellInput
   }
 
   export type SpellUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    aboutContent?: SpellAboutUpdateOneWithoutParentSpellNestedInput
   }
 
   export type SpellUncheckedUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    aboutContent?: SpellAboutUncheckedUpdateOneWithoutParentSpellNestedInput
   }
 
   export type SpellCreateManyInput = {
@@ -14443,6 +15782,82 @@ export namespace Prisma {
 
   export type SpellUncheckedUpdateManyInput = {
     name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SpellAboutCreateInput = {
+    introduction: string
+    mageInfo: string
+    augments?: SpellAboutCreateaugmentsInput | string[]
+    upgrades?: SpellAboutCreateupgradesInput | string[]
+    overview: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    parentSpell: SpellCreateNestedOneWithoutAboutContentInput
+  }
+
+  export type SpellAboutUncheckedCreateInput = {
+    spellName: string
+    introduction: string
+    mageInfo: string
+    augments?: SpellAboutCreateaugmentsInput | string[]
+    upgrades?: SpellAboutCreateupgradesInput | string[]
+    overview: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SpellAboutUpdateInput = {
+    introduction?: StringFieldUpdateOperationsInput | string
+    mageInfo?: StringFieldUpdateOperationsInput | string
+    augments?: SpellAboutUpdateaugmentsInput | string[]
+    upgrades?: SpellAboutUpdateupgradesInput | string[]
+    overview?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parentSpell?: SpellUpdateOneRequiredWithoutAboutContentNestedInput
+  }
+
+  export type SpellAboutUncheckedUpdateInput = {
+    spellName?: StringFieldUpdateOperationsInput | string
+    introduction?: StringFieldUpdateOperationsInput | string
+    mageInfo?: StringFieldUpdateOperationsInput | string
+    augments?: SpellAboutUpdateaugmentsInput | string[]
+    upgrades?: SpellAboutUpdateupgradesInput | string[]
+    overview?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SpellAboutCreateManyInput = {
+    spellName: string
+    introduction: string
+    mageInfo: string
+    augments?: SpellAboutCreateaugmentsInput | string[]
+    upgrades?: SpellAboutCreateupgradesInput | string[]
+    overview: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SpellAboutUpdateManyMutationInput = {
+    introduction?: StringFieldUpdateOperationsInput | string
+    mageInfo?: StringFieldUpdateOperationsInput | string
+    augments?: SpellAboutUpdateaugmentsInput | string[]
+    upgrades?: SpellAboutUpdateupgradesInput | string[]
+    overview?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SpellAboutUncheckedUpdateManyInput = {
+    spellName?: StringFieldUpdateOperationsInput | string
+    introduction?: StringFieldUpdateOperationsInput | string
+    mageInfo?: StringFieldUpdateOperationsInput | string
+    augments?: SpellAboutUpdateaugmentsInput | string[]
+    upgrades?: SpellAboutUpdateupgradesInput | string[]
+    overview?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TierlistCreateInput = {
@@ -15103,6 +16518,11 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type SpellAboutNullableScalarRelationFilter = {
+    is?: SpellAboutWhereInput | null
+    isNot?: SpellAboutWhereInput | null
+  }
+
   export type SpellCountOrderByAggregateInput = {
     name?: SortOrder
   }
@@ -15113,6 +16533,73 @@ export namespace Prisma {
 
   export type SpellMinOrderByAggregateInput = {
     name?: SortOrder
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type SpellScalarRelationFilter = {
+    is?: SpellWhereInput
+    isNot?: SpellWhereInput
+  }
+
+  export type SpellAboutCountOrderByAggregateInput = {
+    spellName?: SortOrder
+    introduction?: SortOrder
+    mageInfo?: SortOrder
+    augments?: SortOrder
+    upgrades?: SortOrder
+    overview?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SpellAboutMaxOrderByAggregateInput = {
+    spellName?: SortOrder
+    introduction?: SortOrder
+    mageInfo?: SortOrder
+    overview?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SpellAboutMinOrderByAggregateInput = {
+    spellName?: SortOrder
+    introduction?: SortOrder
+    mageInfo?: SortOrder
+    overview?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -15139,17 +16626,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type TierListRelationFilter = {
@@ -15242,28 +16718,6 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
   }
 
   export type TierlistScalarRelationFilter = {
@@ -15599,6 +17053,74 @@ export namespace Prisma {
     set?: string
   }
 
+  export type SpellAboutCreateNestedOneWithoutParentSpellInput = {
+    create?: XOR<SpellAboutCreateWithoutParentSpellInput, SpellAboutUncheckedCreateWithoutParentSpellInput>
+    connectOrCreate?: SpellAboutCreateOrConnectWithoutParentSpellInput
+    connect?: SpellAboutWhereUniqueInput
+  }
+
+  export type SpellAboutUncheckedCreateNestedOneWithoutParentSpellInput = {
+    create?: XOR<SpellAboutCreateWithoutParentSpellInput, SpellAboutUncheckedCreateWithoutParentSpellInput>
+    connectOrCreate?: SpellAboutCreateOrConnectWithoutParentSpellInput
+    connect?: SpellAboutWhereUniqueInput
+  }
+
+  export type SpellAboutUpdateOneWithoutParentSpellNestedInput = {
+    create?: XOR<SpellAboutCreateWithoutParentSpellInput, SpellAboutUncheckedCreateWithoutParentSpellInput>
+    connectOrCreate?: SpellAboutCreateOrConnectWithoutParentSpellInput
+    upsert?: SpellAboutUpsertWithoutParentSpellInput
+    disconnect?: SpellAboutWhereInput | boolean
+    delete?: SpellAboutWhereInput | boolean
+    connect?: SpellAboutWhereUniqueInput
+    update?: XOR<XOR<SpellAboutUpdateToOneWithWhereWithoutParentSpellInput, SpellAboutUpdateWithoutParentSpellInput>, SpellAboutUncheckedUpdateWithoutParentSpellInput>
+  }
+
+  export type SpellAboutUncheckedUpdateOneWithoutParentSpellNestedInput = {
+    create?: XOR<SpellAboutCreateWithoutParentSpellInput, SpellAboutUncheckedCreateWithoutParentSpellInput>
+    connectOrCreate?: SpellAboutCreateOrConnectWithoutParentSpellInput
+    upsert?: SpellAboutUpsertWithoutParentSpellInput
+    disconnect?: SpellAboutWhereInput | boolean
+    delete?: SpellAboutWhereInput | boolean
+    connect?: SpellAboutWhereUniqueInput
+    update?: XOR<XOR<SpellAboutUpdateToOneWithWhereWithoutParentSpellInput, SpellAboutUpdateWithoutParentSpellInput>, SpellAboutUncheckedUpdateWithoutParentSpellInput>
+  }
+
+  export type SpellAboutCreateaugmentsInput = {
+    set: string[]
+  }
+
+  export type SpellAboutCreateupgradesInput = {
+    set: string[]
+  }
+
+  export type SpellCreateNestedOneWithoutAboutContentInput = {
+    create?: XOR<SpellCreateWithoutAboutContentInput, SpellUncheckedCreateWithoutAboutContentInput>
+    connectOrCreate?: SpellCreateOrConnectWithoutAboutContentInput
+    connect?: SpellWhereUniqueInput
+  }
+
+  export type SpellAboutUpdateaugmentsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SpellAboutUpdateupgradesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type SpellUpdateOneRequiredWithoutAboutContentNestedInput = {
+    create?: XOR<SpellCreateWithoutAboutContentInput, SpellUncheckedCreateWithoutAboutContentInput>
+    connectOrCreate?: SpellCreateOrConnectWithoutAboutContentInput
+    upsert?: SpellUpsertWithoutAboutContentInput
+    connect?: SpellWhereUniqueInput
+    update?: XOR<XOR<SpellUpdateToOneWithWhereWithoutAboutContentInput, SpellUpdateWithoutAboutContentInput>, SpellUncheckedUpdateWithoutAboutContentInput>
+  }
+
   export type TierCreateNestedManyWithoutParent_listInput = {
     create?: XOR<TierCreateWithoutParent_listInput, TierUncheckedCreateWithoutParent_listInput> | TierCreateWithoutParent_listInput[] | TierUncheckedCreateWithoutParent_listInput[]
     connectOrCreate?: TierCreateOrConnectWithoutParent_listInput | TierCreateOrConnectWithoutParent_listInput[]
@@ -15629,10 +17151,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type TierUpdateManyWithoutParent_listNestedInput = {
@@ -16004,6 +17522,31 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -16016,17 +17559,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -16084,20 +17616,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -16147,6 +17665,94 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type SpellAboutCreateWithoutParentSpellInput = {
+    introduction: string
+    mageInfo: string
+    augments?: SpellAboutCreateaugmentsInput | string[]
+    upgrades?: SpellAboutCreateupgradesInput | string[]
+    overview: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SpellAboutUncheckedCreateWithoutParentSpellInput = {
+    introduction: string
+    mageInfo: string
+    augments?: SpellAboutCreateaugmentsInput | string[]
+    upgrades?: SpellAboutCreateupgradesInput | string[]
+    overview: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SpellAboutCreateOrConnectWithoutParentSpellInput = {
+    where: SpellAboutWhereUniqueInput
+    create: XOR<SpellAboutCreateWithoutParentSpellInput, SpellAboutUncheckedCreateWithoutParentSpellInput>
+  }
+
+  export type SpellAboutUpsertWithoutParentSpellInput = {
+    update: XOR<SpellAboutUpdateWithoutParentSpellInput, SpellAboutUncheckedUpdateWithoutParentSpellInput>
+    create: XOR<SpellAboutCreateWithoutParentSpellInput, SpellAboutUncheckedCreateWithoutParentSpellInput>
+    where?: SpellAboutWhereInput
+  }
+
+  export type SpellAboutUpdateToOneWithWhereWithoutParentSpellInput = {
+    where?: SpellAboutWhereInput
+    data: XOR<SpellAboutUpdateWithoutParentSpellInput, SpellAboutUncheckedUpdateWithoutParentSpellInput>
+  }
+
+  export type SpellAboutUpdateWithoutParentSpellInput = {
+    introduction?: StringFieldUpdateOperationsInput | string
+    mageInfo?: StringFieldUpdateOperationsInput | string
+    augments?: SpellAboutUpdateaugmentsInput | string[]
+    upgrades?: SpellAboutUpdateupgradesInput | string[]
+    overview?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SpellAboutUncheckedUpdateWithoutParentSpellInput = {
+    introduction?: StringFieldUpdateOperationsInput | string
+    mageInfo?: StringFieldUpdateOperationsInput | string
+    augments?: SpellAboutUpdateaugmentsInput | string[]
+    upgrades?: SpellAboutUpdateupgradesInput | string[]
+    overview?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SpellCreateWithoutAboutContentInput = {
+    name: string
+  }
+
+  export type SpellUncheckedCreateWithoutAboutContentInput = {
+    name: string
+  }
+
+  export type SpellCreateOrConnectWithoutAboutContentInput = {
+    where: SpellWhereUniqueInput
+    create: XOR<SpellCreateWithoutAboutContentInput, SpellUncheckedCreateWithoutAboutContentInput>
+  }
+
+  export type SpellUpsertWithoutAboutContentInput = {
+    update: XOR<SpellUpdateWithoutAboutContentInput, SpellUncheckedUpdateWithoutAboutContentInput>
+    create: XOR<SpellCreateWithoutAboutContentInput, SpellUncheckedCreateWithoutAboutContentInput>
+    where?: SpellWhereInput
+  }
+
+  export type SpellUpdateToOneWithWhereWithoutAboutContentInput = {
+    where?: SpellWhereInput
+    data: XOR<SpellUpdateWithoutAboutContentInput, SpellUncheckedUpdateWithoutAboutContentInput>
+  }
+
+  export type SpellUpdateWithoutAboutContentInput = {
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SpellUncheckedUpdateWithoutAboutContentInput = {
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type TierCreateWithoutParent_listInput = {

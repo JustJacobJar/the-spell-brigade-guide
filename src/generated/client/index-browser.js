@@ -128,6 +128,17 @@ exports.Prisma.SpellScalarFieldEnum = {
   name: 'name'
 };
 
+exports.Prisma.SpellAboutScalarFieldEnum = {
+  spellName: 'spellName',
+  introduction: 'introduction',
+  mageInfo: 'mageInfo',
+  augments: 'augments',
+  upgrades: 'upgrades',
+  overview: 'overview',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.TierlistScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -232,6 +243,7 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   MetaReport: 'MetaReport',
   Spell: 'Spell',
+  SpellAbout: 'SpellAbout',
   Tierlist: 'Tierlist',
   Tier: 'Tier',
   BlogPost: 'BlogPost',

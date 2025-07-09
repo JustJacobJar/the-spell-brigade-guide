@@ -1,10 +1,11 @@
 "use server";
 
 import * as z from "zod/v4";
-import { Tier } from "@/lib/types";
+import { SpellAbout, Tier } from "@/lib/types";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { getAllSpells } from "./fetchActions";
 
 export async function createTierlist(
   tierList: Tier[],
@@ -182,4 +183,77 @@ export async function DeleteBlogPost(id: string) {
     console.log("Blog Deletion error: ", error);
     throw "There was an error uploading to the database";
   }
+}
+
+export async function UpdateSpellAbout(spellName: string, data: SpellAbout) {
+  //Auth user
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    //Not auth to make a list
+    throw "401: Not Authorized";
+  }
+
+  //verify spellName is in the spells_view list
+  const spells = await getAllSpells();
+  const spellList = spells.map((s) => s.name);
+  if (!spellList.includes(spellName)) {
+    //not in there, spell does not exist throw error
+    throw `Input Spell "${spellName}" does not exist!`;
+  }
+
+  //Entry exists?
+  const spellAboutEntry = !!(await prisma.spellAbout.findUnique({
+    where: { spellName: spellName },
+  }));
+
+  //no entry, create one
+  if (!spellAboutEntry) {
+    try {
+      await prisma.spell.update({
+        where: { name: spellName },
+        data: {
+          aboutContent: {
+            create: {
+              introduction: data.intro,
+              mageInfo: data.mageInfo,
+              augments: data.augments,
+              upgrades: data.upgrades,
+              overview: data.overview,
+            },
+          },
+        },
+      });
+      return;
+    } catch (error) {
+      console.log(error);
+      throw (
+        "There was an error creating the about content for spell: " + spellName
+      );
+    }
+  }
+
+  try {
+    prisma.spellAbout.update({
+      where: { spellName: spellName },
+      data: {
+        introduction: data.intro,
+        mageInfo: data.mageInfo,
+        augments: data.augments,
+        upgrades: data.upgrades,
+        overview: data.overview,
+        updatedAt: new Date(),
+      },
+    });
+    return;
+  } catch (error) {
+    console.log(error);
+    throw (
+      "There was an error updating the about content for spell: " + spellName
+    );
+  }
+
+  //Exits, update data
 }

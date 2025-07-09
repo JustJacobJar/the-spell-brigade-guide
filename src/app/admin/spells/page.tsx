@@ -6,7 +6,7 @@ export default async function SpellsPage() {
 
   const spellButtons = () => {
     return spells.map((spell, index) => {
-      return <SpellLink key={index} spellName={spell.name} />;
+      return <SpellLink admin key={index} spellName={spell.name} />;
     });
   };
 
