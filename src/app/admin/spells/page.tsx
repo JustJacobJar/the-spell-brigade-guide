@@ -1,6 +1,7 @@
-"use server";
 import SpellLink from "@/components/SpellLink";
 import { getAllSpells } from "@/server/fetchActions";
+
+export const dynamic = "force-dynamic";
 
 export default async function SpellsPage() {
   const spells = await getAllSpells();

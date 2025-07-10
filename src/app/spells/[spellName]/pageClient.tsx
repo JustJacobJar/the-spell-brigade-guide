@@ -31,7 +31,7 @@ export default function SpellViewPage({ spellName }: { spellName: string }) {
           {/* Title Content */}
           <div>
             <h3 className="text-md">The spell brigade</h3>
-            <h1 className="text-2xl font-bold">Spell_Name</h1>
+            <h1 className="text-2xl font-bold">{spellName}</h1>
             <h3 className="text-xl">Info, Builds and Guides</h3>
           </div>
           {/* Spell Image */}

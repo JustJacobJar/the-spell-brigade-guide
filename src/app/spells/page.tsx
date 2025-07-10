@@ -1,11 +1,11 @@
-"use server";
 import SpellLink from "@/components/SpellLink";
 import { getAllSpells } from "@/server/fetchActions";
+import { Suspense } from "react";
+
+export const dynamic = 'force-dynamic'
 
 export default async function SpellsPage() {
   const spells = await getAllSpells();
-
-  if (spells.length <= 0) return <p>Spell Button List</p>;
 
   const spellButtons = () => {
     return spells.map((spell, index) => {
@@ -14,6 +14,8 @@ export default async function SpellsPage() {
   };
 
   return (
-    <div className="flex max-w-7xl flex-wrap gap-4 p-4">{spellButtons()}</div>
+    <Suspense fallback={<p>LOADING...</p>}>
+      <div className="flex max-w-7xl flex-wrap gap-4 p-4">{spellButtons()}</div>
+    </Suspense>
   );
 }
