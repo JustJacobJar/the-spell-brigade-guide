@@ -1,6 +1,7 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import ImageUnop from "../ImageUnop";
 import { GITSPRITEURL } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 //Custom colour these to the recommended element?
 export function BulletPoint() {
@@ -154,5 +155,95 @@ export function ElementContent({ children, elements }: ElementContentProps) {
         </div>
       </div>
     </div>
+  );
+}
+
+//Function for admin edit page
+export function Toast({
+  state,
+  message,
+  closeFn,
+}: {
+  state: "Success" | "Error";
+  message: string;
+  closeFn: () => void;
+}) {
+  return (
+    <div className="toast toast-top toast-center z-50">
+      <div
+        className={cn(
+          "alert",
+          state === "Success" ? "alert-success" : "alert-error",
+        )}
+      >
+        <span>{message}</span>
+        <button
+          type="button"
+          className="btn btn-ghost btn-error h-fit w-fit p-1"
+          onClick={closeFn}
+        >
+          <svg
+            className="fill-neutral h-4 w-4"
+            viewBox="0 0 384 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+//Function for admin edit page
+export function LiElement({
+  value,
+  index,
+  parentList,
+  parentListFn,
+  fn,
+}: {
+  value: string;
+  index: number;
+  parentList: string[];
+  parentListFn: Dispatch<SetStateAction<string[]>>;
+  fn: (
+    list: string[],
+    listFn: Dispatch<SetStateAction<string[]>>,
+    value: string,
+    index: number,
+  ) => void;
+}) {
+  return (
+    <li>
+      <input
+        className="input"
+        type="text"
+        value={value}
+        onChange={(e) =>
+          fn(parentList, parentListFn, e.currentTarget.value, index)
+        }
+        placeholder="Element name"
+      />
+    </li>
+  );
+}
+
+export function SpellHeader({ spellName }: { spellName: string }) {
+  return (
+    <Section>
+      <div className="bg-primary flex h-32 flex-row place-content-between place-items-center px-16">
+        {/* Title Content */}
+        <div>
+          <h3 className="text-md">The spell brigade</h3>
+          <h1 className="text-2xl font-bold">{spellName}</h1>
+          <h3 className="text-xl">Info, Builds and Guides</h3>
+        </div>
+        {/* Spell Image */}
+        <div className="h-full">
+          <ImageUnop alt="Spell Image" src={GITSPRITEURL("Astral_orbs")} />
+        </div>
+      </div>
+    </Section>
   );
 }

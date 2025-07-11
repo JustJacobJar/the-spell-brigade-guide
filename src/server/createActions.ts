@@ -1,7 +1,7 @@
 "use server";
 
 import * as z from "zod/v4";
-import { SpellAbout, Tier } from "@/lib/types";
+import { SpellAboutInput, SpellBuildInput, Tier } from "@/lib/types";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -185,7 +185,10 @@ export async function DeleteBlogPost(id: string) {
   }
 }
 
-export async function UpdateSpellAbout(spellName: string, data: SpellAbout) {
+export async function UpdateSpellAbout(
+  spellName: string,
+  data: SpellAboutInput,
+) {
   //Auth user
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -235,16 +238,22 @@ export async function UpdateSpellAbout(spellName: string, data: SpellAbout) {
     }
   }
 
+  console.log("Getting data?:", data);
+
   try {
-    prisma.spellAbout.update({
-      where: { spellName: spellName },
+    await prisma.spell.update({
+      where: { name: spellName },
       data: {
-        introduction: data.intro,
-        mageInfo: data.mageInfo,
-        augments: data.augments,
-        upgrades: data.upgrades,
-        overview: data.overview,
-        updatedAt: new Date(),
+        aboutContent: {
+          update: {
+            introduction: data.intro,
+            mageInfo: data.mageInfo,
+            augments: data.augments,
+            upgrades: data.upgrades,
+            overview: data.overview,
+            updatedAt: new Date(),
+          },
+        },
       },
     });
     return;
@@ -252,6 +261,118 @@ export async function UpdateSpellAbout(spellName: string, data: SpellAbout) {
     console.log(error);
     throw (
       "There was an error updating the about content for spell: " + spellName
+    );
+  }
+
+  //Exits, update data
+}
+
+export async function UpdateSpellBuild(
+  spellName: string,
+  data: SpellBuildInput,
+) {
+  //Auth user
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    //Not auth to make a list
+    throw "401: Not Authorized";
+  }
+  console.log("Authed");
+
+  //verify spellName is in the spells_view list
+  const spells = await getAllSpells();
+  const spellList = spells.map((s) => s.name);
+  if (!spellList.includes(spellName)) {
+    //not in there, spell does not exist throw error
+    throw `Input Spell "${spellName}" does not exist!`;
+  }
+
+  console.log("Verified");
+  //Entry exists?
+  const spellBuildEntry = !!(await prisma.spellBuild.findUnique({
+    where: { spellName: spellName },
+  }));
+
+  console.log("exists?");
+  //no entry, create one
+  if (!spellBuildEntry) {
+    try {
+      await prisma.spell.update({
+        where: { name: spellName },
+        data: {
+          buildContent: {
+            create: {
+              augmentNameDps: data.augmentsDps.map((li) => li.name),
+              augmentDescriptionDps: data.augmentsDps.map(
+                (li) => li.description,
+              ),
+              augmentNameSub: data.augmentsSub.map((li) => li.name),
+              augmentDescriptionSub: data.augmentsSub.map(
+                (li) => li.description,
+              ),
+              augmentNameSup: data.augmentsSup.map((li) => li.name),
+              augmentDescriptionSup: data.augmentsSup.map(
+                (li) => li.description,
+              ),
+
+              upgradesDps: data.upgradeDps,
+              upgradesSub: data.upgradeSub,
+              upgradesSup: data.upgradeSup,
+
+              elementsDps: data.elementsDps,
+              elementsSub: data.elementsDps,
+              elementsSup: data.elementsDps,
+            },
+          },
+        },
+      });
+      console.log("created");
+
+      return;
+    } catch (error) {
+      console.log(error);
+      throw (
+        "There was an error creating the data content for spell: " + spellName
+      );
+    }
+  }
+
+  try {
+    await prisma.spell.update({
+      where: { name: spellName },
+      data: {
+        buildContent: {
+          update: {
+            augmentNameDps: data.augmentsDps.map((li) => li.name),
+            augmentDescriptionDps: data.augmentsDps.map((li) => li.description),
+            augmentNameSub: data.augmentsSub.map((li) => li.name),
+            augmentDescriptionSub: data.augmentsSub.map((li) => li.description),
+            augmentNameSup: data.augmentsSup.map((li) => li.name),
+            augmentDescriptionSup: data.augmentsSup.map((li) => li.description),
+
+            upgradesDps: data.upgradeDps,
+            upgradesSub: data.upgradeSub,
+            upgradesSup: data.upgradeSup,
+
+            elementsDps: data.elementsDps,
+            elementsSub: data.elementsDps,
+            elementsSup: data.elementsDps,
+
+            updatedAt: new Date(),
+          },
+        },
+      },
+    });
+    console.log("updated new!:" + spellName);
+
+    return;
+  } catch (error) {
+    console.log(error);
+    throw (
+      "There was an error updating the data content for spell: " + spellName
     );
   }
 

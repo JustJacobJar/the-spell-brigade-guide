@@ -1,10 +1,10 @@
 "use client";
-import { SpellAbout } from "@/generated/client";
 import { Section, SubHeader } from "./SpellsFormatting";
+import { SpellAbout } from "@/generated/client";
 
 export function AboutDisplay({ aboutData }: { aboutData: SpellAbout }) {
   return (
-    <>
+    <div className="flex flex-col gap-8">
       {/* Intro/Mage */}
       <div className="flex w-full flex-row gap-8">
         {/* Intro */}
@@ -47,11 +47,9 @@ export function AboutDisplay({ aboutData }: { aboutData: SpellAbout }) {
             <SubHeader>Overview</SubHeader>
             <p>{aboutData.overview}</p>
           </Section>
-          {/* Divider */}
-          <div className="divider divider-horizontal" />
         </div>
       </Section>
-    </>
+    </div>
   );
 }
 
@@ -96,8 +94,6 @@ export function AboutDisplaySkeleton() {
             <SubHeader>Overview</SubHeader>
             <p className="skeleton h-32 w-full"></p>
           </Section>
-          {/* Divider */}
-          <div className="divider divider-horizontal" />
         </div>
       </Section>
     </>

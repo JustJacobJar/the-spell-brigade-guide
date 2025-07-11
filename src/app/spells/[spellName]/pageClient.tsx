@@ -5,9 +5,14 @@ import {
   AboutDisplaySkeleton,
 } from "@/components/spells/AboutSpell";
 import { BuildDisplay } from "@/components/spells/BuildSpell";
-import { Section, SubHeader } from "@/components/spells/SpellsFormatting";
+import {
+  Section,
+  SpellHeader,
+  SubHeader,
+} from "@/components/spells/SpellsFormatting";
+import { SpellAbout } from "@/generated/client";
 import { useSpellAboutQuery } from "@/lib/Queries";
-import { GITSPRITEURL } from "@/lib/types";
+import { GITSPRITEURL, SpellAboutInput } from "@/lib/types";
 import { Suspense, useState } from "react";
 
 /**
@@ -18,28 +23,24 @@ import { Suspense, useState } from "react";
  * Element Prio 1 - 2 - 3
  * Synergy Spells
  */
-export default function SpellViewPage({ spellName }: { spellName: string }) {
+
+interface SpellViewProps {
+  spellName: string;
+  aboutData: SpellAbout;
+}
+
+export default function SpellViewPage({
+  spellName,
+  aboutData,
+}: SpellViewProps) {
   //fetch data
-  const [aboutData] = useSpellAboutQuery(spellName);
+  // const [aboutData] = useSpellAboutQuery(spellName);
 
   const [view, setView] = useState(0);
 
   return (
     <div className="flex h-full w-full flex-col gap-8 p-2 px-16 outline">
-      <Section>
-        <div className="bg-primary flex h-32 flex-row place-content-between place-items-center px-16">
-          {/* Title Content */}
-          <div>
-            <h3 className="text-md">The spell brigade</h3>
-            <h1 className="text-2xl font-bold">{spellName}</h1>
-            <h3 className="text-xl">Info, Builds and Guides</h3>
-          </div>
-          {/* Spell Image */}
-          <div className="h-full">
-            <ImageUnop alt="Spell Image" src={GITSPRITEURL("Astral_orbs")} />
-          </div>
-        </div>
-      </Section>
+      <SpellHeader spellName={spellName} />
       {/* Update Tracker */}
       <UpdateTracker />
       {/* Modal Buttons */}

@@ -8,6 +8,7 @@ export default async function EditSpellsPage({
   const { spellName } = await params;
 
   //fetch data for that spell
+  //prepopulate data
 
   return (
     <SpellsForm

@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`flex min-h-screen w-screen antialiased`}>
+      <body className={`flex min-h-screen w-full antialiased`}>
         <Providers>
           <SideBar />
           <TopBar />

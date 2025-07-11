@@ -11,7 +11,7 @@ import {
 //Take in build data when made
 export function BuildDisplay() {
   return (
-    <>
+    <div className="flex  flex-col gap-8">
       {/* Quick Recommendations */}
       {/* Augments */}
       <Section>
@@ -127,7 +127,7 @@ export function BuildDisplay() {
           </div>
         </div>
       </Section>
-    </>
+    </div>
   );
 }
 
