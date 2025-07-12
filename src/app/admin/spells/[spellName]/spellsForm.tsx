@@ -3,9 +3,18 @@ import { UpdateTracker } from "@/app/spells/[spellName]/pageClient";
 import AboutSpellForm from "@/components/spells/forms/AboutSpellForm";
 import BuildSpellForm from "@/components/spells/forms/BuildSpellForm";
 import { SpellHeader } from "@/components/spells/SpellsFormatting";
+import { SpellAbout, SpellBuild } from "@/generated/client";
 import { ReactNode, useState } from "react";
 
-export default function SpellsForm({ spellName }: { spellName: string }) {
+export default function SpellsForm({
+  spellName,
+  aboutData,
+  buildData,
+}: {
+  spellName: string;
+  aboutData?: SpellAbout;
+  buildData?: SpellBuild;
+}) {
   //pull in spell name from parent path
   const [view, setView] = useState(0);
 
@@ -45,6 +54,7 @@ export default function SpellsForm({ spellName }: { spellName: string }) {
       {view == 0 && (
         <AboutSpellForm
           spellName={spellName}
+          currentData={aboutData}
           setToast={setToast}
           setToastOpen={setToastOpen}
         />
@@ -52,6 +62,7 @@ export default function SpellsForm({ spellName }: { spellName: string }) {
       {view == 1 && (
         <BuildSpellForm
           spellName={spellName}
+          currentData={buildData}
           setToast={setToast}
           setToastOpen={setToastOpen}
         />

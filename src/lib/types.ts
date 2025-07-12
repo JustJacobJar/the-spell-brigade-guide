@@ -35,6 +35,14 @@ export interface buildAugmentInfo {
   description: string;
 }
 
+export type BaseSpellElement =
+  | "Fire"
+  | "Lightning"
+  | "Acid"
+  | "Ice"
+  | "Dark"
+  | "DEFAULT";
+
 export type SpellElement =
   | "Wildfire"
   | "Thunder"

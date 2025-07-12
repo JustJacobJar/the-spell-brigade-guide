@@ -7,60 +7,117 @@ import {
 import { ArrowDivide, Section, SubHeader, Toast } from "../SpellsFormatting";
 import { ReactNode, useEffect, useState } from "react";
 import { useUpdateSpellBuildMutate } from "@/lib/Queries";
+import { SpellBuild } from "@/generated/client";
 
 export default function BuildSpellForm({
   spellName,
+  currentData,
   setToastOpen,
   setToast,
 }: {
   spellName: string;
+  currentData?: SpellBuild;
   setToastOpen: (value: boolean) => void;
   setToast: (node: ReactNode) => void;
 }) {
-  const [augmentListDPS, setAugmentListDPS] = useState<buildAugmentInfo[]>([
-    { name: "Augment Name", description: "Agument Description" },
-    { name: "Augment Name", description: "Agument Description" },
-    { name: "Augment Name", description: "Agument Description" },
-  ]);
-  const [augmentListSub, setAugmentListSub] = useState<buildAugmentInfo[]>([
-    { name: "Augment Name", description: "Agument Description" },
-    { name: "Augment Name", description: "Agument Description" },
-    { name: "Augment Name", description: "Agument Description" },
-  ]);
-  const [augmentListSup, setAugmentListSup] = useState<buildAugmentInfo[]>([
-    { name: "Augment Name", description: "Agument Description" },
-    { name: "Augment Name", description: "Agument Description" },
-    { name: "Augment Name", description: "Agument Description" },
-  ]);
+  const [augmentListDPS, setAugmentListDPS] = useState<buildAugmentInfo[]>(
+    currentData
+      ? [
+          {
+            name: currentData?.augmentNameDps[0],
+            description: currentData?.augmentDescriptionDps[0],
+          },
+          {
+            name: currentData?.augmentNameDps[1],
+            description: currentData?.augmentDescriptionDps[1],
+          },
+          {
+            name: currentData?.augmentNameDps[2],
+            description: currentData?.augmentDescriptionDps[2],
+          },
+        ]
+      : [
+          { name: "Augment Name", description: "Agument Description" },
+          { name: "Augment Name", description: "Agument Description" },
+          { name: "Augment Name", description: "Agument Description" },
+        ],
+  );
+  const [augmentListSub, setAugmentListSub] = useState<buildAugmentInfo[]>(
+    currentData
+      ? [
+          {
+            name: currentData?.augmentNameSub[0],
+            description: currentData?.augmentDescriptionSub[0],
+          },
+          {
+            name: currentData?.augmentNameSub[1],
+            description: currentData?.augmentDescriptionSub[1],
+          },
+          {
+            name: currentData?.augmentNameSub[2],
+            description: currentData?.augmentDescriptionSub[2],
+          },
+        ]
+      : [
+          { name: "Augment Name", description: "Agument Description" },
+          { name: "Augment Name", description: "Agument Description" },
+          { name: "Augment Name", description: "Agument Description" },
+        ],
+  );
+  const [augmentListSup, setAugmentListSup] = useState<buildAugmentInfo[]>(
+    currentData
+      ? [
+          {
+            name: currentData?.augmentNameSup[0],
+            description: currentData?.augmentDescriptionSup[0],
+          },
+          {
+            name: currentData?.augmentNameSup[1],
+            description: currentData?.augmentDescriptionSup[1],
+          },
+          {
+            name: currentData?.augmentNameSup[2],
+            description: currentData?.augmentDescriptionSup[2],
+          },
+        ]
+      : [
+          { name: "Augment Name", description: "Agument Description" },
+          { name: "Augment Name", description: "Agument Description" },
+          { name: "Augment Name", description: "Agument Description" },
+        ],
+  );
 
-  const [upgradeListDPS, setUpgradeListDPS] = useState<string[]>([
-    "Upgrade Name",
-    "Upgrade Name1",
-    "Upgrade Name2",
-  ]);
-  const [upgradeListSub, setUpgradeListSub] = useState<string[]>([
-    "Upgrade Name",
-    "Upgrade Name1",
-    "Upgrade Name2",
-  ]);
-  const [upgradeListSup, setUpgradeListSup] = useState<string[]>([
-    "Upgrade Name",
-    "Upgrade Name1",
-    "Upgrade Name2",
-  ]);
+  const [upgradeListDPS, setUpgradeListDPS] = useState<string[]>(
+    currentData?.upgradesDps ?? [
+      "Upgrade Name",
+      "Upgrade Name1",
+      "Upgrade Name2",
+    ],
+  );
+  const [upgradeListSub, setUpgradeListSub] = useState<string[]>(
+    currentData?.upgradesSub ?? [
+      "Upgrade Name",
+      "Upgrade Name1",
+      "Upgrade Name2",
+    ],
+  );
+  const [upgradeListSup, setUpgradeListSup] = useState<string[]>(
+    currentData?.upgradesSup ?? [
+      "Upgrade Name",
+      "Upgrade Name1",
+      "Upgrade Name2",
+    ],
+  );
 
-  const [elementsDPS, setElementsDPS] = useState<SpellElement[]>([
-    "DEFAULT",
-    "DEFAULT",
-  ]);
-  const [elementsSub, setElementsSub] = useState<SpellElement[]>([
-    "DEFAULT",
-    "DEFAULT",
-  ]);
-  const [elementsSup, setElementsSup] = useState<SpellElement[]>([
-    "DEFAULT",
-    "DEFAULT",
-  ]);
+  const [elementsDPS, setElementsDPS] = useState<SpellElement[]>(
+    (currentData?.elementsDps as SpellElement[]) ?? ["DEFAULT", "DEFAULT"],
+  );
+  const [elementsSub, setElementsSub] = useState<SpellElement[]>(
+    (currentData?.elementsSub as SpellElement[]) ?? ["DEFAULT", "DEFAULT"],
+  );
+  const [elementsSup, setElementsSup] = useState<SpellElement[]>(
+    (currentData?.elementsSup as SpellElement[]) ?? ["DEFAULT", "DEFAULT"],
+  );
 
   const [mutateBuild] = useUpdateSpellBuildMutate();
 
@@ -266,8 +323,8 @@ export default function BuildSpellForm({
       </Section>
       <div className="flex place-content-end py-4">
         <button
-        type="button"
-        onClick={handleBuildSubmit}
+          type="button"
+          onClick={handleBuildSubmit}
           disabled={mutateBuild.isPending}
           className="btn btn-success btn-wide"
         >

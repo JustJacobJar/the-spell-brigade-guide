@@ -1,19 +1,13 @@
 "use client";
-import ImageUnop from "@/components/ImageUnop";
-import {
-  AboutDisplay,
-  AboutDisplaySkeleton,
-} from "@/components/spells/AboutSpell";
+import { AboutDisplay } from "@/components/spells/AboutSpell";
 import { BuildDisplay } from "@/components/spells/BuildSpell";
 import {
   Section,
   SpellHeader,
   SubHeader,
 } from "@/components/spells/SpellsFormatting";
-import { SpellAbout } from "@/generated/client";
-import { useSpellAboutQuery } from "@/lib/Queries";
-import { GITSPRITEURL, SpellAboutInput } from "@/lib/types";
-import { Suspense, useState } from "react";
+import { SpellAbout, SpellBuild } from "@/generated/client";
+import { useState } from "react";
 
 /**
  * Quick overview
@@ -26,12 +20,14 @@ import { Suspense, useState } from "react";
 
 interface SpellViewProps {
   spellName: string;
-  aboutData: SpellAbout;
+  aboutData?: SpellAbout;
+  buildData?: SpellBuild;
 }
 
 export default function SpellViewPage({
   spellName,
   aboutData,
+  buildData,
 }: SpellViewProps) {
   //fetch data
   // const [aboutData] = useSpellAboutQuery(spellName);
@@ -65,12 +61,12 @@ export default function SpellViewPage({
         </button>
       </div>
       {view == 0 && (
-        <Suspense fallback={<AboutDisplaySkeleton />}>
-          <AboutDisplay aboutData={aboutData} />
-        </Suspense>
+        // <Suspense fallback={<AboutDisplaySkeleton />}>
+        <AboutDisplay aboutData={aboutData} />
+        // </Suspense>
       )}
       {/* {view == 0 && <AboutDisplay aboutData={aboutData} />} */}
-      {view == 1 && <BuildDisplay />}
+      {view == 1 && <BuildDisplay buildData={buildData} />}
     </div>
   );
 }

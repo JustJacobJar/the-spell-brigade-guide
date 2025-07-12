@@ -2,7 +2,20 @@
 import { Section, SubHeader } from "./SpellsFormatting";
 import { SpellAbout } from "@/generated/client";
 
-export function AboutDisplay({ aboutData }: { aboutData: SpellAbout }) {
+export function AboutDisplay({ aboutData }: { aboutData?: SpellAbout }) {
+  if (!aboutData) {
+    aboutData = {
+      introduction: "No data",
+      mageInfo: "No data",
+      augments: ["No", "Data"],
+      upgrades: ["No", "Data"],
+      overview: "No data",
+      spellName: "No Data",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+  }
+
   return (
     <div className="flex flex-col gap-8">
       {/* Intro/Mage */}

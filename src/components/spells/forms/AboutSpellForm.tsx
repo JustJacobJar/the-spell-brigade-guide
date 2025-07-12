@@ -8,21 +8,26 @@ import {
 } from "react";
 import { LiElement, Section, SubHeader, Toast } from "../SpellsFormatting";
 import { SpellAboutInput } from "@/lib/types";
+import { SpellAbout } from "@/generated/client";
 
 export default function AboutSpellForm({
   spellName,
+  currentData,
   setToastOpen,
   setToast,
 }: {
   spellName: string;
+  currentData?: SpellAbout;
   setToastOpen: (value: boolean) => void;
   setToast: (node: ReactNode) => void;
 }) {
-  const [intro, setIntro] = useState("");
-  const [mage, setMage] = useState("");
-  const [augmentList, setAugmentList] = useState([""]);
-  const [upgradeList, setUpgradeList] = useState([""]);
-  const [overview, setOverview] = useState("");
+  const [intro, setIntro] = useState(
+    currentData?.introduction ?? "Spell Intro",
+  );
+  const [mage, setMage] = useState(currentData?.mageInfo ?? "Mage Info");
+  const [augmentList, setAugmentList] = useState(currentData?.augments ?? [""]);
+  const [upgradeList, setUpgradeList] = useState(currentData?.upgrades ?? [""]);
+  const [overview, setOverview] = useState(currentData?.overview ?? "");
   const [mutateAbout] = useUpdateSpellAboutMutate();
 
   useEffect(() => {

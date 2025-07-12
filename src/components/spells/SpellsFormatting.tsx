@@ -1,7 +1,16 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import ImageUnop from "../ImageUnop";
-import { GITSPRITEURL } from "@/lib/types";
+import { BaseSpellElement, GITSPRITEURL, SpellElement } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import {
+  acid,
+  dark,
+  fire,
+  ice,
+  lightning,
+  plus,
+  unknown,
+} from "../ElementIcons";
 
 //Custom colour these to the recommended element?
 export function BulletPoint() {
@@ -140,22 +149,110 @@ interface ElementContentProps {
 }
 
 export function ElementContent({ children, elements }: ElementContentProps) {
+  //work out which picture to use
+
   return (
     <div className="card bg-base-300 overflow-clip">
       {children}
       <div className="flex flex-row p-4">
-        <div className="flex size-fit flex-col">
-          <ImageUnop alt="Spell Image" src={GITSPRITEURL("Astral_orbs")} />
-          <label className="place-self-center">{elements[0]}</label>
-        </div>
+        <ElementIcon element={elements[0]} />
         <ArrowDivideHorizontal />
-        <div className="flex size-fit flex-col">
-          <ImageUnop alt="Spell Image" src={GITSPRITEURL("Astral_orbs")} />
-          <label className="place-self-center">{elements[1]}</label>
-        </div>
+        <ElementIcon element={elements[1]} />
       </div>
     </div>
   );
+}
+
+function ElementIcon({ element }: { element: string }) {
+  const baseElement = elementToBase(element as SpellElement);
+  const element1 = baseElementIcon(baseElement[0]);
+  const element2 = baseElementIcon(baseElement[1]);
+  return (
+    <div className="flex size-fit flex-col gap-4">
+      <label className="place-self-center text-2xl">{element}</label>
+      <div className="grid aspect-square w-full grid-cols-[1fr_.5fr_1fr] grid-rows-[1fr_.5fr_1fr] p-2">
+        <div>{element1}</div>
+        <div className="col-start-2 row-start-2">{plus}</div>
+        <div className="col-start-3 row-start-3">{element2}</div>
+      </div>
+    </div>
+  );
+}
+
+function elementToBase(element: SpellElement) {
+  switch (element) {
+    case "Wildfire": {
+      return ["Fire", "Fire"] as BaseSpellElement[];
+    }
+    case "Thunder": {
+      return ["Lightning", "Lightning"] as BaseSpellElement[];
+    }
+    case "Venom": {
+      return ["Acid", "Acid"] as BaseSpellElement[];
+    }
+    case "Frost": {
+      return ["Ice", "Ice"] as BaseSpellElement[];
+    }
+    case "Void": {
+      return ["Dark", "Dark"] as BaseSpellElement[];
+    }
+    case "Plasma": {
+      return ["Fire", "Lightning"] as BaseSpellElement[];
+    }
+    case "Corrosion": {
+      return ["Fire", "Acid"] as BaseSpellElement[];
+    }
+    case "Coldfire": {
+      return ["Fire", "Ice"] as BaseSpellElement[];
+    }
+    case "Hellfire": {
+      return ["Fire", "Dark"] as BaseSpellElement[];
+    }
+    case "Flux": {
+      return ["Lightning", "Acid"] as BaseSpellElement[];
+    }
+    case "White Lightning": {
+      return ["Lightning", "Ice"] as BaseSpellElement[];
+    }
+    case "Blackbolt": {
+      return ["Lightning", "Dark"] as BaseSpellElement[];
+    }
+    case "Frostbite": {
+      return ["Ice", "Acid"] as BaseSpellElement[];
+    }
+    case "Blight": {
+      return ["Dark", "Acid"] as BaseSpellElement[];
+    }
+    case "Frostbite": {
+      return ["Dark", "Ice"] as BaseSpellElement[];
+    }
+    default: {
+      return ["DEFAULT", "DEFAULT"] as BaseSpellElement[];
+    }
+  }
+}
+
+function baseElementIcon(element: BaseSpellElement) {
+  switch (element) {
+    case "Fire": {
+      return fire;
+    }
+    case "Lightning": {
+      return lightning;
+    }
+    case "Acid": {
+      return acid;
+    }
+    case "Ice": {
+      return ice;
+    }
+    case "Dark": {
+      return dark;
+    }
+    default: {
+      return unknown;
+    }
+  }
 }
 
 //Function for admin edit page
