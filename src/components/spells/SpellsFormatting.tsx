@@ -1,6 +1,16 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import ImageUnop from "../ImageUnop";
-import { GITSPRITEURL } from "@/lib/types";
+import { BaseSpellElement, GITSPRITEURL, SpellElement } from "@/lib/types";
+import { cn } from "@/lib/utils";
+import {
+  acid,
+  dark,
+  fire,
+  ice,
+  lightning,
+  plus,
+  unknown,
+} from "../ElementIcons";
 
 //Custom colour these to the recommended element?
 export function BulletPoint() {
@@ -139,20 +149,204 @@ interface ElementContentProps {
 }
 
 export function ElementContent({ children, elements }: ElementContentProps) {
+  //work out which picture to use
+
   return (
     <div className="card bg-base-300 overflow-clip">
       {children}
       <div className="flex flex-row p-4">
-        <div className="flex size-fit flex-col">
-          <ImageUnop alt="Spell Image" src={GITSPRITEURL("Astral_orbs")} />
-          <label className="place-self-center">{elements[0]}</label>
-        </div>
+        <ElementIcon element={elements[0]} />
         <ArrowDivideHorizontal />
-        <div className="flex size-fit flex-col">
-          <ImageUnop alt="Spell Image" src={GITSPRITEURL("Astral_orbs")} />
-          <label className="place-self-center">{elements[1]}</label>
-        </div>
+        <ElementIcon element={elements[1]} />
       </div>
     </div>
+  );
+}
+
+function ElementIcon({ element }: { element: string }) {
+  const baseElement = elementToBase(element as SpellElement);
+  const element1 = baseElementIcon(baseElement[0]);
+  const element2 = baseElementIcon(baseElement[1]);
+  return (
+    <div className="flex size-fit flex-col gap-4">
+      <label className="place-self-center text-2xl">{element}</label>
+      <div className="grid aspect-square w-full grid-cols-[1fr_.5fr_1fr] grid-rows-[1fr_.5fr_1fr] p-2">
+        <div>{element1}</div>
+        <div className="col-start-2 row-start-2">{plus}</div>
+        <div className="col-start-3 row-start-3">{element2}</div>
+      </div>
+    </div>
+  );
+}
+
+function elementToBase(element: SpellElement) {
+  switch (element) {
+    case "Wildfire": {
+      return ["Fire", "Fire"] as BaseSpellElement[];
+    }
+    case "Thunder": {
+      return ["Lightning", "Lightning"] as BaseSpellElement[];
+    }
+    case "Venom": {
+      return ["Acid", "Acid"] as BaseSpellElement[];
+    }
+    case "Frost": {
+      return ["Ice", "Ice"] as BaseSpellElement[];
+    }
+    case "Void": {
+      return ["Dark", "Dark"] as BaseSpellElement[];
+    }
+    case "Plasma": {
+      return ["Fire", "Lightning"] as BaseSpellElement[];
+    }
+    case "Corrosion": {
+      return ["Fire", "Acid"] as BaseSpellElement[];
+    }
+    case "Coldfire": {
+      return ["Fire", "Ice"] as BaseSpellElement[];
+    }
+    case "Hellfire": {
+      return ["Fire", "Dark"] as BaseSpellElement[];
+    }
+    case "Flux": {
+      return ["Lightning", "Acid"] as BaseSpellElement[];
+    }
+    case "White Lightning": {
+      return ["Lightning", "Ice"] as BaseSpellElement[];
+    }
+    case "Blackbolt": {
+      return ["Lightning", "Dark"] as BaseSpellElement[];
+    }
+    case "Frostbite": {
+      return ["Ice", "Acid"] as BaseSpellElement[];
+    }
+    case "Blight": {
+      return ["Dark", "Acid"] as BaseSpellElement[];
+    }
+    case "Frostbite": {
+      return ["Dark", "Ice"] as BaseSpellElement[];
+    }
+    default: {
+      return ["DEFAULT", "DEFAULT"] as BaseSpellElement[];
+    }
+  }
+}
+
+function baseElementIcon(element: BaseSpellElement) {
+  switch (element) {
+    case "Fire": {
+      return fire;
+    }
+    case "Lightning": {
+      return lightning;
+    }
+    case "Acid": {
+      return acid;
+    }
+    case "Ice": {
+      return ice;
+    }
+    case "Dark": {
+      return dark;
+    }
+    default: {
+      return unknown;
+    }
+  }
+}
+
+//Function for admin edit page
+export function Toast({
+  state,
+  message,
+  closeFn,
+}: {
+  state: "Success" | "Error";
+  message: string;
+  closeFn: () => void;
+}) {
+  return (
+    <div className="toast toast-top toast-center z-50">
+      <div
+        className={cn(
+          "alert",
+          state === "Success" ? "alert-success" : "alert-error",
+        )}
+      >
+        <span>{message}</span>
+        <button
+          type="button"
+          className="btn btn-ghost btn-error h-fit w-fit p-1"
+          onClick={closeFn}
+        >
+          <svg
+            className="fill-neutral h-4 w-4"
+            viewBox="0 0 384 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+//Function for admin edit page
+export function LiElement({
+  value,
+  index,
+  parentList,
+  parentListFn,
+  fn,
+}: {
+  value: string;
+  index: number;
+  parentList: string[];
+  parentListFn: Dispatch<SetStateAction<string[]>>;
+  fn: (
+    list: string[],
+    listFn: Dispatch<SetStateAction<string[]>>,
+    value: string,
+    index: number,
+  ) => void;
+}) {
+  return (
+    <li>
+      <input
+        className="input"
+        type="text"
+        value={value}
+        onChange={(e) =>
+          fn(parentList, parentListFn, e.currentTarget.value, index)
+        }
+        placeholder="Element name"
+      />
+    </li>
+  );
+}
+
+export function SpellHeader({ spellName }: { spellName: string }) {
+  return (
+    <Section>
+      <div className={`relative flex h-32`}>
+        {/* Spell Image */}
+        <div className="z-10 flex h-full w-full flex-row place-items-center md:px-4">
+          <div className="aspect-square h-full p-2">
+            <ImageUnop alt="Spell Image" src={GITSPRITEURL(spellName)} />
+          </div>
+          {/* Title Content */}
+          <div>
+            <h3 className="text-md">The spell brigade</h3>
+            <h1 className="text-2xl font-bold">
+              {spellName.replace("_", " ")}
+            </h1>
+            <h3 className="text-xl">Info, Builds and Reviews</h3>
+          </div>
+        </div>
+        {/* Background */}
+        <div className="absolute z-0 h-full w-full bg-[url(/TheSpellBrigade_Background_3840x2160.webp)] bg-cover bg-center opacity-90" />
+      </div>
+    </Section>
   );
 }

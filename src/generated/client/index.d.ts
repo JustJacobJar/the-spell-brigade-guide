@@ -29,6 +29,11 @@ export type Spell = $Result.DefaultSelection<Prisma.$SpellPayload>
  */
 export type SpellAbout = $Result.DefaultSelection<Prisma.$SpellAboutPayload>
 /**
+ * Model SpellBuild
+ * 
+ */
+export type SpellBuild = $Result.DefaultSelection<Prisma.$SpellBuildPayload>
+/**
  * Model Tierlist
  * 
  */
@@ -80,8 +85,8 @@ export type SpellsView = $Result.DefaultSelection<Prisma.$SpellsViewPayload>
 export namespace $Enums {
   export const Role: {
   USER: 'USER',
-  CURATOR: 'CURATOR',
-  ADMIN: 'ADMIN'
+  ADMIN: 'ADMIN',
+  CURATOR: 'CURATOR'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]
@@ -246,6 +251,16 @@ export class PrismaClient<
     * ```
     */
   get spellAbout(): Prisma.SpellAboutDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.spellBuild`: Exposes CRUD operations for the **SpellBuild** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SpellBuilds
+    * const spellBuilds = await prisma.spellBuild.findMany()
+    * ```
+    */
+  get spellBuild(): Prisma.SpellBuildDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.tierlist`: Exposes CRUD operations for the **Tierlist** model.
@@ -779,6 +794,7 @@ export namespace Prisma {
     MetaReport: 'MetaReport',
     Spell: 'Spell',
     SpellAbout: 'SpellAbout',
+    SpellBuild: 'SpellBuild',
     Tierlist: 'Tierlist',
     Tier: 'Tier',
     BlogPost: 'BlogPost',
@@ -806,7 +822,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "metaReport" | "spell" | "spellAbout" | "tierlist" | "tier" | "blogPost" | "blogContent" | "verification" | "user" | "session" | "account" | "spellsView"
+      modelProps: "metaReport" | "spell" | "spellAbout" | "spellBuild" | "tierlist" | "tier" | "blogPost" | "blogContent" | "verification" | "user" | "session" | "account" | "spellsView"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1029,6 +1045,80 @@ export namespace Prisma {
           count: {
             args: Prisma.SpellAboutCountArgs<ExtArgs>
             result: $Utils.Optional<SpellAboutCountAggregateOutputType> | number
+          }
+        }
+      }
+      SpellBuild: {
+        payload: Prisma.$SpellBuildPayload<ExtArgs>
+        fields: Prisma.SpellBuildFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SpellBuildFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellBuildPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SpellBuildFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellBuildPayload>
+          }
+          findFirst: {
+            args: Prisma.SpellBuildFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellBuildPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SpellBuildFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellBuildPayload>
+          }
+          findMany: {
+            args: Prisma.SpellBuildFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellBuildPayload>[]
+          }
+          create: {
+            args: Prisma.SpellBuildCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellBuildPayload>
+          }
+          createMany: {
+            args: Prisma.SpellBuildCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SpellBuildCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellBuildPayload>[]
+          }
+          delete: {
+            args: Prisma.SpellBuildDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellBuildPayload>
+          }
+          update: {
+            args: Prisma.SpellBuildUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellBuildPayload>
+          }
+          deleteMany: {
+            args: Prisma.SpellBuildDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SpellBuildUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SpellBuildUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellBuildPayload>[]
+          }
+          upsert: {
+            args: Prisma.SpellBuildUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SpellBuildPayload>
+          }
+          aggregate: {
+            args: Prisma.SpellBuildAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSpellBuild>
+          }
+          groupBy: {
+            args: Prisma.SpellBuildGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SpellBuildGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SpellBuildCountArgs<ExtArgs>
+            result: $Utils.Optional<SpellBuildCountAggregateOutputType> | number
           }
         }
       }
@@ -1789,6 +1879,7 @@ export namespace Prisma {
     metaReport?: MetaReportOmit
     spell?: SpellOmit
     spellAbout?: SpellAboutOmit
+    spellBuild?: SpellBuildOmit
     tierlist?: TierlistOmit
     tier?: TierOmit
     blogPost?: BlogPostOmit
@@ -1923,16 +2014,16 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    sessions: number
     accounts: number
     blogs: number
+    sessions: number
     tierLists: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     blogs?: boolean | UserCountOutputTypeCountBlogsArgs
+    sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     tierLists?: boolean | UserCountOutputTypeCountTierListsArgs
   }
 
@@ -1950,13 +2041,6 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SessionWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
   export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AccountWhereInput
   }
@@ -1966,6 +2050,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountBlogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BlogPostWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionWhereInput
   }
 
   /**
@@ -3056,6 +3147,7 @@ export namespace Prisma {
   export type SpellSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     name?: boolean
     aboutContent?: boolean | Spell$aboutContentArgs<ExtArgs>
+    buildContent?: boolean | Spell$buildContentArgs<ExtArgs>
   }, ExtArgs["result"]["spell"]>
 
   export type SpellSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3073,6 +3165,7 @@ export namespace Prisma {
   export type SpellOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"name", ExtArgs["result"]["spell"]>
   export type SpellInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     aboutContent?: boolean | Spell$aboutContentArgs<ExtArgs>
+    buildContent?: boolean | Spell$buildContentArgs<ExtArgs>
   }
   export type SpellIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
   export type SpellIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3081,6 +3174,7 @@ export namespace Prisma {
     name: "Spell"
     objects: {
       aboutContent: Prisma.$SpellAboutPayload<ExtArgs> | null
+      buildContent: Prisma.$SpellBuildPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       name: string
@@ -3479,6 +3573,7 @@ export namespace Prisma {
   export interface Prisma__SpellClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     aboutContent<T extends Spell$aboutContentArgs<ExtArgs> = {}>(args?: Subset<T, Spell$aboutContentArgs<ExtArgs>>): Prisma__SpellAboutClient<$Result.GetResult<Prisma.$SpellAboutPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    buildContent<T extends Spell$buildContentArgs<ExtArgs> = {}>(args?: Subset<T, Spell$buildContentArgs<ExtArgs>>): Prisma__SpellBuildClient<$Result.GetResult<Prisma.$SpellBuildPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3913,6 +4008,25 @@ export namespace Prisma {
      */
     include?: SpellAboutInclude<ExtArgs> | null
     where?: SpellAboutWhereInput
+  }
+
+  /**
+   * Spell.buildContent
+   */
+  export type Spell$buildContentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellBuild
+     */
+    select?: SpellBuildSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellBuild
+     */
+    omit?: SpellBuildOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellBuildInclude<ExtArgs> | null
+    where?: SpellBuildWhereInput
   }
 
   /**
@@ -5020,6 +5134,1146 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SpellAboutInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SpellBuild
+   */
+
+  export type AggregateSpellBuild = {
+    _count: SpellBuildCountAggregateOutputType | null
+    _min: SpellBuildMinAggregateOutputType | null
+    _max: SpellBuildMaxAggregateOutputType | null
+  }
+
+  export type SpellBuildMinAggregateOutputType = {
+    spellName: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SpellBuildMaxAggregateOutputType = {
+    spellName: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SpellBuildCountAggregateOutputType = {
+    spellName: number
+    augmentNameDps: number
+    augmentDescriptionDps: number
+    augmentNameSub: number
+    augmentDescriptionSub: number
+    augmentNameSup: number
+    augmentDescriptionSup: number
+    upgradesDps: number
+    upgradesSub: number
+    upgradesSup: number
+    elementsDps: number
+    elementsSub: number
+    elementsSup: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SpellBuildMinAggregateInputType = {
+    spellName?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SpellBuildMaxAggregateInputType = {
+    spellName?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SpellBuildCountAggregateInputType = {
+    spellName?: true
+    augmentNameDps?: true
+    augmentDescriptionDps?: true
+    augmentNameSub?: true
+    augmentDescriptionSub?: true
+    augmentNameSup?: true
+    augmentDescriptionSup?: true
+    upgradesDps?: true
+    upgradesSub?: true
+    upgradesSup?: true
+    elementsDps?: true
+    elementsSub?: true
+    elementsSup?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SpellBuildAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SpellBuild to aggregate.
+     */
+    where?: SpellBuildWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SpellBuilds to fetch.
+     */
+    orderBy?: SpellBuildOrderByWithRelationInput | SpellBuildOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SpellBuildWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SpellBuilds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SpellBuilds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SpellBuilds
+    **/
+    _count?: true | SpellBuildCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SpellBuildMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SpellBuildMaxAggregateInputType
+  }
+
+  export type GetSpellBuildAggregateType<T extends SpellBuildAggregateArgs> = {
+        [P in keyof T & keyof AggregateSpellBuild]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSpellBuild[P]>
+      : GetScalarType<T[P], AggregateSpellBuild[P]>
+  }
+
+
+
+
+  export type SpellBuildGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SpellBuildWhereInput
+    orderBy?: SpellBuildOrderByWithAggregationInput | SpellBuildOrderByWithAggregationInput[]
+    by: SpellBuildScalarFieldEnum[] | SpellBuildScalarFieldEnum
+    having?: SpellBuildScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SpellBuildCountAggregateInputType | true
+    _min?: SpellBuildMinAggregateInputType
+    _max?: SpellBuildMaxAggregateInputType
+  }
+
+  export type SpellBuildGroupByOutputType = {
+    spellName: string
+    augmentNameDps: string[]
+    augmentDescriptionDps: string[]
+    augmentNameSub: string[]
+    augmentDescriptionSub: string[]
+    augmentNameSup: string[]
+    augmentDescriptionSup: string[]
+    upgradesDps: string[]
+    upgradesSub: string[]
+    upgradesSup: string[]
+    elementsDps: string[]
+    elementsSub: string[]
+    elementsSup: string[]
+    createdAt: Date
+    updatedAt: Date
+    _count: SpellBuildCountAggregateOutputType | null
+    _min: SpellBuildMinAggregateOutputType | null
+    _max: SpellBuildMaxAggregateOutputType | null
+  }
+
+  type GetSpellBuildGroupByPayload<T extends SpellBuildGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SpellBuildGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SpellBuildGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SpellBuildGroupByOutputType[P]>
+            : GetScalarType<T[P], SpellBuildGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SpellBuildSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    spellName?: boolean
+    augmentNameDps?: boolean
+    augmentDescriptionDps?: boolean
+    augmentNameSub?: boolean
+    augmentDescriptionSub?: boolean
+    augmentNameSup?: boolean
+    augmentDescriptionSup?: boolean
+    upgradesDps?: boolean
+    upgradesSub?: boolean
+    upgradesSup?: boolean
+    elementsDps?: boolean
+    elementsSub?: boolean
+    elementsSup?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    parentSpell?: boolean | SpellDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["spellBuild"]>
+
+  export type SpellBuildSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    spellName?: boolean
+    augmentNameDps?: boolean
+    augmentDescriptionDps?: boolean
+    augmentNameSub?: boolean
+    augmentDescriptionSub?: boolean
+    augmentNameSup?: boolean
+    augmentDescriptionSup?: boolean
+    upgradesDps?: boolean
+    upgradesSub?: boolean
+    upgradesSup?: boolean
+    elementsDps?: boolean
+    elementsSub?: boolean
+    elementsSup?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    parentSpell?: boolean | SpellDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["spellBuild"]>
+
+  export type SpellBuildSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    spellName?: boolean
+    augmentNameDps?: boolean
+    augmentDescriptionDps?: boolean
+    augmentNameSub?: boolean
+    augmentDescriptionSub?: boolean
+    augmentNameSup?: boolean
+    augmentDescriptionSup?: boolean
+    upgradesDps?: boolean
+    upgradesSub?: boolean
+    upgradesSup?: boolean
+    elementsDps?: boolean
+    elementsSub?: boolean
+    elementsSup?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    parentSpell?: boolean | SpellDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["spellBuild"]>
+
+  export type SpellBuildSelectScalar = {
+    spellName?: boolean
+    augmentNameDps?: boolean
+    augmentDescriptionDps?: boolean
+    augmentNameSub?: boolean
+    augmentDescriptionSub?: boolean
+    augmentNameSup?: boolean
+    augmentDescriptionSup?: boolean
+    upgradesDps?: boolean
+    upgradesSub?: boolean
+    upgradesSup?: boolean
+    elementsDps?: boolean
+    elementsSub?: boolean
+    elementsSup?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SpellBuildOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"spellName" | "augmentNameDps" | "augmentDescriptionDps" | "augmentNameSub" | "augmentDescriptionSub" | "augmentNameSup" | "augmentDescriptionSup" | "upgradesDps" | "upgradesSub" | "upgradesSup" | "elementsDps" | "elementsSub" | "elementsSup" | "createdAt" | "updatedAt", ExtArgs["result"]["spellBuild"]>
+  export type SpellBuildInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parentSpell?: boolean | SpellDefaultArgs<ExtArgs>
+  }
+  export type SpellBuildIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parentSpell?: boolean | SpellDefaultArgs<ExtArgs>
+  }
+  export type SpellBuildIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parentSpell?: boolean | SpellDefaultArgs<ExtArgs>
+  }
+
+  export type $SpellBuildPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SpellBuild"
+    objects: {
+      parentSpell: Prisma.$SpellPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      spellName: string
+      augmentNameDps: string[]
+      augmentDescriptionDps: string[]
+      augmentNameSub: string[]
+      augmentDescriptionSub: string[]
+      augmentNameSup: string[]
+      augmentDescriptionSup: string[]
+      upgradesDps: string[]
+      upgradesSub: string[]
+      upgradesSup: string[]
+      elementsDps: string[]
+      elementsSub: string[]
+      elementsSup: string[]
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["spellBuild"]>
+    composites: {}
+  }
+
+  type SpellBuildGetPayload<S extends boolean | null | undefined | SpellBuildDefaultArgs> = $Result.GetResult<Prisma.$SpellBuildPayload, S>
+
+  type SpellBuildCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SpellBuildFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SpellBuildCountAggregateInputType | true
+    }
+
+  export interface SpellBuildDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SpellBuild'], meta: { name: 'SpellBuild' } }
+    /**
+     * Find zero or one SpellBuild that matches the filter.
+     * @param {SpellBuildFindUniqueArgs} args - Arguments to find a SpellBuild
+     * @example
+     * // Get one SpellBuild
+     * const spellBuild = await prisma.spellBuild.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SpellBuildFindUniqueArgs>(args: SelectSubset<T, SpellBuildFindUniqueArgs<ExtArgs>>): Prisma__SpellBuildClient<$Result.GetResult<Prisma.$SpellBuildPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SpellBuild that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SpellBuildFindUniqueOrThrowArgs} args - Arguments to find a SpellBuild
+     * @example
+     * // Get one SpellBuild
+     * const spellBuild = await prisma.spellBuild.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SpellBuildFindUniqueOrThrowArgs>(args: SelectSubset<T, SpellBuildFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SpellBuildClient<$Result.GetResult<Prisma.$SpellBuildPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SpellBuild that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpellBuildFindFirstArgs} args - Arguments to find a SpellBuild
+     * @example
+     * // Get one SpellBuild
+     * const spellBuild = await prisma.spellBuild.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SpellBuildFindFirstArgs>(args?: SelectSubset<T, SpellBuildFindFirstArgs<ExtArgs>>): Prisma__SpellBuildClient<$Result.GetResult<Prisma.$SpellBuildPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SpellBuild that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpellBuildFindFirstOrThrowArgs} args - Arguments to find a SpellBuild
+     * @example
+     * // Get one SpellBuild
+     * const spellBuild = await prisma.spellBuild.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SpellBuildFindFirstOrThrowArgs>(args?: SelectSubset<T, SpellBuildFindFirstOrThrowArgs<ExtArgs>>): Prisma__SpellBuildClient<$Result.GetResult<Prisma.$SpellBuildPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SpellBuilds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpellBuildFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SpellBuilds
+     * const spellBuilds = await prisma.spellBuild.findMany()
+     * 
+     * // Get first 10 SpellBuilds
+     * const spellBuilds = await prisma.spellBuild.findMany({ take: 10 })
+     * 
+     * // Only select the `spellName`
+     * const spellBuildWithSpellNameOnly = await prisma.spellBuild.findMany({ select: { spellName: true } })
+     * 
+     */
+    findMany<T extends SpellBuildFindManyArgs>(args?: SelectSubset<T, SpellBuildFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpellBuildPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SpellBuild.
+     * @param {SpellBuildCreateArgs} args - Arguments to create a SpellBuild.
+     * @example
+     * // Create one SpellBuild
+     * const SpellBuild = await prisma.spellBuild.create({
+     *   data: {
+     *     // ... data to create a SpellBuild
+     *   }
+     * })
+     * 
+     */
+    create<T extends SpellBuildCreateArgs>(args: SelectSubset<T, SpellBuildCreateArgs<ExtArgs>>): Prisma__SpellBuildClient<$Result.GetResult<Prisma.$SpellBuildPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SpellBuilds.
+     * @param {SpellBuildCreateManyArgs} args - Arguments to create many SpellBuilds.
+     * @example
+     * // Create many SpellBuilds
+     * const spellBuild = await prisma.spellBuild.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SpellBuildCreateManyArgs>(args?: SelectSubset<T, SpellBuildCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SpellBuilds and returns the data saved in the database.
+     * @param {SpellBuildCreateManyAndReturnArgs} args - Arguments to create many SpellBuilds.
+     * @example
+     * // Create many SpellBuilds
+     * const spellBuild = await prisma.spellBuild.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SpellBuilds and only return the `spellName`
+     * const spellBuildWithSpellNameOnly = await prisma.spellBuild.createManyAndReturn({
+     *   select: { spellName: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SpellBuildCreateManyAndReturnArgs>(args?: SelectSubset<T, SpellBuildCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpellBuildPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SpellBuild.
+     * @param {SpellBuildDeleteArgs} args - Arguments to delete one SpellBuild.
+     * @example
+     * // Delete one SpellBuild
+     * const SpellBuild = await prisma.spellBuild.delete({
+     *   where: {
+     *     // ... filter to delete one SpellBuild
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SpellBuildDeleteArgs>(args: SelectSubset<T, SpellBuildDeleteArgs<ExtArgs>>): Prisma__SpellBuildClient<$Result.GetResult<Prisma.$SpellBuildPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SpellBuild.
+     * @param {SpellBuildUpdateArgs} args - Arguments to update one SpellBuild.
+     * @example
+     * // Update one SpellBuild
+     * const spellBuild = await prisma.spellBuild.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SpellBuildUpdateArgs>(args: SelectSubset<T, SpellBuildUpdateArgs<ExtArgs>>): Prisma__SpellBuildClient<$Result.GetResult<Prisma.$SpellBuildPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SpellBuilds.
+     * @param {SpellBuildDeleteManyArgs} args - Arguments to filter SpellBuilds to delete.
+     * @example
+     * // Delete a few SpellBuilds
+     * const { count } = await prisma.spellBuild.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SpellBuildDeleteManyArgs>(args?: SelectSubset<T, SpellBuildDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SpellBuilds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpellBuildUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SpellBuilds
+     * const spellBuild = await prisma.spellBuild.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SpellBuildUpdateManyArgs>(args: SelectSubset<T, SpellBuildUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SpellBuilds and returns the data updated in the database.
+     * @param {SpellBuildUpdateManyAndReturnArgs} args - Arguments to update many SpellBuilds.
+     * @example
+     * // Update many SpellBuilds
+     * const spellBuild = await prisma.spellBuild.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SpellBuilds and only return the `spellName`
+     * const spellBuildWithSpellNameOnly = await prisma.spellBuild.updateManyAndReturn({
+     *   select: { spellName: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SpellBuildUpdateManyAndReturnArgs>(args: SelectSubset<T, SpellBuildUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpellBuildPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SpellBuild.
+     * @param {SpellBuildUpsertArgs} args - Arguments to update or create a SpellBuild.
+     * @example
+     * // Update or create a SpellBuild
+     * const spellBuild = await prisma.spellBuild.upsert({
+     *   create: {
+     *     // ... data to create a SpellBuild
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SpellBuild we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SpellBuildUpsertArgs>(args: SelectSubset<T, SpellBuildUpsertArgs<ExtArgs>>): Prisma__SpellBuildClient<$Result.GetResult<Prisma.$SpellBuildPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SpellBuilds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpellBuildCountArgs} args - Arguments to filter SpellBuilds to count.
+     * @example
+     * // Count the number of SpellBuilds
+     * const count = await prisma.spellBuild.count({
+     *   where: {
+     *     // ... the filter for the SpellBuilds we want to count
+     *   }
+     * })
+    **/
+    count<T extends SpellBuildCountArgs>(
+      args?: Subset<T, SpellBuildCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SpellBuildCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SpellBuild.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpellBuildAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SpellBuildAggregateArgs>(args: Subset<T, SpellBuildAggregateArgs>): Prisma.PrismaPromise<GetSpellBuildAggregateType<T>>
+
+    /**
+     * Group by SpellBuild.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpellBuildGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SpellBuildGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SpellBuildGroupByArgs['orderBy'] }
+        : { orderBy?: SpellBuildGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SpellBuildGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpellBuildGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SpellBuild model
+   */
+  readonly fields: SpellBuildFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SpellBuild.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SpellBuildClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    parentSpell<T extends SpellDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SpellDefaultArgs<ExtArgs>>): Prisma__SpellClient<$Result.GetResult<Prisma.$SpellPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SpellBuild model
+   */
+  interface SpellBuildFieldRefs {
+    readonly spellName: FieldRef<"SpellBuild", 'String'>
+    readonly augmentNameDps: FieldRef<"SpellBuild", 'String[]'>
+    readonly augmentDescriptionDps: FieldRef<"SpellBuild", 'String[]'>
+    readonly augmentNameSub: FieldRef<"SpellBuild", 'String[]'>
+    readonly augmentDescriptionSub: FieldRef<"SpellBuild", 'String[]'>
+    readonly augmentNameSup: FieldRef<"SpellBuild", 'String[]'>
+    readonly augmentDescriptionSup: FieldRef<"SpellBuild", 'String[]'>
+    readonly upgradesDps: FieldRef<"SpellBuild", 'String[]'>
+    readonly upgradesSub: FieldRef<"SpellBuild", 'String[]'>
+    readonly upgradesSup: FieldRef<"SpellBuild", 'String[]'>
+    readonly elementsDps: FieldRef<"SpellBuild", 'String[]'>
+    readonly elementsSub: FieldRef<"SpellBuild", 'String[]'>
+    readonly elementsSup: FieldRef<"SpellBuild", 'String[]'>
+    readonly createdAt: FieldRef<"SpellBuild", 'DateTime'>
+    readonly updatedAt: FieldRef<"SpellBuild", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SpellBuild findUnique
+   */
+  export type SpellBuildFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellBuild
+     */
+    select?: SpellBuildSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellBuild
+     */
+    omit?: SpellBuildOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellBuildInclude<ExtArgs> | null
+    /**
+     * Filter, which SpellBuild to fetch.
+     */
+    where: SpellBuildWhereUniqueInput
+  }
+
+  /**
+   * SpellBuild findUniqueOrThrow
+   */
+  export type SpellBuildFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellBuild
+     */
+    select?: SpellBuildSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellBuild
+     */
+    omit?: SpellBuildOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellBuildInclude<ExtArgs> | null
+    /**
+     * Filter, which SpellBuild to fetch.
+     */
+    where: SpellBuildWhereUniqueInput
+  }
+
+  /**
+   * SpellBuild findFirst
+   */
+  export type SpellBuildFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellBuild
+     */
+    select?: SpellBuildSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellBuild
+     */
+    omit?: SpellBuildOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellBuildInclude<ExtArgs> | null
+    /**
+     * Filter, which SpellBuild to fetch.
+     */
+    where?: SpellBuildWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SpellBuilds to fetch.
+     */
+    orderBy?: SpellBuildOrderByWithRelationInput | SpellBuildOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SpellBuilds.
+     */
+    cursor?: SpellBuildWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SpellBuilds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SpellBuilds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SpellBuilds.
+     */
+    distinct?: SpellBuildScalarFieldEnum | SpellBuildScalarFieldEnum[]
+  }
+
+  /**
+   * SpellBuild findFirstOrThrow
+   */
+  export type SpellBuildFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellBuild
+     */
+    select?: SpellBuildSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellBuild
+     */
+    omit?: SpellBuildOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellBuildInclude<ExtArgs> | null
+    /**
+     * Filter, which SpellBuild to fetch.
+     */
+    where?: SpellBuildWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SpellBuilds to fetch.
+     */
+    orderBy?: SpellBuildOrderByWithRelationInput | SpellBuildOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SpellBuilds.
+     */
+    cursor?: SpellBuildWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SpellBuilds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SpellBuilds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SpellBuilds.
+     */
+    distinct?: SpellBuildScalarFieldEnum | SpellBuildScalarFieldEnum[]
+  }
+
+  /**
+   * SpellBuild findMany
+   */
+  export type SpellBuildFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellBuild
+     */
+    select?: SpellBuildSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellBuild
+     */
+    omit?: SpellBuildOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellBuildInclude<ExtArgs> | null
+    /**
+     * Filter, which SpellBuilds to fetch.
+     */
+    where?: SpellBuildWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SpellBuilds to fetch.
+     */
+    orderBy?: SpellBuildOrderByWithRelationInput | SpellBuildOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SpellBuilds.
+     */
+    cursor?: SpellBuildWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SpellBuilds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SpellBuilds.
+     */
+    skip?: number
+    distinct?: SpellBuildScalarFieldEnum | SpellBuildScalarFieldEnum[]
+  }
+
+  /**
+   * SpellBuild create
+   */
+  export type SpellBuildCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellBuild
+     */
+    select?: SpellBuildSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellBuild
+     */
+    omit?: SpellBuildOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellBuildInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SpellBuild.
+     */
+    data: XOR<SpellBuildCreateInput, SpellBuildUncheckedCreateInput>
+  }
+
+  /**
+   * SpellBuild createMany
+   */
+  export type SpellBuildCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SpellBuilds.
+     */
+    data: SpellBuildCreateManyInput | SpellBuildCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SpellBuild createManyAndReturn
+   */
+  export type SpellBuildCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellBuild
+     */
+    select?: SpellBuildSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellBuild
+     */
+    omit?: SpellBuildOmit<ExtArgs> | null
+    /**
+     * The data used to create many SpellBuilds.
+     */
+    data: SpellBuildCreateManyInput | SpellBuildCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellBuildIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SpellBuild update
+   */
+  export type SpellBuildUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellBuild
+     */
+    select?: SpellBuildSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellBuild
+     */
+    omit?: SpellBuildOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellBuildInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SpellBuild.
+     */
+    data: XOR<SpellBuildUpdateInput, SpellBuildUncheckedUpdateInput>
+    /**
+     * Choose, which SpellBuild to update.
+     */
+    where: SpellBuildWhereUniqueInput
+  }
+
+  /**
+   * SpellBuild updateMany
+   */
+  export type SpellBuildUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SpellBuilds.
+     */
+    data: XOR<SpellBuildUpdateManyMutationInput, SpellBuildUncheckedUpdateManyInput>
+    /**
+     * Filter which SpellBuilds to update
+     */
+    where?: SpellBuildWhereInput
+    /**
+     * Limit how many SpellBuilds to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SpellBuild updateManyAndReturn
+   */
+  export type SpellBuildUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellBuild
+     */
+    select?: SpellBuildSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellBuild
+     */
+    omit?: SpellBuildOmit<ExtArgs> | null
+    /**
+     * The data used to update SpellBuilds.
+     */
+    data: XOR<SpellBuildUpdateManyMutationInput, SpellBuildUncheckedUpdateManyInput>
+    /**
+     * Filter which SpellBuilds to update
+     */
+    where?: SpellBuildWhereInput
+    /**
+     * Limit how many SpellBuilds to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellBuildIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SpellBuild upsert
+   */
+  export type SpellBuildUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellBuild
+     */
+    select?: SpellBuildSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellBuild
+     */
+    omit?: SpellBuildOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellBuildInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SpellBuild to update in case it exists.
+     */
+    where: SpellBuildWhereUniqueInput
+    /**
+     * In case the SpellBuild found by the `where` argument doesn't exist, create a new SpellBuild with this data.
+     */
+    create: XOR<SpellBuildCreateInput, SpellBuildUncheckedCreateInput>
+    /**
+     * In case the SpellBuild was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SpellBuildUpdateInput, SpellBuildUncheckedUpdateInput>
+  }
+
+  /**
+   * SpellBuild delete
+   */
+  export type SpellBuildDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellBuild
+     */
+    select?: SpellBuildSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellBuild
+     */
+    omit?: SpellBuildOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellBuildInclude<ExtArgs> | null
+    /**
+     * Filter which SpellBuild to delete.
+     */
+    where: SpellBuildWhereUniqueInput
+  }
+
+  /**
+   * SpellBuild deleteMany
+   */
+  export type SpellBuildDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SpellBuilds to delete
+     */
+    where?: SpellBuildWhereInput
+    /**
+     * Limit how many SpellBuilds to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SpellBuild without action
+   */
+  export type SpellBuildDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpellBuild
+     */
+    select?: SpellBuildSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SpellBuild
+     */
+    omit?: SpellBuildOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SpellBuildInclude<ExtArgs> | null
   }
 
 
@@ -10532,9 +11786,9 @@ export namespace Prisma {
     banned?: boolean
     banReason?: boolean
     banExpires?: boolean
-    sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     blogs?: boolean | User$blogsArgs<ExtArgs>
+    sessions?: boolean | User$sessionsArgs<ExtArgs>
     tierLists?: boolean | User$tierListsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -10583,9 +11837,9 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "banned" | "banReason" | "banExpires", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     blogs?: boolean | User$blogsArgs<ExtArgs>
+    sessions?: boolean | User$sessionsArgs<ExtArgs>
     tierLists?: boolean | User$tierListsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -10595,9 +11849,9 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      sessions: Prisma.$SessionPayload<ExtArgs>[]
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       blogs: Prisma.$BlogPostPayload<ExtArgs>[]
+      sessions: Prisma.$SessionPayload<ExtArgs>[]
       tierLists: Prisma.$TierlistPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -11006,9 +12260,9 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blogs<T extends User$blogsArgs<ExtArgs> = {}>(args?: Subset<T, User$blogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlogPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tierLists<T extends User$tierListsArgs<ExtArgs> = {}>(args?: Subset<T, User$tierListsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TierlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -11438,30 +12692,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.sessions
-   */
-  export type User$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    where?: SessionWhereInput
-    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
-    cursor?: SessionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
-  }
-
-  /**
    * User.accounts
    */
   export type User$accountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11507,6 +12737,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BlogPostScalarFieldEnum | BlogPostScalarFieldEnum[]
+  }
+
+  /**
+   * User.sessions
+   */
+  export type User$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    where?: SessionWhereInput
+    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
+    cursor?: SessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
   }
 
   /**
@@ -14809,6 +16063,27 @@ export namespace Prisma {
   export type SpellAboutScalarFieldEnum = (typeof SpellAboutScalarFieldEnum)[keyof typeof SpellAboutScalarFieldEnum]
 
 
+  export const SpellBuildScalarFieldEnum: {
+    spellName: 'spellName',
+    augmentNameDps: 'augmentNameDps',
+    augmentDescriptionDps: 'augmentDescriptionDps',
+    augmentNameSub: 'augmentNameSub',
+    augmentDescriptionSub: 'augmentDescriptionSub',
+    augmentNameSup: 'augmentNameSup',
+    augmentDescriptionSup: 'augmentDescriptionSup',
+    upgradesDps: 'upgradesDps',
+    upgradesSub: 'upgradesSub',
+    upgradesSup: 'upgradesSup',
+    elementsDps: 'elementsDps',
+    elementsSub: 'elementsSub',
+    elementsSup: 'elementsSup',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SpellBuildScalarFieldEnum = (typeof SpellBuildScalarFieldEnum)[keyof typeof SpellBuildScalarFieldEnum]
+
+
   export const TierlistScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -15054,11 +16329,13 @@ export namespace Prisma {
     NOT?: SpellWhereInput | SpellWhereInput[]
     name?: StringFilter<"Spell"> | string
     aboutContent?: XOR<SpellAboutNullableScalarRelationFilter, SpellAboutWhereInput> | null
+    buildContent?: XOR<SpellBuildNullableScalarRelationFilter, SpellBuildWhereInput> | null
   }
 
   export type SpellOrderByWithRelationInput = {
     name?: SortOrder
     aboutContent?: SpellAboutOrderByWithRelationInput
+    buildContent?: SpellBuildOrderByWithRelationInput
   }
 
   export type SpellWhereUniqueInput = Prisma.AtLeast<{
@@ -15067,6 +16344,7 @@ export namespace Prisma {
     OR?: SpellWhereInput[]
     NOT?: SpellWhereInput | SpellWhereInput[]
     aboutContent?: XOR<SpellAboutNullableScalarRelationFilter, SpellAboutWhereInput> | null
+    buildContent?: XOR<SpellBuildNullableScalarRelationFilter, SpellBuildWhereInput> | null
   }, "name">
 
   export type SpellOrderByWithAggregationInput = {
@@ -15151,6 +16429,111 @@ export namespace Prisma {
     overview?: StringWithAggregatesFilter<"SpellAbout"> | string
     createdAt?: DateTimeWithAggregatesFilter<"SpellAbout"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SpellAbout"> | Date | string
+  }
+
+  export type SpellBuildWhereInput = {
+    AND?: SpellBuildWhereInput | SpellBuildWhereInput[]
+    OR?: SpellBuildWhereInput[]
+    NOT?: SpellBuildWhereInput | SpellBuildWhereInput[]
+    spellName?: StringFilter<"SpellBuild"> | string
+    augmentNameDps?: StringNullableListFilter<"SpellBuild">
+    augmentDescriptionDps?: StringNullableListFilter<"SpellBuild">
+    augmentNameSub?: StringNullableListFilter<"SpellBuild">
+    augmentDescriptionSub?: StringNullableListFilter<"SpellBuild">
+    augmentNameSup?: StringNullableListFilter<"SpellBuild">
+    augmentDescriptionSup?: StringNullableListFilter<"SpellBuild">
+    upgradesDps?: StringNullableListFilter<"SpellBuild">
+    upgradesSub?: StringNullableListFilter<"SpellBuild">
+    upgradesSup?: StringNullableListFilter<"SpellBuild">
+    elementsDps?: StringNullableListFilter<"SpellBuild">
+    elementsSub?: StringNullableListFilter<"SpellBuild">
+    elementsSup?: StringNullableListFilter<"SpellBuild">
+    createdAt?: DateTimeFilter<"SpellBuild"> | Date | string
+    updatedAt?: DateTimeFilter<"SpellBuild"> | Date | string
+    parentSpell?: XOR<SpellScalarRelationFilter, SpellWhereInput>
+  }
+
+  export type SpellBuildOrderByWithRelationInput = {
+    spellName?: SortOrder
+    augmentNameDps?: SortOrder
+    augmentDescriptionDps?: SortOrder
+    augmentNameSub?: SortOrder
+    augmentDescriptionSub?: SortOrder
+    augmentNameSup?: SortOrder
+    augmentDescriptionSup?: SortOrder
+    upgradesDps?: SortOrder
+    upgradesSub?: SortOrder
+    upgradesSup?: SortOrder
+    elementsDps?: SortOrder
+    elementsSub?: SortOrder
+    elementsSup?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    parentSpell?: SpellOrderByWithRelationInput
+  }
+
+  export type SpellBuildWhereUniqueInput = Prisma.AtLeast<{
+    spellName?: string
+    AND?: SpellBuildWhereInput | SpellBuildWhereInput[]
+    OR?: SpellBuildWhereInput[]
+    NOT?: SpellBuildWhereInput | SpellBuildWhereInput[]
+    augmentNameDps?: StringNullableListFilter<"SpellBuild">
+    augmentDescriptionDps?: StringNullableListFilter<"SpellBuild">
+    augmentNameSub?: StringNullableListFilter<"SpellBuild">
+    augmentDescriptionSub?: StringNullableListFilter<"SpellBuild">
+    augmentNameSup?: StringNullableListFilter<"SpellBuild">
+    augmentDescriptionSup?: StringNullableListFilter<"SpellBuild">
+    upgradesDps?: StringNullableListFilter<"SpellBuild">
+    upgradesSub?: StringNullableListFilter<"SpellBuild">
+    upgradesSup?: StringNullableListFilter<"SpellBuild">
+    elementsDps?: StringNullableListFilter<"SpellBuild">
+    elementsSub?: StringNullableListFilter<"SpellBuild">
+    elementsSup?: StringNullableListFilter<"SpellBuild">
+    createdAt?: DateTimeFilter<"SpellBuild"> | Date | string
+    updatedAt?: DateTimeFilter<"SpellBuild"> | Date | string
+    parentSpell?: XOR<SpellScalarRelationFilter, SpellWhereInput>
+  }, "spellName">
+
+  export type SpellBuildOrderByWithAggregationInput = {
+    spellName?: SortOrder
+    augmentNameDps?: SortOrder
+    augmentDescriptionDps?: SortOrder
+    augmentNameSub?: SortOrder
+    augmentDescriptionSub?: SortOrder
+    augmentNameSup?: SortOrder
+    augmentDescriptionSup?: SortOrder
+    upgradesDps?: SortOrder
+    upgradesSub?: SortOrder
+    upgradesSup?: SortOrder
+    elementsDps?: SortOrder
+    elementsSub?: SortOrder
+    elementsSup?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SpellBuildCountOrderByAggregateInput
+    _max?: SpellBuildMaxOrderByAggregateInput
+    _min?: SpellBuildMinOrderByAggregateInput
+  }
+
+  export type SpellBuildScalarWhereWithAggregatesInput = {
+    AND?: SpellBuildScalarWhereWithAggregatesInput | SpellBuildScalarWhereWithAggregatesInput[]
+    OR?: SpellBuildScalarWhereWithAggregatesInput[]
+    NOT?: SpellBuildScalarWhereWithAggregatesInput | SpellBuildScalarWhereWithAggregatesInput[]
+    spellName?: StringWithAggregatesFilter<"SpellBuild"> | string
+    augmentNameDps?: StringNullableListFilter<"SpellBuild">
+    augmentDescriptionDps?: StringNullableListFilter<"SpellBuild">
+    augmentNameSub?: StringNullableListFilter<"SpellBuild">
+    augmentDescriptionSub?: StringNullableListFilter<"SpellBuild">
+    augmentNameSup?: StringNullableListFilter<"SpellBuild">
+    augmentDescriptionSup?: StringNullableListFilter<"SpellBuild">
+    upgradesDps?: StringNullableListFilter<"SpellBuild">
+    upgradesSub?: StringNullableListFilter<"SpellBuild">
+    upgradesSup?: StringNullableListFilter<"SpellBuild">
+    elementsDps?: StringNullableListFilter<"SpellBuild">
+    elementsSub?: StringNullableListFilter<"SpellBuild">
+    elementsSup?: StringNullableListFilter<"SpellBuild">
+    createdAt?: DateTimeWithAggregatesFilter<"SpellBuild"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SpellBuild"> | Date | string
   }
 
   export type TierlistWhereInput = {
@@ -15443,9 +16826,9 @@ export namespace Prisma {
     banned?: BoolNullableFilter<"User"> | boolean | null
     banReason?: StringNullableFilter<"User"> | string | null
     banExpires?: DateTimeNullableFilter<"User"> | Date | string | null
-    sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
     blogs?: BlogPostListRelationFilter
+    sessions?: SessionListRelationFilter
     tierLists?: TierlistListRelationFilter
   }
 
@@ -15461,9 +16844,9 @@ export namespace Prisma {
     banned?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
     banExpires?: SortOrderInput | SortOrder
-    sessions?: SessionOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
     blogs?: BlogPostOrderByRelationAggregateInput
+    sessions?: SessionOrderByRelationAggregateInput
     tierLists?: TierlistOrderByRelationAggregateInput
   }
 
@@ -15482,9 +16865,9 @@ export namespace Prisma {
     banned?: BoolNullableFilter<"User"> | boolean | null
     banReason?: StringNullableFilter<"User"> | string | null
     banExpires?: DateTimeNullableFilter<"User"> | Date | string | null
-    sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
     blogs?: BlogPostListRelationFilter
+    sessions?: SessionListRelationFilter
     tierLists?: TierlistListRelationFilter
   }, "id" | "email">
 
@@ -15755,21 +17138,25 @@ export namespace Prisma {
   export type SpellCreateInput = {
     name: string
     aboutContent?: SpellAboutCreateNestedOneWithoutParentSpellInput
+    buildContent?: SpellBuildCreateNestedOneWithoutParentSpellInput
   }
 
   export type SpellUncheckedCreateInput = {
     name: string
     aboutContent?: SpellAboutUncheckedCreateNestedOneWithoutParentSpellInput
+    buildContent?: SpellBuildUncheckedCreateNestedOneWithoutParentSpellInput
   }
 
   export type SpellUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     aboutContent?: SpellAboutUpdateOneWithoutParentSpellNestedInput
+    buildContent?: SpellBuildUpdateOneWithoutParentSpellNestedInput
   }
 
   export type SpellUncheckedUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     aboutContent?: SpellAboutUncheckedUpdateOneWithoutParentSpellNestedInput
+    buildContent?: SpellBuildUncheckedUpdateOneWithoutParentSpellNestedInput
   }
 
   export type SpellCreateManyInput = {
@@ -15856,6 +17243,131 @@ export namespace Prisma {
     augments?: SpellAboutUpdateaugmentsInput | string[]
     upgrades?: SpellAboutUpdateupgradesInput | string[]
     overview?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SpellBuildCreateInput = {
+    augmentNameDps?: SpellBuildCreateaugmentNameDpsInput | string[]
+    augmentDescriptionDps?: SpellBuildCreateaugmentDescriptionDpsInput | string[]
+    augmentNameSub?: SpellBuildCreateaugmentNameSubInput | string[]
+    augmentDescriptionSub?: SpellBuildCreateaugmentDescriptionSubInput | string[]
+    augmentNameSup?: SpellBuildCreateaugmentNameSupInput | string[]
+    augmentDescriptionSup?: SpellBuildCreateaugmentDescriptionSupInput | string[]
+    upgradesDps?: SpellBuildCreateupgradesDpsInput | string[]
+    upgradesSub?: SpellBuildCreateupgradesSubInput | string[]
+    upgradesSup?: SpellBuildCreateupgradesSupInput | string[]
+    elementsDps?: SpellBuildCreateelementsDpsInput | string[]
+    elementsSub?: SpellBuildCreateelementsSubInput | string[]
+    elementsSup?: SpellBuildCreateelementsSupInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    parentSpell: SpellCreateNestedOneWithoutBuildContentInput
+  }
+
+  export type SpellBuildUncheckedCreateInput = {
+    spellName: string
+    augmentNameDps?: SpellBuildCreateaugmentNameDpsInput | string[]
+    augmentDescriptionDps?: SpellBuildCreateaugmentDescriptionDpsInput | string[]
+    augmentNameSub?: SpellBuildCreateaugmentNameSubInput | string[]
+    augmentDescriptionSub?: SpellBuildCreateaugmentDescriptionSubInput | string[]
+    augmentNameSup?: SpellBuildCreateaugmentNameSupInput | string[]
+    augmentDescriptionSup?: SpellBuildCreateaugmentDescriptionSupInput | string[]
+    upgradesDps?: SpellBuildCreateupgradesDpsInput | string[]
+    upgradesSub?: SpellBuildCreateupgradesSubInput | string[]
+    upgradesSup?: SpellBuildCreateupgradesSupInput | string[]
+    elementsDps?: SpellBuildCreateelementsDpsInput | string[]
+    elementsSub?: SpellBuildCreateelementsSubInput | string[]
+    elementsSup?: SpellBuildCreateelementsSupInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SpellBuildUpdateInput = {
+    augmentNameDps?: SpellBuildUpdateaugmentNameDpsInput | string[]
+    augmentDescriptionDps?: SpellBuildUpdateaugmentDescriptionDpsInput | string[]
+    augmentNameSub?: SpellBuildUpdateaugmentNameSubInput | string[]
+    augmentDescriptionSub?: SpellBuildUpdateaugmentDescriptionSubInput | string[]
+    augmentNameSup?: SpellBuildUpdateaugmentNameSupInput | string[]
+    augmentDescriptionSup?: SpellBuildUpdateaugmentDescriptionSupInput | string[]
+    upgradesDps?: SpellBuildUpdateupgradesDpsInput | string[]
+    upgradesSub?: SpellBuildUpdateupgradesSubInput | string[]
+    upgradesSup?: SpellBuildUpdateupgradesSupInput | string[]
+    elementsDps?: SpellBuildUpdateelementsDpsInput | string[]
+    elementsSub?: SpellBuildUpdateelementsSubInput | string[]
+    elementsSup?: SpellBuildUpdateelementsSupInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parentSpell?: SpellUpdateOneRequiredWithoutBuildContentNestedInput
+  }
+
+  export type SpellBuildUncheckedUpdateInput = {
+    spellName?: StringFieldUpdateOperationsInput | string
+    augmentNameDps?: SpellBuildUpdateaugmentNameDpsInput | string[]
+    augmentDescriptionDps?: SpellBuildUpdateaugmentDescriptionDpsInput | string[]
+    augmentNameSub?: SpellBuildUpdateaugmentNameSubInput | string[]
+    augmentDescriptionSub?: SpellBuildUpdateaugmentDescriptionSubInput | string[]
+    augmentNameSup?: SpellBuildUpdateaugmentNameSupInput | string[]
+    augmentDescriptionSup?: SpellBuildUpdateaugmentDescriptionSupInput | string[]
+    upgradesDps?: SpellBuildUpdateupgradesDpsInput | string[]
+    upgradesSub?: SpellBuildUpdateupgradesSubInput | string[]
+    upgradesSup?: SpellBuildUpdateupgradesSupInput | string[]
+    elementsDps?: SpellBuildUpdateelementsDpsInput | string[]
+    elementsSub?: SpellBuildUpdateelementsSubInput | string[]
+    elementsSup?: SpellBuildUpdateelementsSupInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SpellBuildCreateManyInput = {
+    spellName: string
+    augmentNameDps?: SpellBuildCreateaugmentNameDpsInput | string[]
+    augmentDescriptionDps?: SpellBuildCreateaugmentDescriptionDpsInput | string[]
+    augmentNameSub?: SpellBuildCreateaugmentNameSubInput | string[]
+    augmentDescriptionSub?: SpellBuildCreateaugmentDescriptionSubInput | string[]
+    augmentNameSup?: SpellBuildCreateaugmentNameSupInput | string[]
+    augmentDescriptionSup?: SpellBuildCreateaugmentDescriptionSupInput | string[]
+    upgradesDps?: SpellBuildCreateupgradesDpsInput | string[]
+    upgradesSub?: SpellBuildCreateupgradesSubInput | string[]
+    upgradesSup?: SpellBuildCreateupgradesSupInput | string[]
+    elementsDps?: SpellBuildCreateelementsDpsInput | string[]
+    elementsSub?: SpellBuildCreateelementsSubInput | string[]
+    elementsSup?: SpellBuildCreateelementsSupInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SpellBuildUpdateManyMutationInput = {
+    augmentNameDps?: SpellBuildUpdateaugmentNameDpsInput | string[]
+    augmentDescriptionDps?: SpellBuildUpdateaugmentDescriptionDpsInput | string[]
+    augmentNameSub?: SpellBuildUpdateaugmentNameSubInput | string[]
+    augmentDescriptionSub?: SpellBuildUpdateaugmentDescriptionSubInput | string[]
+    augmentNameSup?: SpellBuildUpdateaugmentNameSupInput | string[]
+    augmentDescriptionSup?: SpellBuildUpdateaugmentDescriptionSupInput | string[]
+    upgradesDps?: SpellBuildUpdateupgradesDpsInput | string[]
+    upgradesSub?: SpellBuildUpdateupgradesSubInput | string[]
+    upgradesSup?: SpellBuildUpdateupgradesSupInput | string[]
+    elementsDps?: SpellBuildUpdateelementsDpsInput | string[]
+    elementsSub?: SpellBuildUpdateelementsSubInput | string[]
+    elementsSup?: SpellBuildUpdateelementsSupInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SpellBuildUncheckedUpdateManyInput = {
+    spellName?: StringFieldUpdateOperationsInput | string
+    augmentNameDps?: SpellBuildUpdateaugmentNameDpsInput | string[]
+    augmentDescriptionDps?: SpellBuildUpdateaugmentDescriptionDpsInput | string[]
+    augmentNameSub?: SpellBuildUpdateaugmentNameSubInput | string[]
+    augmentDescriptionSub?: SpellBuildUpdateaugmentDescriptionSubInput | string[]
+    augmentNameSup?: SpellBuildUpdateaugmentNameSupInput | string[]
+    augmentDescriptionSup?: SpellBuildUpdateaugmentDescriptionSupInput | string[]
+    upgradesDps?: SpellBuildUpdateupgradesDpsInput | string[]
+    upgradesSub?: SpellBuildUpdateupgradesSubInput | string[]
+    upgradesSup?: SpellBuildUpdateupgradesSupInput | string[]
+    elementsDps?: SpellBuildUpdateelementsDpsInput | string[]
+    elementsSub?: SpellBuildUpdateelementsSubInput | string[]
+    elementsSup?: SpellBuildUpdateelementsSupInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16149,9 +17661,9 @@ export namespace Prisma {
     banned?: boolean | null
     banReason?: string | null
     banExpires?: Date | string | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     blogs?: BlogPostCreateNestedManyWithoutAuthorInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
     tierLists?: TierlistCreateNestedManyWithoutAuthorInput
   }
 
@@ -16167,9 +17679,9 @@ export namespace Prisma {
     banned?: boolean | null
     banReason?: string | null
     banExpires?: Date | string | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     blogs?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     tierLists?: TierlistUncheckedCreateNestedManyWithoutAuthorInput
   }
 
@@ -16185,9 +17697,9 @@ export namespace Prisma {
     banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     blogs?: BlogPostUpdateManyWithoutAuthorNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
     tierLists?: TierlistUpdateManyWithoutAuthorNestedInput
   }
 
@@ -16203,9 +17715,9 @@ export namespace Prisma {
     banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     blogs?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     tierLists?: TierlistUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
@@ -16523,6 +18035,11 @@ export namespace Prisma {
     isNot?: SpellAboutWhereInput | null
   }
 
+  export type SpellBuildNullableScalarRelationFilter = {
+    is?: SpellBuildWhereInput | null
+    isNot?: SpellBuildWhereInput | null
+  }
+
   export type SpellCountOrderByAggregateInput = {
     name?: SortOrder
   }
@@ -16600,6 +18117,36 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type SpellBuildCountOrderByAggregateInput = {
+    spellName?: SortOrder
+    augmentNameDps?: SortOrder
+    augmentDescriptionDps?: SortOrder
+    augmentNameSub?: SortOrder
+    augmentDescriptionSub?: SortOrder
+    augmentNameSup?: SortOrder
+    augmentDescriptionSup?: SortOrder
+    upgradesDps?: SortOrder
+    upgradesSub?: SortOrder
+    upgradesSup?: SortOrder
+    elementsDps?: SortOrder
+    elementsSub?: SortOrder
+    elementsSup?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SpellBuildMaxOrderByAggregateInput = {
+    spellName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SpellBuildMinOrderByAggregateInput = {
+    spellName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -16855,12 +18402,6 @@ export namespace Prisma {
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
-  export type SessionListRelationFilter = {
-    every?: SessionWhereInput
-    some?: SessionWhereInput
-    none?: SessionWhereInput
-  }
-
   export type AccountListRelationFilter = {
     every?: AccountWhereInput
     some?: AccountWhereInput
@@ -16873,14 +18414,16 @@ export namespace Prisma {
     none?: BlogPostWhereInput
   }
 
+  export type SessionListRelationFilter = {
+    every?: SessionWhereInput
+    some?: SessionWhereInput
+    none?: SessionWhereInput
+  }
+
   export type TierlistListRelationFilter = {
     every?: TierlistWhereInput
     some?: TierlistWhereInput
     none?: TierlistWhereInput
-  }
-
-  export type SessionOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type AccountOrderByRelationAggregateInput = {
@@ -16888,6 +18431,10 @@ export namespace Prisma {
   }
 
   export type BlogPostOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17059,10 +18606,22 @@ export namespace Prisma {
     connect?: SpellAboutWhereUniqueInput
   }
 
+  export type SpellBuildCreateNestedOneWithoutParentSpellInput = {
+    create?: XOR<SpellBuildCreateWithoutParentSpellInput, SpellBuildUncheckedCreateWithoutParentSpellInput>
+    connectOrCreate?: SpellBuildCreateOrConnectWithoutParentSpellInput
+    connect?: SpellBuildWhereUniqueInput
+  }
+
   export type SpellAboutUncheckedCreateNestedOneWithoutParentSpellInput = {
     create?: XOR<SpellAboutCreateWithoutParentSpellInput, SpellAboutUncheckedCreateWithoutParentSpellInput>
     connectOrCreate?: SpellAboutCreateOrConnectWithoutParentSpellInput
     connect?: SpellAboutWhereUniqueInput
+  }
+
+  export type SpellBuildUncheckedCreateNestedOneWithoutParentSpellInput = {
+    create?: XOR<SpellBuildCreateWithoutParentSpellInput, SpellBuildUncheckedCreateWithoutParentSpellInput>
+    connectOrCreate?: SpellBuildCreateOrConnectWithoutParentSpellInput
+    connect?: SpellBuildWhereUniqueInput
   }
 
   export type SpellAboutUpdateOneWithoutParentSpellNestedInput = {
@@ -17075,6 +18634,16 @@ export namespace Prisma {
     update?: XOR<XOR<SpellAboutUpdateToOneWithWhereWithoutParentSpellInput, SpellAboutUpdateWithoutParentSpellInput>, SpellAboutUncheckedUpdateWithoutParentSpellInput>
   }
 
+  export type SpellBuildUpdateOneWithoutParentSpellNestedInput = {
+    create?: XOR<SpellBuildCreateWithoutParentSpellInput, SpellBuildUncheckedCreateWithoutParentSpellInput>
+    connectOrCreate?: SpellBuildCreateOrConnectWithoutParentSpellInput
+    upsert?: SpellBuildUpsertWithoutParentSpellInput
+    disconnect?: SpellBuildWhereInput | boolean
+    delete?: SpellBuildWhereInput | boolean
+    connect?: SpellBuildWhereUniqueInput
+    update?: XOR<XOR<SpellBuildUpdateToOneWithWhereWithoutParentSpellInput, SpellBuildUpdateWithoutParentSpellInput>, SpellBuildUncheckedUpdateWithoutParentSpellInput>
+  }
+
   export type SpellAboutUncheckedUpdateOneWithoutParentSpellNestedInput = {
     create?: XOR<SpellAboutCreateWithoutParentSpellInput, SpellAboutUncheckedCreateWithoutParentSpellInput>
     connectOrCreate?: SpellAboutCreateOrConnectWithoutParentSpellInput
@@ -17083,6 +18652,16 @@ export namespace Prisma {
     delete?: SpellAboutWhereInput | boolean
     connect?: SpellAboutWhereUniqueInput
     update?: XOR<XOR<SpellAboutUpdateToOneWithWhereWithoutParentSpellInput, SpellAboutUpdateWithoutParentSpellInput>, SpellAboutUncheckedUpdateWithoutParentSpellInput>
+  }
+
+  export type SpellBuildUncheckedUpdateOneWithoutParentSpellNestedInput = {
+    create?: XOR<SpellBuildCreateWithoutParentSpellInput, SpellBuildUncheckedCreateWithoutParentSpellInput>
+    connectOrCreate?: SpellBuildCreateOrConnectWithoutParentSpellInput
+    upsert?: SpellBuildUpsertWithoutParentSpellInput
+    disconnect?: SpellBuildWhereInput | boolean
+    delete?: SpellBuildWhereInput | boolean
+    connect?: SpellBuildWhereUniqueInput
+    update?: XOR<XOR<SpellBuildUpdateToOneWithWhereWithoutParentSpellInput, SpellBuildUpdateWithoutParentSpellInput>, SpellBuildUncheckedUpdateWithoutParentSpellInput>
   }
 
   export type SpellAboutCreateaugmentsInput = {
@@ -17119,6 +18698,128 @@ export namespace Prisma {
     upsert?: SpellUpsertWithoutAboutContentInput
     connect?: SpellWhereUniqueInput
     update?: XOR<XOR<SpellUpdateToOneWithWhereWithoutAboutContentInput, SpellUpdateWithoutAboutContentInput>, SpellUncheckedUpdateWithoutAboutContentInput>
+  }
+
+  export type SpellBuildCreateaugmentNameDpsInput = {
+    set: string[]
+  }
+
+  export type SpellBuildCreateaugmentDescriptionDpsInput = {
+    set: string[]
+  }
+
+  export type SpellBuildCreateaugmentNameSubInput = {
+    set: string[]
+  }
+
+  export type SpellBuildCreateaugmentDescriptionSubInput = {
+    set: string[]
+  }
+
+  export type SpellBuildCreateaugmentNameSupInput = {
+    set: string[]
+  }
+
+  export type SpellBuildCreateaugmentDescriptionSupInput = {
+    set: string[]
+  }
+
+  export type SpellBuildCreateupgradesDpsInput = {
+    set: string[]
+  }
+
+  export type SpellBuildCreateupgradesSubInput = {
+    set: string[]
+  }
+
+  export type SpellBuildCreateupgradesSupInput = {
+    set: string[]
+  }
+
+  export type SpellBuildCreateelementsDpsInput = {
+    set: string[]
+  }
+
+  export type SpellBuildCreateelementsSubInput = {
+    set: string[]
+  }
+
+  export type SpellBuildCreateelementsSupInput = {
+    set: string[]
+  }
+
+  export type SpellCreateNestedOneWithoutBuildContentInput = {
+    create?: XOR<SpellCreateWithoutBuildContentInput, SpellUncheckedCreateWithoutBuildContentInput>
+    connectOrCreate?: SpellCreateOrConnectWithoutBuildContentInput
+    connect?: SpellWhereUniqueInput
+  }
+
+  export type SpellBuildUpdateaugmentNameDpsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SpellBuildUpdateaugmentDescriptionDpsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SpellBuildUpdateaugmentNameSubInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SpellBuildUpdateaugmentDescriptionSubInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SpellBuildUpdateaugmentNameSupInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SpellBuildUpdateaugmentDescriptionSupInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SpellBuildUpdateupgradesDpsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SpellBuildUpdateupgradesSubInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SpellBuildUpdateupgradesSupInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SpellBuildUpdateelementsDpsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SpellBuildUpdateelementsSubInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SpellBuildUpdateelementsSupInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SpellUpdateOneRequiredWithoutBuildContentNestedInput = {
+    create?: XOR<SpellCreateWithoutBuildContentInput, SpellUncheckedCreateWithoutBuildContentInput>
+    connectOrCreate?: SpellCreateOrConnectWithoutBuildContentInput
+    upsert?: SpellUpsertWithoutBuildContentInput
+    connect?: SpellWhereUniqueInput
+    update?: XOR<XOR<SpellUpdateToOneWithWhereWithoutBuildContentInput, SpellUpdateWithoutBuildContentInput>, SpellUncheckedUpdateWithoutBuildContentInput>
   }
 
   export type TierCreateNestedManyWithoutParent_listInput = {
@@ -17276,13 +18977,6 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
-  export type SessionCreateNestedManyWithoutUserInput = {
-    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
-    createMany?: SessionCreateManyUserInputEnvelope
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-  }
-
   export type AccountCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -17297,18 +18991,18 @@ export namespace Prisma {
     connect?: BlogPostWhereUniqueInput | BlogPostWhereUniqueInput[]
   }
 
+  export type SessionCreateNestedManyWithoutUserInput = {
+    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
+    createMany?: SessionCreateManyUserInputEnvelope
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
   export type TierlistCreateNestedManyWithoutAuthorInput = {
     create?: XOR<TierlistCreateWithoutAuthorInput, TierlistUncheckedCreateWithoutAuthorInput> | TierlistCreateWithoutAuthorInput[] | TierlistUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: TierlistCreateOrConnectWithoutAuthorInput | TierlistCreateOrConnectWithoutAuthorInput[]
     createMany?: TierlistCreateManyAuthorInputEnvelope
     connect?: TierlistWhereUniqueInput | TierlistWhereUniqueInput[]
-  }
-
-  export type SessionUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
-    createMany?: SessionCreateManyUserInputEnvelope
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
@@ -17325,6 +19019,13 @@ export namespace Prisma {
     connect?: BlogPostWhereUniqueInput | BlogPostWhereUniqueInput[]
   }
 
+  export type SessionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
+    createMany?: SessionCreateManyUserInputEnvelope
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
   export type TierlistUncheckedCreateNestedManyWithoutAuthorInput = {
     create?: XOR<TierlistCreateWithoutAuthorInput, TierlistUncheckedCreateWithoutAuthorInput> | TierlistCreateWithoutAuthorInput[] | TierlistUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: TierlistCreateOrConnectWithoutAuthorInput | TierlistCreateOrConnectWithoutAuthorInput[]
@@ -17338,20 +19039,6 @@ export namespace Prisma {
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
-  }
-
-  export type SessionUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
-    upsert?: SessionUpsertWithWhereUniqueWithoutUserInput | SessionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SessionCreateManyUserInputEnvelope
-    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
   export type AccountUpdateManyWithoutUserNestedInput = {
@@ -17382,6 +19069,20 @@ export namespace Prisma {
     deleteMany?: BlogPostScalarWhereInput | BlogPostScalarWhereInput[]
   }
 
+  export type SessionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
+    upsert?: SessionUpsertWithWhereUniqueWithoutUserInput | SessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SessionCreateManyUserInputEnvelope
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
   export type TierlistUpdateManyWithoutAuthorNestedInput = {
     create?: XOR<TierlistCreateWithoutAuthorInput, TierlistUncheckedCreateWithoutAuthorInput> | TierlistCreateWithoutAuthorInput[] | TierlistUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: TierlistCreateOrConnectWithoutAuthorInput | TierlistCreateOrConnectWithoutAuthorInput[]
@@ -17394,20 +19095,6 @@ export namespace Prisma {
     update?: TierlistUpdateWithWhereUniqueWithoutAuthorInput | TierlistUpdateWithWhereUniqueWithoutAuthorInput[]
     updateMany?: TierlistUpdateManyWithWhereWithoutAuthorInput | TierlistUpdateManyWithWhereWithoutAuthorInput[]
     deleteMany?: TierlistScalarWhereInput | TierlistScalarWhereInput[]
-  }
-
-  export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
-    upsert?: SessionUpsertWithWhereUniqueWithoutUserInput | SessionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SessionCreateManyUserInputEnvelope
-    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
@@ -17436,6 +19123,20 @@ export namespace Prisma {
     update?: BlogPostUpdateWithWhereUniqueWithoutAuthorInput | BlogPostUpdateWithWhereUniqueWithoutAuthorInput[]
     updateMany?: BlogPostUpdateManyWithWhereWithoutAuthorInput | BlogPostUpdateManyWithWhereWithoutAuthorInput[]
     deleteMany?: BlogPostScalarWhereInput | BlogPostScalarWhereInput[]
+  }
+
+  export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
+    upsert?: SessionUpsertWithWhereUniqueWithoutUserInput | SessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SessionCreateManyUserInputEnvelope
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
   export type TierlistUncheckedUpdateManyWithoutAuthorNestedInput = {
@@ -17692,6 +19393,45 @@ export namespace Prisma {
     create: XOR<SpellAboutCreateWithoutParentSpellInput, SpellAboutUncheckedCreateWithoutParentSpellInput>
   }
 
+  export type SpellBuildCreateWithoutParentSpellInput = {
+    augmentNameDps?: SpellBuildCreateaugmentNameDpsInput | string[]
+    augmentDescriptionDps?: SpellBuildCreateaugmentDescriptionDpsInput | string[]
+    augmentNameSub?: SpellBuildCreateaugmentNameSubInput | string[]
+    augmentDescriptionSub?: SpellBuildCreateaugmentDescriptionSubInput | string[]
+    augmentNameSup?: SpellBuildCreateaugmentNameSupInput | string[]
+    augmentDescriptionSup?: SpellBuildCreateaugmentDescriptionSupInput | string[]
+    upgradesDps?: SpellBuildCreateupgradesDpsInput | string[]
+    upgradesSub?: SpellBuildCreateupgradesSubInput | string[]
+    upgradesSup?: SpellBuildCreateupgradesSupInput | string[]
+    elementsDps?: SpellBuildCreateelementsDpsInput | string[]
+    elementsSub?: SpellBuildCreateelementsSubInput | string[]
+    elementsSup?: SpellBuildCreateelementsSupInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SpellBuildUncheckedCreateWithoutParentSpellInput = {
+    augmentNameDps?: SpellBuildCreateaugmentNameDpsInput | string[]
+    augmentDescriptionDps?: SpellBuildCreateaugmentDescriptionDpsInput | string[]
+    augmentNameSub?: SpellBuildCreateaugmentNameSubInput | string[]
+    augmentDescriptionSub?: SpellBuildCreateaugmentDescriptionSubInput | string[]
+    augmentNameSup?: SpellBuildCreateaugmentNameSupInput | string[]
+    augmentDescriptionSup?: SpellBuildCreateaugmentDescriptionSupInput | string[]
+    upgradesDps?: SpellBuildCreateupgradesDpsInput | string[]
+    upgradesSub?: SpellBuildCreateupgradesSubInput | string[]
+    upgradesSup?: SpellBuildCreateupgradesSupInput | string[]
+    elementsDps?: SpellBuildCreateelementsDpsInput | string[]
+    elementsSub?: SpellBuildCreateelementsSubInput | string[]
+    elementsSup?: SpellBuildCreateelementsSupInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SpellBuildCreateOrConnectWithoutParentSpellInput = {
+    where: SpellBuildWhereUniqueInput
+    create: XOR<SpellBuildCreateWithoutParentSpellInput, SpellBuildUncheckedCreateWithoutParentSpellInput>
+  }
+
   export type SpellAboutUpsertWithoutParentSpellInput = {
     update: XOR<SpellAboutUpdateWithoutParentSpellInput, SpellAboutUncheckedUpdateWithoutParentSpellInput>
     create: XOR<SpellAboutCreateWithoutParentSpellInput, SpellAboutUncheckedCreateWithoutParentSpellInput>
@@ -17723,12 +19463,59 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SpellBuildUpsertWithoutParentSpellInput = {
+    update: XOR<SpellBuildUpdateWithoutParentSpellInput, SpellBuildUncheckedUpdateWithoutParentSpellInput>
+    create: XOR<SpellBuildCreateWithoutParentSpellInput, SpellBuildUncheckedCreateWithoutParentSpellInput>
+    where?: SpellBuildWhereInput
+  }
+
+  export type SpellBuildUpdateToOneWithWhereWithoutParentSpellInput = {
+    where?: SpellBuildWhereInput
+    data: XOR<SpellBuildUpdateWithoutParentSpellInput, SpellBuildUncheckedUpdateWithoutParentSpellInput>
+  }
+
+  export type SpellBuildUpdateWithoutParentSpellInput = {
+    augmentNameDps?: SpellBuildUpdateaugmentNameDpsInput | string[]
+    augmentDescriptionDps?: SpellBuildUpdateaugmentDescriptionDpsInput | string[]
+    augmentNameSub?: SpellBuildUpdateaugmentNameSubInput | string[]
+    augmentDescriptionSub?: SpellBuildUpdateaugmentDescriptionSubInput | string[]
+    augmentNameSup?: SpellBuildUpdateaugmentNameSupInput | string[]
+    augmentDescriptionSup?: SpellBuildUpdateaugmentDescriptionSupInput | string[]
+    upgradesDps?: SpellBuildUpdateupgradesDpsInput | string[]
+    upgradesSub?: SpellBuildUpdateupgradesSubInput | string[]
+    upgradesSup?: SpellBuildUpdateupgradesSupInput | string[]
+    elementsDps?: SpellBuildUpdateelementsDpsInput | string[]
+    elementsSub?: SpellBuildUpdateelementsSubInput | string[]
+    elementsSup?: SpellBuildUpdateelementsSupInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SpellBuildUncheckedUpdateWithoutParentSpellInput = {
+    augmentNameDps?: SpellBuildUpdateaugmentNameDpsInput | string[]
+    augmentDescriptionDps?: SpellBuildUpdateaugmentDescriptionDpsInput | string[]
+    augmentNameSub?: SpellBuildUpdateaugmentNameSubInput | string[]
+    augmentDescriptionSub?: SpellBuildUpdateaugmentDescriptionSubInput | string[]
+    augmentNameSup?: SpellBuildUpdateaugmentNameSupInput | string[]
+    augmentDescriptionSup?: SpellBuildUpdateaugmentDescriptionSupInput | string[]
+    upgradesDps?: SpellBuildUpdateupgradesDpsInput | string[]
+    upgradesSub?: SpellBuildUpdateupgradesSubInput | string[]
+    upgradesSup?: SpellBuildUpdateupgradesSupInput | string[]
+    elementsDps?: SpellBuildUpdateelementsDpsInput | string[]
+    elementsSub?: SpellBuildUpdateelementsSubInput | string[]
+    elementsSup?: SpellBuildUpdateelementsSupInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SpellCreateWithoutAboutContentInput = {
     name: string
+    buildContent?: SpellBuildCreateNestedOneWithoutParentSpellInput
   }
 
   export type SpellUncheckedCreateWithoutAboutContentInput = {
     name: string
+    buildContent?: SpellBuildUncheckedCreateNestedOneWithoutParentSpellInput
   }
 
   export type SpellCreateOrConnectWithoutAboutContentInput = {
@@ -17749,10 +19536,48 @@ export namespace Prisma {
 
   export type SpellUpdateWithoutAboutContentInput = {
     name?: StringFieldUpdateOperationsInput | string
+    buildContent?: SpellBuildUpdateOneWithoutParentSpellNestedInput
   }
 
   export type SpellUncheckedUpdateWithoutAboutContentInput = {
     name?: StringFieldUpdateOperationsInput | string
+    buildContent?: SpellBuildUncheckedUpdateOneWithoutParentSpellNestedInput
+  }
+
+  export type SpellCreateWithoutBuildContentInput = {
+    name: string
+    aboutContent?: SpellAboutCreateNestedOneWithoutParentSpellInput
+  }
+
+  export type SpellUncheckedCreateWithoutBuildContentInput = {
+    name: string
+    aboutContent?: SpellAboutUncheckedCreateNestedOneWithoutParentSpellInput
+  }
+
+  export type SpellCreateOrConnectWithoutBuildContentInput = {
+    where: SpellWhereUniqueInput
+    create: XOR<SpellCreateWithoutBuildContentInput, SpellUncheckedCreateWithoutBuildContentInput>
+  }
+
+  export type SpellUpsertWithoutBuildContentInput = {
+    update: XOR<SpellUpdateWithoutBuildContentInput, SpellUncheckedUpdateWithoutBuildContentInput>
+    create: XOR<SpellCreateWithoutBuildContentInput, SpellUncheckedCreateWithoutBuildContentInput>
+    where?: SpellWhereInput
+  }
+
+  export type SpellUpdateToOneWithWhereWithoutBuildContentInput = {
+    where?: SpellWhereInput
+    data: XOR<SpellUpdateWithoutBuildContentInput, SpellUncheckedUpdateWithoutBuildContentInput>
+  }
+
+  export type SpellUpdateWithoutBuildContentInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    aboutContent?: SpellAboutUpdateOneWithoutParentSpellNestedInput
+  }
+
+  export type SpellUncheckedUpdateWithoutBuildContentInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    aboutContent?: SpellAboutUncheckedUpdateOneWithoutParentSpellNestedInput
   }
 
   export type TierCreateWithoutParent_listInput = {
@@ -17791,9 +19616,9 @@ export namespace Prisma {
     banned?: boolean | null
     banReason?: string | null
     banExpires?: Date | string | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     blogs?: BlogPostCreateNestedManyWithoutAuthorInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTierListsInput = {
@@ -17808,9 +19633,9 @@ export namespace Prisma {
     banned?: boolean | null
     banReason?: string | null
     banExpires?: Date | string | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     blogs?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTierListsInput = {
@@ -17868,9 +19693,9 @@ export namespace Prisma {
     banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     blogs?: BlogPostUpdateManyWithoutAuthorNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTierListsInput = {
@@ -17885,9 +19710,9 @@ export namespace Prisma {
     banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     blogs?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TierlistCreateWithoutTiersInput = {
@@ -17973,8 +19798,8 @@ export namespace Prisma {
     banned?: boolean | null
     banReason?: string | null
     banExpires?: Date | string | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
     tierLists?: TierlistCreateNestedManyWithoutAuthorInput
   }
 
@@ -17990,8 +19815,8 @@ export namespace Prisma {
     banned?: boolean | null
     banReason?: string | null
     banExpires?: Date | string | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     tierLists?: TierlistUncheckedCreateNestedManyWithoutAuthorInput
   }
 
@@ -18044,8 +19869,8 @@ export namespace Prisma {
     banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
     tierLists?: TierlistUpdateManyWithoutAuthorNestedInput
   }
 
@@ -18061,8 +19886,8 @@ export namespace Prisma {
     banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     tierLists?: TierlistUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
@@ -18104,38 +19929,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     authorId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type SessionCreateWithoutUserInput = {
-    id: string
-    expiresAt: Date | string
-    token: string
-    createdAt: Date | string
-    updatedAt: Date | string
-    ipAddress?: string | null
-    userAgent?: string | null
-    impersonatedBy?: string | null
-  }
-
-  export type SessionUncheckedCreateWithoutUserInput = {
-    id: string
-    expiresAt: Date | string
-    token: string
-    createdAt: Date | string
-    updatedAt: Date | string
-    ipAddress?: string | null
-    userAgent?: string | null
-    impersonatedBy?: string | null
-  }
-
-  export type SessionCreateOrConnectWithoutUserInput = {
-    where: SessionWhereUniqueInput
-    create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
-  }
-
-  export type SessionCreateManyUserInputEnvelope = {
-    data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
-    skipDuplicates?: boolean
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -18200,6 +19993,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SessionCreateWithoutUserInput = {
+    id: string
+    expiresAt: Date | string
+    token: string
+    createdAt: Date | string
+    updatedAt: Date | string
+    ipAddress?: string | null
+    userAgent?: string | null
+    impersonatedBy?: string | null
+  }
+
+  export type SessionUncheckedCreateWithoutUserInput = {
+    id: string
+    expiresAt: Date | string
+    token: string
+    createdAt: Date | string
+    updatedAt: Date | string
+    ipAddress?: string | null
+    userAgent?: string | null
+    impersonatedBy?: string | null
+  }
+
+  export type SessionCreateOrConnectWithoutUserInput = {
+    where: SessionWhereUniqueInput
+    create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type SessionCreateManyUserInputEnvelope = {
+    data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TierlistCreateWithoutAuthorInput = {
     id?: string
     name?: string | null
@@ -18228,37 +20053,6 @@ export namespace Prisma {
   export type TierlistCreateManyAuthorInputEnvelope = {
     data: TierlistCreateManyAuthorInput | TierlistCreateManyAuthorInput[]
     skipDuplicates?: boolean
-  }
-
-  export type SessionUpsertWithWhereUniqueWithoutUserInput = {
-    where: SessionWhereUniqueInput
-    update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
-    create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
-  }
-
-  export type SessionUpdateWithWhereUniqueWithoutUserInput = {
-    where: SessionWhereUniqueInput
-    data: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
-  }
-
-  export type SessionUpdateManyWithWhereWithoutUserInput = {
-    where: SessionScalarWhereInput
-    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type SessionScalarWhereInput = {
-    AND?: SessionScalarWhereInput | SessionScalarWhereInput[]
-    OR?: SessionScalarWhereInput[]
-    NOT?: SessionScalarWhereInput | SessionScalarWhereInput[]
-    id?: StringFilter<"Session"> | string
-    expiresAt?: DateTimeFilter<"Session"> | Date | string
-    token?: StringFilter<"Session"> | string
-    createdAt?: DateTimeFilter<"Session"> | Date | string
-    updatedAt?: DateTimeFilter<"Session"> | Date | string
-    ipAddress?: StringNullableFilter<"Session"> | string | null
-    userAgent?: StringNullableFilter<"Session"> | string | null
-    userId?: StringFilter<"Session"> | string
-    impersonatedBy?: StringNullableFilter<"Session"> | string | null
   }
 
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
@@ -18319,6 +20113,37 @@ export namespace Prisma {
     id?: StringFilter<"BlogPost"> | string
     title?: StringFilter<"BlogPost"> | string
     authorId?: StringFilter<"BlogPost"> | string
+  }
+
+  export type SessionUpsertWithWhereUniqueWithoutUserInput = {
+    where: SessionWhereUniqueInput
+    update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
+    create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type SessionUpdateWithWhereUniqueWithoutUserInput = {
+    where: SessionWhereUniqueInput
+    data: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SessionUpdateManyWithWhereWithoutUserInput = {
+    where: SessionScalarWhereInput
+    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SessionScalarWhereInput = {
+    AND?: SessionScalarWhereInput | SessionScalarWhereInput[]
+    OR?: SessionScalarWhereInput[]
+    NOT?: SessionScalarWhereInput | SessionScalarWhereInput[]
+    id?: StringFilter<"Session"> | string
+    expiresAt?: DateTimeFilter<"Session"> | Date | string
+    token?: StringFilter<"Session"> | string
+    createdAt?: DateTimeFilter<"Session"> | Date | string
+    updatedAt?: DateTimeFilter<"Session"> | Date | string
+    ipAddress?: StringNullableFilter<"Session"> | string | null
+    userAgent?: StringNullableFilter<"Session"> | string | null
+    userId?: StringFilter<"Session"> | string
+    impersonatedBy?: StringNullableFilter<"Session"> | string | null
   }
 
   export type TierlistUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -18446,8 +20271,8 @@ export namespace Prisma {
     banned?: boolean | null
     banReason?: string | null
     banExpires?: Date | string | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
     blogs?: BlogPostCreateNestedManyWithoutAuthorInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
     tierLists?: TierlistCreateNestedManyWithoutAuthorInput
   }
 
@@ -18463,8 +20288,8 @@ export namespace Prisma {
     banned?: boolean | null
     banReason?: string | null
     banExpires?: Date | string | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     blogs?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     tierLists?: TierlistUncheckedCreateNestedManyWithoutAuthorInput
   }
 
@@ -18496,8 +20321,8 @@ export namespace Prisma {
     banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
     blogs?: BlogPostUpdateManyWithoutAuthorNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
     tierLists?: TierlistUpdateManyWithoutAuthorNestedInput
   }
 
@@ -18513,8 +20338,8 @@ export namespace Prisma {
     banned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     banExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     blogs?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     tierLists?: TierlistUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
@@ -18546,17 +20371,6 @@ export namespace Prisma {
     spells?: TierUpdatespellsInput | string[]
   }
 
-  export type SessionCreateManyUserInput = {
-    id: string
-    expiresAt: Date | string
-    token: string
-    createdAt: Date | string
-    updatedAt: Date | string
-    ipAddress?: string | null
-    userAgent?: string | null
-    impersonatedBy?: string | null
-  }
-
   export type AccountCreateManyUserInput = {
     id: string
     accountId: string
@@ -18577,6 +20391,17 @@ export namespace Prisma {
     title: string
   }
 
+  export type SessionCreateManyUserInput = {
+    id: string
+    expiresAt: Date | string
+    token: string
+    createdAt: Date | string
+    updatedAt: Date | string
+    ipAddress?: string | null
+    userAgent?: string | null
+    impersonatedBy?: string | null
+  }
+
   export type TierlistCreateManyAuthorInput = {
     id?: string
     name?: string | null
@@ -18584,39 +20409,6 @@ export namespace Prisma {
     likes?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-  }
-
-  export type SessionUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    token?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    impersonatedBy?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type SessionUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    token?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    impersonatedBy?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type SessionUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    token?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    impersonatedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -18679,6 +20471,39 @@ export namespace Prisma {
   export type BlogPostUncheckedUpdateManyWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SessionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    impersonatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SessionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    impersonatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SessionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    impersonatedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TierlistUpdateWithoutAuthorInput = {

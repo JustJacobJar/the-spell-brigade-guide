@@ -1,19 +1,32 @@
 "use client";
-import { SpellAbout } from "@/generated/client";
 import { Section, SubHeader } from "./SpellsFormatting";
+import { SpellAbout } from "@/generated/client";
 
-export function AboutDisplay({ aboutData }: { aboutData: SpellAbout }) {
+export function AboutDisplay({ aboutData }: { aboutData?: SpellAbout }) {
+  if (!aboutData) {
+    aboutData = {
+      introduction: "No data",
+      mageInfo: "No data",
+      augments: ["No", "Data"],
+      upgrades: ["No", "Data"],
+      overview: "No data",
+      spellName: "No Data",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+  }
+
   return (
-    <>
+    <div className="flex flex-col gap-8">
       {/* Intro/Mage */}
-      <div className="flex w-full flex-row gap-8">
+      <div className="flex w-full flex-col gap-8 md:flex-row">
         {/* Intro */}
         <div className="h-full min-h-32 w-full">
           <SubHeader>Introduction</SubHeader>
           <p>{aboutData.introduction}</p>
         </div>
         {/* Divider */}
-        <div className="divider divider-horizontal" />
+        <div className="divider divider-horizontal hidden md:flex" />
         {/* Wizard */}
         <div className="h-full min-h-32 w-full">
           <SubHeader>Mage</SubHeader>
@@ -24,7 +37,7 @@ export function AboutDisplay({ aboutData }: { aboutData: SpellAbout }) {
       {/* Augments Upgrades */}
       <Section>
         <SubHeader>Augments & Upgrades</SubHeader>
-        <div className="grid grid-cols-2 gap-28">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-28">
           <ul className="list-inside list-disc">
             <h2 className="text-xl font-bold">Augments</h2>
             {aboutData.augments.map((li, index) => {
@@ -47,11 +60,9 @@ export function AboutDisplay({ aboutData }: { aboutData: SpellAbout }) {
             <SubHeader>Overview</SubHeader>
             <p>{aboutData.overview}</p>
           </Section>
-          {/* Divider */}
-          <div className="divider divider-horizontal" />
         </div>
       </Section>
-    </>
+    </div>
   );
 }
 
@@ -96,8 +107,6 @@ export function AboutDisplaySkeleton() {
             <SubHeader>Overview</SubHeader>
             <p className="skeleton h-32 w-full"></p>
           </Section>
-          {/* Divider */}
-          <div className="divider divider-horizontal" />
         </div>
       </Section>
     </>

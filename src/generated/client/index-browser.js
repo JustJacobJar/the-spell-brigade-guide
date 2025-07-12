@@ -139,6 +139,24 @@ exports.Prisma.SpellAboutScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.SpellBuildScalarFieldEnum = {
+  spellName: 'spellName',
+  augmentNameDps: 'augmentNameDps',
+  augmentDescriptionDps: 'augmentDescriptionDps',
+  augmentNameSub: 'augmentNameSub',
+  augmentDescriptionSub: 'augmentDescriptionSub',
+  augmentNameSup: 'augmentNameSup',
+  augmentDescriptionSup: 'augmentDescriptionSup',
+  upgradesDps: 'upgradesDps',
+  upgradesSub: 'upgradesSub',
+  upgradesSup: 'upgradesSup',
+  elementsDps: 'elementsDps',
+  elementsSub: 'elementsSub',
+  elementsSup: 'elementsSup',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.TierlistScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -244,6 +262,7 @@ exports.Prisma.ModelName = {
   MetaReport: 'MetaReport',
   Spell: 'Spell',
   SpellAbout: 'SpellAbout',
+  SpellBuild: 'SpellBuild',
   Tierlist: 'Tierlist',
   Tier: 'Tier',
   BlogPost: 'BlogPost',
