@@ -1,8 +1,8 @@
 "use client";
-import { UpdateTracker } from "@/app/spells/[spellName]/pageClient";
 import AboutSpellForm from "@/components/spells/forms/AboutSpellForm";
 import BuildSpellForm from "@/components/spells/forms/BuildSpellForm";
 import { SpellHeader } from "@/components/spells/SpellsFormatting";
+import { UpdateTracker } from "@/components/spells/UpdateTracker";
 import { SpellAbout, SpellBuild } from "@/generated/client";
 import { ReactNode, useState } from "react";
 

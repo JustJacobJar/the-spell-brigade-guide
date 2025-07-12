@@ -6,6 +6,7 @@ import {
   SpellHeader,
   SubHeader,
 } from "@/components/spells/SpellsFormatting";
+import { UpdateTracker } from "@/components/spells/UpdateTracker";
 import { SpellAbout, SpellBuild } from "@/generated/client";
 import { useState } from "react";
 
@@ -35,12 +36,15 @@ export default function SpellViewPage({
   const [view, setView] = useState(0);
 
   return (
-    <div className="flex h-full w-full flex-col gap-8 p-2 px-4 self-center">
+    <div className="flex h-full w-full flex-col gap-8 self-center p-2 px-4">
       <SpellHeader spellName={spellName} />
       {/* Update Tracker */}
-      <UpdateTracker />
+      <UpdateTracker
+        aboutUpdate={aboutData?.updatedAt}
+        buildUpdate={buildData?.updatedAt}
+      />
       {/* Modal Buttons */}
-      <div className="grid h-64 gap-4 md:h-32 grid-cols-1 md:grid-cols-3 md:gap-8 py-8">
+      <div className="grid h-64 grid-cols-1 gap-4 py-8 md:h-32 md:grid-cols-3 md:gap-8">
         <button
           onClick={() => setView(0)}
           className="btn btn-xl btn-neutral h-full"
@@ -76,31 +80,3 @@ export default function SpellViewPage({
 //
 
 //This pulls in data
-export function UpdateTracker() {
-  return (
-    <Section>
-      <SubHeader>Update Tracker</SubHeader>
-      <div className="flex flex-col md:flex-row gap-8">
-        {/* Review Date */}
-        <div className="card bg-base-300 w-full overflow-clip text-center text-lg font-bold">
-          <h2 className="bg-secondary text-secondary-content h-fit w-full py-1">
-            Last About Update
-          </h2>
-          <p className="py-1">Date/Patch</p>
-        </div>
-        <div className="card bg-base-300 w-full overflow-clip text-center text-lg font-bold">
-          <h2 className="bg-secondary text-secondary-content h-fit w-full py-1">
-            Last Build Update
-          </h2>
-          <p className="py-1">Date/Patch</p>
-        </div>
-        <div className="card bg-base-300 w-full overflow-clip text-center text-lg font-bold">
-          <h2 className="bg-secondary text-secondary-content h-fit w-full py-1">
-            Last Review Update
-          </h2>
-          <p className="py-1">Date/Patch</p>
-        </div>
-      </div>
-    </Section>
-  );
-}

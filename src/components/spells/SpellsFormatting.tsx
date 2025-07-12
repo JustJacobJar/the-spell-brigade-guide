@@ -333,7 +333,7 @@ export function SpellHeader({ spellName }: { spellName: string }) {
         {/* Spell Image */}
         <div className="z-10 flex h-full w-full flex-row place-items-center md:px-4">
           <div className="aspect-square h-full p-2">
-            <ImageUnop alt="Spell Image" src={GITSPRITEURL("Astral_orbs")} />
+            <ImageUnop alt="Spell Image" src={GITSPRITEURL(spellName)} />
           </div>
           {/* Title Content */}
           <div>
@@ -345,7 +345,7 @@ export function SpellHeader({ spellName }: { spellName: string }) {
           </div>
         </div>
         {/* Background */}
-        <div className="absolute z-0 opacity-90 h-full w-full bg-[url(/TheSpellBrigade_Background_3840x2160.webp)] bg-cover bg-center" />
+        <div className="absolute z-0 h-full w-full bg-[url(/TheSpellBrigade_Background_3840x2160.webp)] bg-cover bg-center opacity-90" />
       </div>
     </Section>
   );
