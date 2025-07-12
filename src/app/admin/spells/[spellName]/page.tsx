@@ -1,12 +1,22 @@
 import { prisma } from "@/lib/prisma";
 import SpellsForm from "./spellsForm";
 import { getAllSpells } from "@/server/fetchActions";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 
 export default async function EditSpellsPage({
   params,
 }: {
   params: Promise<{ spellName: string }>;
 }) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) redirect("/");
+  if (session.user.role !== "ADMIN") redirect("/"); //Change this to unauth page or signin
+
   const { spellName } = await params;
 
   const spellList = (await getAllSpells()).map((li) => li.name);
