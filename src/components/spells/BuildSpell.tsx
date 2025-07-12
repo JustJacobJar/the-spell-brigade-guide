@@ -8,6 +8,7 @@ import {
   SubHeader,
   UpgradeContent,
 } from "./SpellsFormatting";
+import { ReactNode } from "react";
 
 //Take in build data when made
 export function BuildDisplay({ buildData }: { buildData?: SpellBuild }) {
@@ -37,7 +38,7 @@ export function BuildDisplay({ buildData }: { buildData?: SpellBuild }) {
       {/* Augments */}
       <Section>
         <SubHeader>Augments</SubHeader>
-        <div className="grid grid-cols-3 gap-4">
+        <BuildGrid>
           {/* DPS */}
           <CheckboxParent
             items={[
@@ -110,12 +111,12 @@ export function BuildDisplay({ buildData }: { buildData?: SpellBuild }) {
               Sup / Debuff
             </h2>
           </CheckboxParent>
-        </div>
+        </BuildGrid>
       </Section>
       {/* Upgrades */}
       <Section>
         <SubHeader>Upgrades</SubHeader>
-        <div className="grid grid-cols-3 gap-4">
+        <BuildGrid>
           {/* DPS */}
           <UpgradeContent upgrades={buildData.upgradesDps}>
             <h2 className="bg-primary py-2 text-center text-2xl font-bold">
@@ -134,12 +135,12 @@ export function BuildDisplay({ buildData }: { buildData?: SpellBuild }) {
               Sup / Debuff
             </h2>
           </UpgradeContent>
-        </div>
+        </BuildGrid>
       </Section>
       {/* Elements */}
       <Section>
         <SubHeader>Elements</SubHeader>
-        <div className="grid grid-cols-3 gap-4">
+        <BuildGrid>
           {/* DPS */}
           <ElementContent elements={buildData.elementsDps}>
             <h2 className="bg-primary py-2 text-center text-2xl font-bold">
@@ -158,12 +159,12 @@ export function BuildDisplay({ buildData }: { buildData?: SpellBuild }) {
               Sup / Debuff
             </h2>
           </ElementContent>
-        </div>
+        </BuildGrid>
       </Section>
       {/* Synergy Builds */}
       <Section>
         <SubHeader>Synergy</SubHeader>
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="card bg-base-300 grid min-h-16 place-content-center">
             Some build showing 4 spells
           </div>
@@ -308,4 +309,8 @@ export function BuildDisplaySkelton() {
       </Section>
     </>
   );
+}
+
+function BuildGrid({ children }: { children: ReactNode }) {
+  return <div className="grid grid-rows-3 grid-cols-1 md:grid-rows-1 md:grid-cols-3 gap-4">{children}</div>;
 }

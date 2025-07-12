@@ -329,17 +329,23 @@ export function LiElement({
 export function SpellHeader({ spellName }: { spellName: string }) {
   return (
     <Section>
-      <div className="bg-primary flex h-32 flex-row place-content-between place-items-center px-16">
-        {/* Title Content */}
-        <div>
-          <h3 className="text-md">The spell brigade</h3>
-          <h1 className="text-2xl font-bold">{spellName}</h1>
-          <h3 className="text-xl">Info, Builds and Guides</h3>
-        </div>
+      <div className={`relative flex h-32`}>
         {/* Spell Image */}
-        <div className="h-full">
-          <ImageUnop alt="Spell Image" src={GITSPRITEURL("Astral_orbs")} />
+        <div className="z-10 flex h-full w-full flex-row place-items-center md:px-4">
+          <div className="aspect-square h-full p-2">
+            <ImageUnop alt="Spell Image" src={GITSPRITEURL("Astral_orbs")} />
+          </div>
+          {/* Title Content */}
+          <div>
+            <h3 className="text-md">The spell brigade</h3>
+            <h1 className="text-2xl font-bold">
+              {spellName.replace("_", " ")}
+            </h1>
+            <h3 className="text-xl">Info, Builds and Reviews</h3>
+          </div>
         </div>
+        {/* Background */}
+        <div className="absolute z-0 opacity-90 h-full w-full bg-[url(/TheSpellBrigade_Background_3840x2160.webp)] bg-cover bg-center" />
       </div>
     </Section>
   );

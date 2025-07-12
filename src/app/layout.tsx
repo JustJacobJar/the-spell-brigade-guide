@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import SideBar from "@/components/SideBar";
 import TopBar from "@/components/TopBar";
 import { Providers } from "@/lib/providers";
 
@@ -19,11 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`flex min-h-screen w-full antialiased`}>
         <Providers>
-          <SideBar />
-          <TopBar />
-          <div className="bg-base-200 mt-16 ml-64 w-full place-items-center">
-            {children}
-          </div>
+          <TopBar>{children}</TopBar>
         </Providers>
       </body>
     </html>

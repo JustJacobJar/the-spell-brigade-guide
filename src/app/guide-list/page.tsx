@@ -38,9 +38,9 @@ export default async function GuideListPage() {
   };
 
   return (
-    <div className="flex h-full w-full flex-col gap-4 place-self-center p-2 outline">
+    <div className="flex h-full w-full flex-col gap-4 place-self-center p-2">
       <h1 className="text-center text-5xl font-bold">Guides</h1>
-      <div className="grid h-full w-5xl grid-cols-2 gap-8 place-self-center">
+      <div className="grid h-full w-full max-w-5xl grid-cols-1 md:grid-cols-2 gap-8 place-self-center">
         {guides.map((post, index) => {
           return (
             <div

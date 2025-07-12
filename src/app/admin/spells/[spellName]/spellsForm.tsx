@@ -25,7 +25,7 @@ export default function SpellsForm({
   //manage user feedback for success loading error on mutate
 
   return (
-    <div className="flex h-full w-full flex-col gap-8 p-2 px-16 outline">
+    <div className="flex h-full w-full flex-col gap-8 p-2 px-16">
       {toastOpen && toast}
       <SpellHeader spellName={spellName} />
       {/* Update Tracker */}

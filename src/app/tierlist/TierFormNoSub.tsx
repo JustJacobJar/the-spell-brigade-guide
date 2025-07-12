@@ -31,7 +31,7 @@ export default function TierFormNoSub({ tierData }: TierFormProps) {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="">
+      <div>
         {tiers.map((tier, index) => (
           <TierRow key={index} tier={tier} />
         ))}

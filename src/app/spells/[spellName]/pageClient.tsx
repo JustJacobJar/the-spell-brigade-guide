@@ -35,12 +35,12 @@ export default function SpellViewPage({
   const [view, setView] = useState(0);
 
   return (
-    <div className="flex h-full w-full flex-col gap-8 p-2 px-16 outline">
+    <div className="flex h-full w-full flex-col gap-8 p-2 px-4 self-center">
       <SpellHeader spellName={spellName} />
       {/* Update Tracker */}
       <UpdateTracker />
       {/* Modal Buttons */}
-      <div className="grid h-32 grid-cols-3 gap-8 py-8">
+      <div className="grid h-64 gap-4 md:h-32 grid-cols-1 md:grid-cols-3 md:gap-8 py-8">
         <button
           onClick={() => setView(0)}
           className="btn btn-xl btn-neutral h-full"
@@ -80,7 +80,7 @@ export function UpdateTracker() {
   return (
     <Section>
       <SubHeader>Update Tracker</SubHeader>
-      <div className="flex flex-row gap-8">
+      <div className="flex flex-col md:flex-row gap-8">
         {/* Review Date */}
         <div className="card bg-base-300 w-full overflow-clip text-center text-lg font-bold">
           <h2 className="bg-secondary text-secondary-content h-fit w-full py-1">
