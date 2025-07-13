@@ -18,6 +18,7 @@ model Spell {
   name         String      @unique
   aboutContent SpellAbout?
   buildContent SpellBuild?
+  reviewContent SpellReview?
 }
 
 model SpellAbout {
@@ -53,6 +54,18 @@ model SpellBuild {
   parentSpell           Spell    @relation(fields: [spellName], references: [name], onDelete: Cascade)
 
   @@map("spell_build")
+}
+
+model SpellReview {
+  spellName    String   @unique
+  pros String[]
+  cons String[]
+  review String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  parentSpell  Spell    @relation(fields: [spellName], references: [name], onDelete: Cascade)
+
+  @@map("spell_review")
 }
 
 model Tierlist {

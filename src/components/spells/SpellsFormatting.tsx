@@ -11,6 +11,7 @@ import {
   plus,
   unknown,
 } from "../ElementIcons";
+import { ClassValue } from "clsx";
 
 //Custom colour these to the recommended element?
 export function BulletPoint() {
@@ -294,12 +295,14 @@ export function Toast({
 
 //Function for admin edit page
 export function LiElement({
+  classname,
   value,
   index,
   parentList,
   parentListFn,
   fn,
 }: {
+  classname?: ClassValue;
   value: string;
   index: number;
   parentList: string[];
@@ -312,17 +315,16 @@ export function LiElement({
   ) => void;
 }) {
   return (
-    <li>
-      <input
-        className="input"
-        type="text"
+    // <li>
+      <textarea
+        className={cn("input pt-1 min-h-10", classname)}
         value={value}
         onChange={(e) =>
           fn(parentList, parentListFn, e.currentTarget.value, index)
         }
         placeholder="Element name"
       />
-    </li>
+    // </li>
   );
 }
 

@@ -5,6 +5,7 @@ import { getSpellAbout } from "@/server/fetchActions";
 import { useQueryClient } from "@tanstack/react-query";
 import ImageUnop from "./ImageUnop";
 import Link from "next/link";
+import { CapFirstLetter } from "@/lib/utils";
 
 export default function SpellLink({
   spellName,
@@ -33,7 +34,7 @@ export default function SpellLink({
       className="btn btn-outline btn-neutral btn-square size-32 p-2"
       href={link}
     >
-      <ImageUnop alt="Spell Icon" src={GITSPRITEURL(spellName)} />
+      <ImageUnop alt="Spell Icon" src={GITSPRITEURL(CapFirstLetter(spellName))} />
     </Link>
   );
 }

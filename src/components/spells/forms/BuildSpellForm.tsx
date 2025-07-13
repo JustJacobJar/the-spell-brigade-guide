@@ -127,7 +127,7 @@ export default function BuildSpellForm({
       setToast(
         <Toast
           state="Error"
-          message={`Not saved! ${mutateBuild.error.message}`}
+          message={`Not saved Build! ${mutateBuild.error.message}`}
           closeFn={() => setToastOpen(false)}
         />,
       );
@@ -137,7 +137,7 @@ export default function BuildSpellForm({
       setToast(
         <Toast
           state="Success"
-          message="Succesfully Updated About"
+          message="Succesfully Updated Build"
           closeFn={() => setToastOpen(false)}
         />,
       );

@@ -1,12 +1,16 @@
 "use client";
 
-import { UpdateSpellAbout, UpdateSpellBuild } from "@/server/createActions";
+import {
+  UpdateSpellAbout,
+  UpdateSpellBuild,
+  UpdateSpellReview,
+} from "@/server/createActions";
 import {
   useMutation,
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
-import { SpellAboutInput, SpellBuildInput } from "./types";
+import { SpellAboutInput, SpellBuildInput, SpellReviewInput } from "./types";
 import { getSpellAbout } from "@/server/fetchActions";
 
 export function useUpdateSpellAboutMutate() {
@@ -50,6 +54,24 @@ export function useUpdateSpellBuildMutate() {
         queryKey: ["build", variables.spellname],
       });
       // queryClient.invalidateQueries({ queryKey: ["teams"] });
+    },
+  });
+  return [mutation] as const;
+}
+
+export function useUpdateSpellReviewMutate() {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: async (data: {
+      spellname: string;
+      reviewData: SpellReviewInput;
+    }) => {
+      return await UpdateSpellReview(data.spellname, data.reviewData);
+    },
+    onSuccess(spellName, variables) {
+      queryClient.invalidateQueries({
+        queryKey: ["review", variables.spellname],
+      });
     },
   });
   return [mutation] as const;

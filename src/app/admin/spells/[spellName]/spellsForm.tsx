@@ -1,19 +1,22 @@
 "use client";
 import AboutSpellForm from "@/components/spells/forms/AboutSpellForm";
 import BuildSpellForm from "@/components/spells/forms/BuildSpellForm";
+import ReviewSpellForm from "@/components/spells/forms/ReviewSpellForm";
 import { SpellHeader } from "@/components/spells/SpellsFormatting";
 import { UpdateTracker } from "@/components/spells/UpdateTracker";
-import { SpellAbout, SpellBuild } from "@/generated/client";
+import { SpellAbout, SpellBuild, SpellReview } from "@/generated/client";
 import { ReactNode, useState } from "react";
 
 export default function SpellsForm({
   spellName,
   aboutData,
   buildData,
+  reviewData,
 }: {
   spellName: string;
   aboutData?: SpellAbout;
   buildData?: SpellBuild;
+  reviewData?: SpellReview;
 }) {
   //pull in spell name from parent path
   const [view, setView] = useState(0);
@@ -63,6 +66,14 @@ export default function SpellsForm({
         <BuildSpellForm
           spellName={spellName}
           currentData={buildData}
+          setToast={setToast}
+          setToastOpen={setToastOpen}
+        />
+      )}
+      {view == 2 && (
+        <ReviewSpellForm
+          spellName={spellName}
+          currentData={reviewData}
           setToast={setToast}
           setToastOpen={setToastOpen}
         />
