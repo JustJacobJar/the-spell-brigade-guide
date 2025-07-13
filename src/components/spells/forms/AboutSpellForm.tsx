@@ -35,7 +35,7 @@ export default function AboutSpellForm({
       setToast(
         <Toast
           state="Error"
-          message={`Not saved! ${mutateAbout.error.message}`}
+          message={`Not saved About! ${mutateAbout.error.message}`}
           closeFn={() => setToastOpen(false)}
         />,
       );
@@ -52,17 +52,6 @@ export default function AboutSpellForm({
       setToastOpen(true);
     }
   }, [mutateAbout.status]);
-
-  function handleLiChange(
-    list: string[],
-    listFn: Dispatch<SetStateAction<string[]>>,
-    value: string,
-    index: number,
-  ) {
-    const arr = [...list];
-    arr[index] = value;
-    listFn(arr);
-  }
 
   function handleAboutSubmit() {
     const data: SpellAboutInput = {
@@ -107,7 +96,7 @@ export default function AboutSpellForm({
         <SubHeader>Augments & Upgrades</SubHeader>
         <div className="grid grid-cols-2 gap-28">
           {/* Augment Input List */}
-          <ul className="list-inside list-disc">
+          <ul className="flex list-inside list-disc flex-col">
             <h2 className="text-xl font-bold">Augments</h2>
             {augmentList.map((li, index) => {
               return (
@@ -121,27 +110,29 @@ export default function AboutSpellForm({
                 />
               );
             })}
-            <button
-              className="btn btn-neutral"
-              type="button"
-              onClick={() => setAugmentList([...augmentList, ""])}
-            >
-              Add Item
-            </button>
-            <button
-              className="btn btn-error"
-              type="button"
-              onClick={() => {
-                const arr = [...augmentList];
-                arr.pop();
-                setAugmentList(arr);
-              }}
-            >
-              Remove Item
-            </button>
+            <div className="flex flex-row gap-2 p-2">
+              <button
+                className="btn btn-neutral btn-wide"
+                type="button"
+                onClick={() => setAugmentList([...augmentList, ""])}
+              >
+                Add Item
+              </button>
+              <button
+                className="btn btn-error btn-wide"
+                type="button"
+                onClick={() => {
+                  const arr = [...augmentList];
+                  arr.pop();
+                  setAugmentList(arr);
+                }}
+              >
+                Remove Item
+              </button>
+            </div>
           </ul>
           {/* Upgrade Input Li */}
-          <ul className="list-inside list-disc">
+          <ul className="flex list-inside list-disc flex-col">
             <h2 className="text-xl font-bold">Upgrades</h2>
             {upgradeList.map((li, index) => {
               return (
@@ -155,24 +146,26 @@ export default function AboutSpellForm({
                 />
               );
             })}
-            <button
-              className="btn btn-neutral"
-              type="button"
-              onClick={() => setUpgradeList([...upgradeList, ""])}
-            >
-              Add Item
-            </button>
-            <button
-              className="btn btn-error"
-              type="button"
-              onClick={() => {
-                const arr = [...upgradeList];
-                arr.pop();
-                setUpgradeList(arr);
-              }}
-            >
-              Remove Item
-            </button>
+            <div className="flex flex-row gap-2 p-2">
+              <button
+                className="btn btn-neutral btn-wide"
+                type="button"
+                onClick={() => setUpgradeList([...upgradeList, ""])}
+              >
+                Add Item
+              </button>
+              <button
+                className="btn btn-error btn-wide"
+                type="button"
+                onClick={() => {
+                  const arr = [...upgradeList];
+                  arr.pop();
+                  setUpgradeList(arr);
+                }}
+              >
+                Remove Item
+              </button>
+            </div>
           </ul>
         </div>
       </Section>
@@ -201,4 +194,15 @@ export default function AboutSpellForm({
       </div>
     </form>
   );
+}
+
+export function handleLiChange(
+  list: string[],
+  listFn: Dispatch<SetStateAction<string[]>>,
+  value: string,
+  index: number,
+) {
+  const arr = [...list];
+  arr[index] = value;
+  listFn(arr);
 }

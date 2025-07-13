@@ -29,6 +29,7 @@ import {
   codeBlockPlugin,
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
+import { cn } from "@/lib/utils";
 
 const toolbar = toolbarPlugin({
   toolbarClassName: "my-classname",
@@ -58,7 +59,7 @@ export default function InitializedMDXEditor({
 }: { editorRef: ForwardedRef<MDXEditorMethods> | null } & MDXEditorProps) {
   return (
     <MDXEditor
-      className="dark-theme dark-editor"
+      className={cn(props.className, "dark-theme dark-editor")}
       contentEditableClassName="prose prose-pink max-w-full"
       plugins={[
         toolbar,

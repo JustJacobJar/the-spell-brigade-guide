@@ -4,8 +4,12 @@ import { SpellAbout, SpellBuild } from "@/generated/client";
 import { prisma } from "@/lib/prisma";
 
 export async function getAllSpells() {
-  const spells = await prisma.spellsView.findMany();
-  return spells;
+  try {
+    const spells = await prisma.spellsView.findMany();
+    return spells;
+  } catch {
+    return [{ name: "Refresh" }];
+  }
 }
 
 export async function getBlogPost(id: string) {

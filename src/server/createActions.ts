@@ -1,7 +1,12 @@
 "use server";
 
 import * as z from "zod/v4";
-import { SpellAboutInput, SpellBuildInput, Tier } from "@/lib/types";
+import {
+  SpellAboutInput,
+  SpellBuildInput,
+  SpellReviewInput,
+  Tier,
+} from "@/lib/types";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -238,8 +243,6 @@ export async function UpdateSpellAbout(
     }
   }
 
-  console.log("Getting data?:", data);
-
   try {
     await prisma.spell.update({
       where: { name: spellName },
@@ -280,7 +283,6 @@ export async function UpdateSpellBuild(
     //Not auth to make a list
     throw "401: Not Authorized";
   }
-  console.log("Authed");
 
   //verify spellName is in the spells_view list
   const spells = await getAllSpells();
@@ -290,13 +292,11 @@ export async function UpdateSpellBuild(
     throw `Input Spell "${spellName}" does not exist!`;
   }
 
-  console.log("Verified");
   //Entry exists?
   const spellBuildEntry = !!(await prisma.spellBuild.findUnique({
     where: { spellName: spellName },
   }));
 
-  console.log("exists?");
   //no entry, create one
   if (!spellBuildEntry) {
     try {
@@ -329,13 +329,12 @@ export async function UpdateSpellBuild(
           },
         },
       });
-      console.log("created");
 
       return;
     } catch (error) {
       console.log(error);
       throw (
-        "There was an error creating the data content for spell: " + spellName
+        "There was an error creating the build content for spell: " + spellName
       );
     }
   }
@@ -372,7 +371,83 @@ export async function UpdateSpellBuild(
   } catch (error) {
     console.log(error);
     throw (
-      "There was an error updating the data content for spell: " + spellName
+      "There was an error updating the build content for spell: " + spellName
+    );
+  }
+
+  //Exits, update data
+}
+
+export async function UpdateSpellReview(
+  spellName: string,
+  data: SpellReviewInput,
+) {
+  //Auth user
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    //Not auth to make a list
+    throw "401: Not Authorized";
+  }
+
+  //verify spellName is in the spells_view list
+  const spells = await getAllSpells();
+  const spellList = spells.map((s) => s.name);
+  if (!spellList.includes(spellName)) {
+    //not in there, spell does not exist throw error
+    throw `Input Spell "${spellName}" does not exist!`;
+  }
+
+  //Entry exists?
+  const spellReviewEntry = !!(await prisma.spellReview.findUnique({
+    where: { spellName: spellName },
+  }));
+
+  //no entry, create one
+  if (!spellReviewEntry) {
+    try {
+      await prisma.spell.update({
+        where: { name: spellName },
+        data: {
+          reviewContent: {
+            create: {
+              pros: data.pros,
+              cons: data.cons,
+              review: data.review,
+            },
+          },
+        },
+      });
+      return;
+    } catch (error) {
+      console.log(error);
+      throw (
+        "There was an error creating the review content for spell: " + spellName
+      );
+    }
+  }
+
+  try {
+    await prisma.spell.update({
+      where: { name: spellName },
+      data: {
+        reviewContent: {
+          update: {
+            pros: data.pros,
+            cons: data.cons,
+            review: data.review,
+            updatedAt: new Date(),
+          },
+        },
+      },
+    });
+    return;
+  } catch (error) {
+    console.log(error);
+    throw (
+      "There was an error updating the review content for spell: " + spellName
     );
   }
 

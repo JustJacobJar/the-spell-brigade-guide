@@ -35,6 +35,12 @@ export interface buildAugmentInfo {
   description: string;
 }
 
+export type SpellReviewInput = {
+  pros: string[];
+  cons: string[];
+  review: string;
+};
+
 export type BaseSpellElement =
   | "Fire"
   | "Lightning"
