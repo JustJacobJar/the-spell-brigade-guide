@@ -1,11 +1,8 @@
 "use client";
 import { AboutDisplay } from "@/components/spells/AboutSpell";
 import { BuildDisplay } from "@/components/spells/BuildSpell";
-import {
-  Section,
-  SpellHeader,
-  SubHeader,
-} from "@/components/spells/SpellsFormatting";
+import ReviewDisplay from "@/components/spells/ReviewSpell";
+import { SpellHeader } from "@/components/spells/SpellsFormatting";
 import { UpdateTracker } from "@/components/spells/UpdateTracker";
 import { SpellAbout, SpellBuild } from "@/generated/client";
 import { useState } from "react";
@@ -71,12 +68,7 @@ export default function SpellViewPage({
       )}
       {/* {view == 0 && <AboutDisplay aboutData={aboutData} />} */}
       {view == 1 && <BuildDisplay buildData={buildData} />}
+      {view == 2 && <ReviewDisplay />}
     </div>
   );
 }
-
-//Reccomeneded role
-//dps, secondary dps, sup/debuf
-//
-
-//This pulls in data
