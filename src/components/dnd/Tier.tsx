@@ -12,15 +12,19 @@ interface TierProps {
 export default function TierRow({ tier }: TierProps) {
   return (
     <div className="flex min-h-32">
-      <div className={"w-32 border-2 content-center text-4xl font-bold text-center " + tier.tierClassname}>
+      <div
+        className={
+          "grid w-32 content-center border-2 text-center text-4xl font-bold " +
+          tier.tierClassname
+        }
+      >
         {tier.tierName}
       </div>
 
       <Droppable droppableId={tier.tierId} direction="horizontal">
         {(provided) => (
           <div
-            className="flex flex-wrap items-center border-2 w-5xl pl-4 select-none p-2 gap-2"
-            
+            className="flex w-full max-w-5xl flex-wrap items-center gap-2 border-2 p-2 pl-4 select-none"
             ref={provided.innerRef}
             {...provided.droppableProps}
           >

@@ -1,10 +1,15 @@
 "use server";
 
+import { SpellAbout, SpellBuild } from "@/generated/client";
 import { prisma } from "@/lib/prisma";
 
 export async function getAllSpells() {
-  const spells = await prisma.spellsView.findMany();
-  return spells;
+  try {
+    const spells = await prisma.spellsView.findMany();
+    return spells;
+  } catch {
+    return [{ name: "Refresh" }];
+  }
 }
 
 export async function getBlogPost(id: string) {
@@ -29,4 +34,48 @@ export async function getAllGuides() {
   throw "No guides found";
 
   return guides;
+}
+
+export async function getSpellAbout(spellName: string) {
+  //verify spellName is in the spells_view list
+  const spells = await getAllSpells();
+  const spellList = spells.map((s) => s.name);
+  if (!spellList.includes(spellName)) {
+    //not in there, spell does not exist throw error
+    throw `Input Spell "${spellName}" does not exist!`;
+  }
+
+  try {
+    const spellAbout = await prisma.spellAbout.findUnique({
+      where: {
+        spellName: spellName,
+      },
+    });
+    return spellAbout as SpellAbout;
+  } catch (error) {
+    console.log(error);
+    throw "Unable to find about data for spell: " + spellName;
+  }
+}
+
+export async function getSpellBuild(spellName: string) {
+  //verify spellName is in the spells_view list
+  const spells = await getAllSpells();
+  const spellList = spells.map((s) => s.name);
+  if (!spellList.includes(spellName)) {
+    //not in there, spell does not exist throw error
+    throw `Input Spell "${spellName}" does not exist!`;
+  }
+
+  try {
+    const spellBuild = await prisma.spellBuild.findUnique({
+      where: {
+        spellName: spellName,
+      },
+    });
+    return spellBuild as SpellBuild;
+  } catch (error) {
+    console.log(error);
+    throw "Unable to find build data for spell: " + spellName;
+  }
 }

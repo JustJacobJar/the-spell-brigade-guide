@@ -1,30 +1,36 @@
-"use client";
-import EditGuideForm from "./blogForm";
-import { use } from "react";
-import { useBlogPost } from "@/lib/SwrHooks";
-import { LoadingSpinner } from "@/components/LoadingSpinner";
+"use server";
+import EditGuidePageClient from "./clientPage";
+import { getBlogPost } from "@/server/fetchActions";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-export default function EditGuidePage({
+export default async function EditGuidePage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = use(params);
-  const { data, error, isLoading } = useBlogPost(id);
+  const { id } = await params;
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (
+    !session ||
+    (session.user.role !== "CURATOR" && session.user.role !== "ADMIN")
+  ) {
+    redirect("/signin");
+  }
 
-  return isLoading ? (
-    <LoadingSpinner />
-  ) : error ? (
-    <p>error.message</p>
-  ) : data ? (
-    <div className="w-full">
-      <EditGuideForm
-        id={id}
-        blogTitle={data.blog.title}
-        blogContent={data.content.content}
+  try {
+    const blog = await getBlogPost(id);
+    return (
+      <EditGuidePageClient
+        id={blog.blog.id}
+        blogTitle={blog.blog.title}
+        blogContent={blog.content.content}
       />
-    </div>
-  ) : (
-    <p>Post couldnt be found (should never see this )</p>
-  );
+    );
+  } catch (error) {
+    return <div>There was an error</div>;
+  }
 }

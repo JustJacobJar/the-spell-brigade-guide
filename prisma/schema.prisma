@@ -1,8 +1,8 @@
 generator client {
   provider        = "prisma-client-js"
-  output        = "../src/generated/client" // it is better to include the generator inside `src/` or `app/` if `src/` not available.
-  binaryTargets = ["native", "linux-musl", "rhel-openssl-3.0.x"]  // first one is for cross-platform, second one for docker, last one for serverless environment. safe to include all
+  output          = "../src/generated/client"
   previewFeatures = ["driverAdapters", "views"]
+  binaryTargets   = ["native", "linux-musl", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
@@ -10,129 +10,179 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// datasource db {
-//   provider  = "postgres"
-//   url       = env("AUTH_POSTGRES_PRISMA_URL")
-//   directUrl = env("AUTH_POSTGRES_URL_NON_POOLING")
-// }
-
-
-model Account {
-  id                String  @id @default(cuid())
-  userId            String  @map("user_id")
-  type              String
-  provider          String
-  providerAccountId String  @map("provider_account_id")
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-  @@map("accounts")
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique @map("session_token")
-  userId       String   @map("user_id")
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("sessions")
-}
-
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
-  image         String?
-  role          Role      @default(USER)
-  accounts      Account[]
-  sessions      Session[]
-
-  tierLists Tierlist[]
-  blog_posts BlogPost[]
-
-  @@map("users")
-}
-
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
-
-  @@unique([identifier, token])
-  @@map("verification_tokens")
+model MetaReport {
+  id String @unique
 }
 
 model Spell {
-  name String @unique
+  name         String      @unique
+  aboutContent SpellAbout?
+  buildContent SpellBuild?
+  reviewContent SpellReview?
 }
 
-/// The underlying view does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model SpellAbout {
+  spellName    String   @unique
+  introduction String
+  mageInfo     String
+  augments     String[]
+  upgrades     String[]
+  overview     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  parentSpell  Spell    @relation(fields: [spellName], references: [name], onDelete: Cascade)
+
+  @@map("spell_about")
+}
+
+model SpellBuild {
+  spellName             String   @unique
+  augmentNameDps        String[]
+  augmentDescriptionDps String[]
+  augmentNameSub        String[]
+  augmentDescriptionSub String[]
+  augmentNameSup        String[]
+  augmentDescriptionSup String[]
+  upgradesDps           String[]
+  upgradesSub           String[]
+  upgradesSup           String[]
+  elementsDps           String[]
+  elementsSub           String[]
+  elementsSup           String[]
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  parentSpell           Spell    @relation(fields: [spellName], references: [name], onDelete: Cascade)
+
+  @@map("spell_build")
+}
+
+model SpellReview {
+  spellName    String   @unique
+  pros String[]
+  cons String[]
+  review String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  parentSpell  Spell    @relation(fields: [spellName], references: [name], onDelete: Cascade)
+
+  @@map("spell_review")
+}
+
+model Tierlist {
+  id         String   @id @default(cuid())
+  name       String?
+  descripton String?
+  likes      Int      @default(0)
+  authorId   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  tiers      Tier[]
+  author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@map("tier_list")
+}
+
+model Tier {
+  id          String   @id @default(cuid())
+  tierId      String
+  name        String
+  listId      String
+  spells      String[]
+  parent_list Tierlist @relation(fields: [listId], references: [id], onDelete: Cascade)
+}
+
+model BlogPost {
+  id       String       @id @default(cuid())
+  title    String
+  authorId String
+  content  BlogContent?
+  author   User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@map("blog_post")
+}
+
+model BlogContent {
+  id      String   @id @default(cuid())
+  content String
+  blogId  String   @unique
+  parent  BlogPost @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  @@map("blog_content")
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
+
+model User {
+  id            String     @id
+  name          String
+  email         String     @unique
+  emailVerified Boolean
+  image         String?
+  createdAt     DateTime
+  updatedAt     DateTime
+  role          String?
+  banned        Boolean?
+  banReason     String?
+  banExpires    DateTime?
+  accounts      Account[]
+  blogs         BlogPost[]
+  sessions      Session[]
+  tierLists     Tierlist[]
+
+  @@map("user")
+}
+
+model Session {
+  id             String   @id
+  expiresAt      DateTime
+  token          String   @unique
+  createdAt      DateTime
+  updatedAt      DateTime
+  ipAddress      String?
+  userAgent      String?
+  userId         String
+  impersonatedBy String?
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("account")
+}
+
 view SpellsView {
   name String @unique
+
   @@map("spells_view")
 }
 
 enum Role {
   USER
-  CURATOR
   ADMIN
-}
-
-model Tierlist {
-  id String @id @default(cuid())
-  name String?
-  descripton String?
-  likes Int @default(0)
-  tiers Tier[]
-
-  author User @relation(fields: [authorId],references: [id], onDelete: Cascade)
-  authorId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("tier_list")
-}
-
-model Tier{
-  id String @id @default(cuid())  //unique id for db 
-  tierId String //The id used to order them and unique to droppable
-  name String //Display name of tier list
-  
-  parent_list Tierlist @relation(fields: [listId], references: [id], onDelete: Cascade)
-  listId String
-
-  spells String[] //Must be from the Spells List in the db
-
-}
-
-model BlogPost{
-  id String @id @default(cuid()) 
-  title String
-
-  content BlogContent?
-
-  author User @relation(fields: [authorId],references: [id], onDelete: Cascade)
-  authorId String
-
-  @@map("blog_post")
-}
-
-model BlogContent{
-  id String @id @default(cuid()) 
-  content String
-
-  parent BlogPost @relation(fields: [blogId], references: [id], onDelete: Cascade)
-  blogId String @unique
-
-  @@map("blog_content")
+  CURATOR
 }

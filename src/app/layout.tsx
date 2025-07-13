@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import SideBar from "@/components/SideBar";
 import TopBar from "@/components/TopBar";
+import { Providers } from "@/lib/providers";
 
 export const metadata: Metadata = {
   title: "Spell Brigade Guide ",
@@ -16,10 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`flex min-h-screen w-screen antialiased`}>
-        <SideBar />
-        <TopBar />
-        <div className="mt-16 ml-64 w-full bg-base-200 place-items-center">{children}</div>
+      <body className={`flex min-h-screen w-full antialiased`}>
+        <Providers>
+          <TopBar>{children}</TopBar>
+        </Providers>
       </body>
     </html>
   );
