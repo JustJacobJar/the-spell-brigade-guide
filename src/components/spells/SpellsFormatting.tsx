@@ -224,7 +224,7 @@ function elementToBase(element: SpellElement) {
     case "Blight": {
       return ["Dark", "Acid"] as BaseSpellElement[];
     }
-    case "Frostbite": {
+    case "Soulfrost": {
       return ["Dark", "Ice"] as BaseSpellElement[];
     }
     default: {
@@ -316,14 +316,14 @@ export function LiElement({
 }) {
   return (
     // <li>
-      <textarea
-        className={cn("input pt-1 min-h-10", classname)}
-        value={value}
-        onChange={(e) =>
-          fn(parentList, parentListFn, e.currentTarget.value, index)
-        }
-        placeholder="Element name"
-      />
+    <textarea
+      className={cn("input min-h-10 pt-1", classname)}
+      value={value}
+      onChange={(e) =>
+        fn(parentList, parentListFn, e.currentTarget.value, index)
+      }
+      placeholder="Element name"
+    />
     // </li>
   );
 }

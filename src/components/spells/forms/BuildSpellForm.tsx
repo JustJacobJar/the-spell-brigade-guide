@@ -264,6 +264,7 @@ export default function BuildSpellForm({
             {elementsDPS.map((li, index) => (
               <BuildElementSelector
                 key={index}
+                index={index}
                 list={elementsDPS}
                 setList={setElementsDPS}
               />
@@ -277,6 +278,7 @@ export default function BuildSpellForm({
             {elementsSub.map((li, index) => (
               <BuildElementSelector
                 key={index}
+                index={index}
                 list={elementsSub}
                 setList={setElementsSub}
               />
@@ -287,9 +289,10 @@ export default function BuildSpellForm({
             <h2 className="bg-accent py-2 text-center text-2xl font-bold">
               Sup / Debuff
             </h2>
-            {elementsSub.map((li, index) => (
+            {elementsSup.map((li, index) => (
               <BuildElementSelector
                 key={index}
+                index={index}
                 list={elementsSup}
                 setList={setElementsSup}
               />
@@ -431,27 +434,29 @@ function BuildAugmentInput({
 }
 
 function BuildElementSelector({
+  index,
   list,
   setList,
 }: {
+  index: number;
   list: SpellElement[];
   setList: (data: SpellElement[]) => void;
 }) {
   return (
-    <select defaultValue={"DEFAULT"} className="select place-self-center">
+    <select
+      defaultValue={list[index]}
+      className="select place-self-center"
+      onChange={(e) => {
+        const modList = [...list];
+        modList[index] = e.currentTarget.value as SpellElement;
+        setList(modList);
+      }}
+    >
       <option disabled value={"DEFAULT"}>
         Pick an element
       </option>
       {SpellElementList.map((option, index) => (
-        <option
-          key={index}
-          value={option}
-          onChange={(e) => {
-            const modList = [...list];
-            modList[index] = e.currentTarget.value as SpellElement;
-            setList(modList);
-          }}
-        >
+        <option key={index} value={option}>
           {option}
         </option>
       ))}
