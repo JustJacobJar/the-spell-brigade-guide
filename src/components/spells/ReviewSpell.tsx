@@ -23,7 +23,7 @@ export default function ReviewDisplay({
       <Section>
         <SubHeader>Pros / Cons</SubHeader>
         {/* Pro/Con */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Pros */}
           <div className="card bg-base-100 border-base-300 text-success w-full border-2 shadow-sm">
             <div className="p-4">
