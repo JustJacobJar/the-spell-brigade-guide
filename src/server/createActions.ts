@@ -323,8 +323,8 @@ export async function UpdateSpellBuild(
               upgradesSup: data.upgradeSup,
 
               elementsDps: data.elementsDps,
-              elementsSub: data.elementsDps,
-              elementsSup: data.elementsDps,
+              elementsSub: data.elementsSub,
+              elementsSup: data.elementsSup,
             },
           },
         },
@@ -357,8 +357,8 @@ export async function UpdateSpellBuild(
             upgradesSup: data.upgradeSup,
 
             elementsDps: data.elementsDps,
-            elementsSub: data.elementsDps,
-            elementsSup: data.elementsDps,
+            elementsSub: data.elementsSub,
+            elementsSup: data.elementsSup,
 
             updatedAt: new Date(),
           },

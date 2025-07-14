@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import { prisma } from "@/lib/prisma";
 import SpellsForm from "./spellsForm";
 import { getAllSpells } from "@/server/fetchActions";
@@ -20,7 +20,7 @@ export default async function EditSpellsPage({
   if (session.user.role !== "ADMIN") redirect("/"); //Change this to unauth page or signin
 
   const { spellName } = await params;
-  const spell = CapFirstLetter(spellName)
+  const spell = CapFirstLetter(spellName);
 
   const spellList = (await getAllSpells()).map((li) => li.name);
   if (!spellList.includes(spell)) {
@@ -36,6 +36,7 @@ export default async function EditSpellsPage({
   const reviewData = await prisma.spellReview.findUnique({
     where: { spellName: spell },
   });
+
   //fetch data for that spell
   //prepopulate data
 
