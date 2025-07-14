@@ -152,8 +152,8 @@ export default function BuildSpellForm({
       augmentsSup: augmentListSup,
 
       upgradeDps: upgradeListDPS,
-      upgradeSub: upgradeListSup,
-      upgradeSup: upgradeListSub,
+      upgradeSub: upgradeListSub,
+      upgradeSup: upgradeListSup,
 
       elementsDps: elementsDPS,
       elementsSub: elementsSub,
