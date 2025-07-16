@@ -34,7 +34,7 @@ export default function TopBar({ children }: { children: ReactNode }) {
       <div className="hidden md:block">
         <SideBar open={true} openFn={setOpen} desktop={true} />
       </div>
-      <div className="bg-base-200 mt-16 ml-0 w-full place-items-center md:ml-64">
+      <div className="bg-base-200 scrollbar mt-16 ml-0 w-full place-items-center md:ml-64">
         {children}
       </div>
     </>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { LoadingSpinner } from "./LoadingSpinner";
 import Modal from "./Modal";
-import { useDeleteBlogPostSWR } from "@/lib/SwrHooks";
+import { useDeleteBlogMutate } from "@/lib/Queries";
 
 export default function DeleteButtonModal({
   id,
@@ -12,10 +12,9 @@ export default function DeleteButtonModal({
   redirect?: boolean;
 }) {
   const [open, setOpen] = useState(false); //modal open close
-  const { data, trigger: deleteGuide, isMutating } = useDeleteBlogPostSWR(id);
-
+  const [mutateDelete] = useDeleteBlogMutate();
   async function onDelete() {
-    deleteGuide();
+    mutateDelete.mutate({ id: id });
   }
 
   return (
@@ -23,11 +22,11 @@ export default function DeleteButtonModal({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="bg-red-500 aspect-square place-self-center p-2"
+        className="aspect-square place-self-center bg-red-500 p-2"
       >
         {" "}
         <svg
-        className=" stroke-red-50"
+          className="stroke-red-50"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -46,11 +45,11 @@ export default function DeleteButtonModal({
       </button>
       <Modal
         open={open}
-        cancelFn={() => setOpen(isMutating)}
+        cancelFn={() => setOpen(mutateDelete.isPending)}
         titleContent={<h1>Delete Team?</h1>}
         content={
           <>
-            {isMutating && <LoadingSpinner />}
+            {mutateDelete.isPending && <LoadingSpinner />}
             <p>Are you sure you want to delete this team?</p>
           </>
         }
@@ -58,14 +57,14 @@ export default function DeleteButtonModal({
           <>
             {" "}
             <button
-              disabled={isMutating}
+              disabled={mutateDelete.isPending}
               className="bg-background hover:bg-secondary text-secondary-foreground border"
               onClick={() => setOpen(false)}
             >
               Cancel
             </button>
             <button
-              disabled={isMutating}
+              disabled={mutateDelete.isPending}
               className="bg-destructive text-destructive-foreground"
               onClick={onDelete}
             >

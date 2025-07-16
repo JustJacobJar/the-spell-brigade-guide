@@ -1,7 +1,7 @@
 "use client";
 import InitializedMDXEditor from "@/components/markup/InitializedMDXEditor";
-import { useSession } from "@/lib/auth-client";
-import { useCreateBlogPostSWR } from "@/lib/SwrHooks";
+import { useCreateBlogMutate } from "@/lib/Queries";
+import { GuideCategorys } from "@/lib/types";
 import { MDXEditorMethods } from "@mdxeditor/editor";
 import { useRef, useState } from "react";
 
@@ -9,16 +9,11 @@ export default function ClientCreateGuidePage() {
   const editor = useRef<MDXEditorMethods>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("# Create a Post!");
-  const {
-    data,
-    error: dbError,
-    trigger: create,
-    isMutating,
-  } = useCreateBlogPostSWR(title, content);
+  const [category, setCategory] = useState("DEFAULT");
+  const [mutateCreate] = useCreateBlogMutate();
 
   function onSubmitData() {
-    create();
-    return;
+    mutateCreate.mutate({ title: title, content: content, category: category });
   }
 
   return (
@@ -29,6 +24,21 @@ export default function ClientCreateGuidePage() {
         onChange={(e) => setTitle(e.currentTarget.value)}
         placeholder={"TierListName"}
       />
+      <select
+        className="w-96 rounded-xl bg-neutral-700 p-2"
+        value={category}
+        onChange={(e) => setCategory(e.currentTarget.value)}
+        defaultValue={category}
+      >
+        <option disabled value={"DEFAULT"}>
+          Pick a Category
+        </option>
+        {...GuideCategorys.map((li, index) => (
+          <option key={index} value={li}>
+            {li}
+          </option>
+        ))}
+      </select>
       <InitializedMDXEditor
         editorRef={editor}
         markdown={content}

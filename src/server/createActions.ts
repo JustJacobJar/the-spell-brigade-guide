@@ -76,7 +76,11 @@ const ZtierList = z.array(
   }),
 );
 
-export async function CreateBlogPost(title: string, content: string) {
+export async function CreateBlogPost(
+  title: string,
+  content: string,
+  category: string,
+) {
   //Auth user
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -87,36 +91,33 @@ export async function CreateBlogPost(title: string, content: string) {
     throw "401: Not Authorized";
   }
 
-  //Validate
-  const validatedTitle = await z.safeParseAsync(z.string().default(""), title);
-  const validatedContent = await z.safeParseAsync(
-    z.string().default(""),
-    content,
-  );
-  if (validatedTitle.error) throw "There was an error parsing title data";
-  if (validatedContent.error) throw "There was an error parsing content data";
-
   //Upload to db
   try {
     const blog = await prisma.blogPost.create({
       data: {
-        title: validatedTitle.data,
+        title: title,
         authorId: session.user.id!,
+        category: category,
         content: {
           create: {
-            content: validatedContent.data,
+            content: content,
           },
         },
       },
     });
     return blog.id;
   } catch (error) {
-    console.log("Blog creation error: ", error);
+    console.error("Blog creation error: ", error);
     throw "There was an error uploading to the database";
   }
 }
 
-export async function EditBlogPost(id: string, title: string, content: string) {
+export async function EditBlogPost(
+  id: string,
+  title: string,
+  content: string,
+  category: string,
+) {
   //Auth user
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -126,17 +127,6 @@ export async function EditBlogPost(id: string, title: string, content: string) {
     //Not auth to make a list
     throw "401: Not Authorized";
   }
-
-  //Validate
-  const validatedId = await z.safeParseAsync(z.string(), id);
-  const validatedTitle = await z.safeParseAsync(z.string().default(""), title);
-  const validatedContent = await z.safeParseAsync(
-    z.string().default(""),
-    content,
-  );
-  if (validatedId.error) throw "There was an error parsing id data";
-  if (validatedTitle.error) throw "There was an error parsing title data";
-  if (validatedContent.error) throw "There was an error parsing content data";
 
   try {
     //Upload to db
@@ -145,17 +135,18 @@ export async function EditBlogPost(id: string, title: string, content: string) {
         id: id,
       },
       data: {
-        title: validatedTitle.data,
+        title: title,
         authorId: session.user.id,
+        category: category,
       },
     });
     await prisma.blogContent.update({
       where: { blogId: blog.id },
-      data: { content: validatedContent.data },
+      data: { content: content },
     });
     return blog.id;
   } catch (error) {
-    console.log("Blog editing error: ", error);
+    console.error("Blog editing error: ", error);
     throw "There was an error uploading to the database";
   }
 }
@@ -171,11 +162,6 @@ export async function DeleteBlogPost(id: string) {
     throw "401: Not Authorized";
   }
 
-  //Validate
-  const validatedId = await z.safeParseAsync(z.string(), id);
-
-  if (validatedId.error) throw "There was an error parsing id data";
-
   try {
     //Upload to db
     await prisma.blogPost.delete({
@@ -185,7 +171,7 @@ export async function DeleteBlogPost(id: string) {
     });
     return;
   } catch (error) {
-    console.log("Blog Deletion error: ", error);
+    console.error("Blog Deletion error: ", error);
     throw "There was an error uploading to the database";
   }
 }

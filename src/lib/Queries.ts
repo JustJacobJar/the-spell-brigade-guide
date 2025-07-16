@@ -1,6 +1,9 @@
 "use client";
 
 import {
+  CreateBlogPost,
+  DeleteBlogPost,
+  EditBlogPost,
   UpdateSpellAbout,
   UpdateSpellBuild,
   UpdateSpellReview,
@@ -12,6 +15,80 @@ import {
 } from "@tanstack/react-query";
 import { SpellAboutInput, SpellBuildInput, SpellReviewInput } from "./types";
 import { getSpellAbout } from "@/server/fetchActions";
+import { useRouter } from "next/navigation";
+
+/// Blog Pages ====================================================
+
+export function useCreateBlogMutate() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const mutation = useMutation({
+    mutationFn: async (data: {
+      title: string;
+      content: string;
+      category: string;
+    }) => {
+      return await CreateBlogPost(data.title, data.content, data.category);
+    },
+    onSuccess(id) {
+      queryClient.invalidateQueries({
+        queryKey: ["blogs"],
+      });
+      router.replace("/guide/" + id);
+    },
+  });
+  return [mutation] as const;
+}
+
+export function useEditBlogMutate() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const mutation = useMutation({
+    mutationFn: async (data: {
+      id: string;
+      title: string;
+      content: string;
+      category: string;
+    }) => {
+      return await EditBlogPost(
+        data.id,
+        data.title,
+        data.content,
+        data.category,
+      );
+    },
+    onSuccess(id) {
+      queryClient.invalidateQueries({
+        queryKey: ["blog", id],
+      });
+      router.replace("/guide/" + id);
+    },
+  });
+  return [mutation] as const;
+}
+
+export function useDeleteBlogMutate() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async (data: { id: string }) => {
+      return await DeleteBlogPost(data.id);
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ["blogs"],
+      });
+      router.replace("/");
+    },
+  });
+
+  return [mutation] as const;
+}
+
+/// Spell Pages ====================================================
 
 export function useUpdateSpellAboutMutate() {
   const queryClient = useQueryClient();

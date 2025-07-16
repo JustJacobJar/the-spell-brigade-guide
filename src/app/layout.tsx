@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`flex min-h-screen w-full antialiased`}>
+      <body className={`flex min-h-screen w-full antialiased overflow-y-scroll`}>
         <Providers>
           <TopBar>{children}</TopBar>
         </Providers>

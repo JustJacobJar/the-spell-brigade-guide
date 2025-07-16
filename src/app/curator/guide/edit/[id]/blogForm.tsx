@@ -1,7 +1,8 @@
 "use client";
 import DeleteButtonModal from "@/components/DeleteButtonModal";
 import InitializedMDXEditor from "@/components/markup/InitializedMDXEditor";
-import { useEditBlogPostSWR } from "@/lib/SwrHooks";
+import { useEditBlogMutate } from "@/lib/Queries";
+import { GuideCategorys } from "@/lib/types";
 import { MDXEditorMethods } from "@mdxeditor/editor";
 import { useRef, useState } from "react";
 
@@ -9,34 +10,54 @@ export default function EditGuideForm({
   id,
   blogTitle,
   blogContent,
+  blogCategory,
 }: {
   id: string;
   blogTitle: string;
   blogContent: string;
+  blogCategory: string;
 }) {
   const editor = useRef<MDXEditorMethods>(null);
   const [title, setTitle] = useState(blogTitle);
   const [content, setContent] = useState(blogContent);
-  const {
-    data,
-    error,
-    trigger: editPost,
-    isMutating,
-  } = useEditBlogPostSWR(id, title, content);
+  const [category, setCategory] = useState(blogCategory);
 
+  const [mutateEdit] = useEditBlogMutate();
   function onSubmitData() {
-    editPost();
+    mutateEdit.mutate({
+      id: id,
+      title: title,
+      content: content,
+      category: category,
+    });
     return;
   }
 
   return (
-    <div className="w-5xl flex flex-col place-self-center">
-      <input
-        className="w-96 rounded-xl bg-neutral-700 p-2"
-        value={title}
-        onChange={(e) => setTitle(e.currentTarget.value)}
-        placeholder={"TierListName"}
-      />
+    <div className="flex w-5xl flex-col place-self-center">
+      <div>
+        <input
+          className="w-96 rounded-xl bg-neutral-700 p-2"
+          value={title}
+          onChange={(e) => setTitle(e.currentTarget.value)}
+          placeholder={"TierListName"}
+        />
+        <select
+          className="w-96 rounded-xl bg-neutral-700 p-2"
+          value={category}
+          onChange={(e) => setCategory(e.currentTarget.value)}
+          defaultValue={category}
+        >
+          <option disabled value={"DEFAULT"}>
+            Pick a Category
+          </option>
+          {...GuideCategorys.map((li, index) => (
+            <option key={index} value={li}>
+              {li}
+            </option>
+          ))}
+        </select>
+      </div>
       <InitializedMDXEditor
         editorRef={editor}
         markdown={content}

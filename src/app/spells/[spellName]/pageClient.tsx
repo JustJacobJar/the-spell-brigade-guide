@@ -5,6 +5,7 @@ import ReviewDisplay from "@/components/spells/ReviewSpell";
 import { SpellHeader } from "@/components/spells/SpellsFormatting";
 import { UpdateTracker } from "@/components/spells/UpdateTracker";
 import { SpellAbout, SpellBuild, SpellReview } from "@/generated/client";
+import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 /**
@@ -46,19 +47,28 @@ export default function SpellViewPage({
       <div className="grid h-64 grid-cols-1 gap-4 py-8 md:h-32 md:grid-cols-3 md:gap-8">
         <button
           onClick={() => setView(0)}
-          className="btn btn-xl btn-neutral h-full"
+          className={cn(
+            `btn btn-xl h-full`,
+            view === 0 ? "btn-secondary" : "btn-neutral",
+          )}
         >
           About
         </button>
         <button
           onClick={() => setView(1)}
-          className="btn btn-xl btn-neutral h-full"
+          className={cn(
+            `btn btn-xl h-full`,
+            view === 1 ? "btn-secondary" : "btn-neutral",
+          )}
         >
           Builds
         </button>
         <button
           onClick={() => setView(2)}
-          className="btn btn-xl btn-neutral h-full"
+          className={cn(
+            `btn btn-xl h-full`,
+            view === 2 ? "btn-secondary" : "btn-neutral",
+          )}
         >
           Review
         </button>

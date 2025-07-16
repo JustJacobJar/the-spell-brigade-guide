@@ -28,6 +28,7 @@ export default async function EditGuidePage({
         id={blog.blog.id}
         blogTitle={blog.blog.title}
         blogContent={blog.content.content}
+        blogCategory={blog.blog.category}
       />
     );
   } catch (error) {

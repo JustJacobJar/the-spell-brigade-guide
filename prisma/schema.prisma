@@ -95,6 +95,7 @@ model BlogPost {
   id       String       @id @default(cuid())
   title    String
   authorId String
+  category String @default("")
   content  BlogContent?
   author   User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
