@@ -5,7 +5,7 @@ export default async function MetaReportCreatePage() {
   await checkAuthAdmin();
   const tiers = await baseTlConstructor();
   return (
-    <div>
+    <div className="w-full max-w-5xl">
       <MetaReportForm tierData={tiers} />
     </div>
   );

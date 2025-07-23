@@ -91,7 +91,7 @@ export default function MetaReportForm({
 
   return (
     <form
-      className="m-2 flex flex-col gap-2 rounded-2xl bg-neutral-50/10 p-2"
+      className="flex flex-col gap-2 rounded-2xl bg-neutral-50/10 p-2 w-full"
       action={() => onSubmitData()}
     >
       <input
@@ -102,7 +102,7 @@ export default function MetaReportForm({
       />
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="">
+        <div className="outline">
           {tiers.map((tier, index) => (
             <TierRowDnd key={index} tier={tier} />
           ))}

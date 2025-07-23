@@ -23,7 +23,7 @@ export default async function MetaReportPage() {
   const tiers = await tlConstructor(tl.id);
 
   return (
-    <div className="p-2">
+    <div className="p-2 max-w-5xl w-full">
       <div className="rounded-box border-base-200 bg-base-300 flex flex-col gap-2 border-2 p-2">
         <div className="pl-1">
           <h1 className="text-2xl">{metaReport.title}</h1>

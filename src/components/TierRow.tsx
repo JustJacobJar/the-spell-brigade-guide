@@ -12,14 +12,14 @@ export default function TierRow({ tier }: { tier: Tier }) {
     <div className="join-item flex min-h-24 flex-row rounded-md">
       <label
         className={cn(
-          "border-neutral w-32 content-center border-2 text-center text-4xl font-bold",
+          "border-neutral w-32 shrink-0 content-center border-2 text-center text-4xl font-bold",
           tier.tierClassname,
         )}
       >
         {tier.tierName}
       </label>
 
-      <div className="border-neutral flex w-5xl flex-wrap items-center gap-2 border-2 p-2 pl-4 select-none">
+      <div className="border-neutral w-full flex max-w-5xl flex-wrap items-center gap-2 border-2 p-2 pl-4 select-none">
         {tier.tierItems.map((item, index) => (
           <Tooltip text={item.spellName.replace("_", " ")} key={index}>
             <Link
