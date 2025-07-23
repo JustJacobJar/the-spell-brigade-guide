@@ -4,11 +4,13 @@ import {
   ReactNode,
   SetStateAction,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { LiElement, Section, SubHeader, Toast } from "../SpellsFormatting";
 import { SpellAboutInput } from "@/lib/types";
 import { SpellAbout } from "@/generated/client";
+import { MyMDXEditor } from "@/components/markup/ForwardRefEditor";
 
 export default function AboutSpellForm({
   spellName,
@@ -174,12 +176,13 @@ export default function AboutSpellForm({
         {/* Overview */}
         <Section>
           <SubHeader>Overview</SubHeader>
-          <textarea
-            className="input min-h-24 w-full"
-            placeholder="Overview description..."
-            value={overview}
-            onChange={(e) => setOverview(e.currentTarget.value)}
-          />
+          <div className="flex h-full w-full max-w-full">
+            <MyMDXEditor
+              className="dark-theme dark-editor border-base-300 grow border-2"
+              markdown={overview}
+              onChange={(e) => setOverview(e)}
+            />
+          </div>
         </Section>
       </Section>
       <div className="flex place-content-end py-4">

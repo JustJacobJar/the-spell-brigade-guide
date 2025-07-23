@@ -4,11 +4,45 @@ import { prisma } from "@/lib/prisma";
 import { Spell, Tier } from "@/lib/types";
 import { tierClassNameLookup } from "@/lib/utils";
 import { getAllSpells } from "./fetchActions";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-export const tlConstructor = async (tlData: Tierlist) => {
+/**
+ *
+ * @param array to check for duplicates
+ * @returns true if there are duplicates
+ */
+function checkForDuplicates(array: any[]) {
+  const mySet = new Set(array);
+  if (mySet.size !== array.length) return true;
+  return false;
+}
+
+/**
+ *
+ * @param tierListId The id of the tierlist to fetch related tiers from the db.
+ * @returns Tier[] using input tierlist id to find all related rows
+ */
+export const tlConstructor = async (tierListId: string) => {
   const tlTiers = await prisma.tier.findMany({
-    where: { listId: tlData.id },
+    where: { listId: tierListId },
   });
+
+  //get all spells in the current tierlist
+  const allSpells: string[] = [];
+  tlTiers.forEach((row) => {
+    row.spells.forEach((spell) => allSpells.push(spell));
+  });
+
+  //check for duplicate spells
+  //In the case that there are duplicates, return a new base tierlist
+  if (checkForDuplicates(allSpells)) return await baseTlConstructor();
+
+  //Missing spells in this tier list
+  const missingSpells = fallbackBaseSpells.filter(
+    (item) => allSpells.indexOf(item.spellName) < 0,
+  );
 
   const tiersFormatted = [
     ...tlTiers.map((tier) => {
@@ -22,6 +56,8 @@ export const tlConstructor = async (tlData: Tierlist) => {
           }),
         ],
       };
+      //add missing spells to the "?" tier
+      if (tierRow.tierName === "?") tierRow.tierItems.push(...missingSpells);
       return tierRow;
     }),
   ];
@@ -112,3 +148,12 @@ export const baseTlConstructor = async () => {
   ]; //hand made tier list data confirmed working
   return tiers;
 };
+
+export async function checkAuthAdmin() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) redirect("/");
+  if (session.user.role !== "ADMIN") redirect("/"); //Change this to unauth page or signin
+}

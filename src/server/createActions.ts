@@ -12,6 +12,103 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { getAllSpells } from "./fetchActions";
 
+export async function CreateMetaReport(
+  title: string,
+  content: string,
+  tierList: Tier[],
+) {
+  //Auth user
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    //Not auth to make a list
+    throw "401: Not Authorized";
+  }
+
+  //create meta report in db
+  try {
+    const metaReport = await prisma.metaReport.create({
+      data: {
+        title: title,
+        content: content,
+        tierlist: {
+          create: {
+            authorId: session.user.id,
+            tiers: {
+              create: [
+                ...tierList.map((tier) => {
+                  return {
+                    name: tier.tierName,
+                    tierId: tier.tierId,
+                    spells: [...tier.tierItems.map((data) => data.spellName)],
+                  };
+                }),
+              ],
+            },
+          },
+        },
+      },
+    });
+    return metaReport.id;
+  } catch (error) {
+    // console.error("Meta report upload error: " + error);
+    throw "There was an error uploading the meta report to the db";
+  }
+}
+
+export async function EditMetaReport(
+  id: number,
+  title: string,
+  content: string,
+  tierList: Tier[],
+) {
+  //Auth user
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    //Not auth to make a list
+    throw "401: Not Authorized";
+  }
+
+  //create meta report in db
+  try {
+    //Update the report contents
+    const metaReport = await prisma.metaReport.update({
+      where: { id: id },
+      data: {
+        title: title,
+        content: content,
+      },
+    });
+    //Update the metaReport's tier list
+    //get each tiers id
+    const tierRowIds = await prisma.tier.findMany({
+      where: { listId: metaReport.tierlistId },
+    });
+    tierRowIds.forEach(async (tlRow) => {
+      //the spells for the row
+      const newSpells = tierList.find((row) => row.tierId === tlRow.tierId);
+      if (!newSpells) return;
+
+      //Spells exist, update
+      await prisma.tier.update({
+        where: { id: tlRow.id },
+        data: { spells: newSpells.tierItems.map((item) => item.spellName) },
+      });
+    });
+    return metaReport.id;
+  } catch (error) {
+    // console.error("Meta report upload error: " + error);
+    throw "There was an error uploading the meta report to the db";
+  }
+}
+
+//redo this
+/*
 export async function createTierlist(
   tierList: Tier[],
   title: string,
@@ -60,6 +157,7 @@ export async function createTierlist(
 
   return "We be gaming";
 }
+*/
 
 const spell = z.object({
   spellName: z.string(),
@@ -76,7 +174,11 @@ const ZtierList = z.array(
   }),
 );
 
-export async function CreateBlogPost(title: string, content: string) {
+export async function CreateBlogPost(
+  title: string,
+  content: string,
+  category: string,
+) {
   //Auth user
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -87,36 +189,33 @@ export async function CreateBlogPost(title: string, content: string) {
     throw "401: Not Authorized";
   }
 
-  //Validate
-  const validatedTitle = await z.safeParseAsync(z.string().default(""), title);
-  const validatedContent = await z.safeParseAsync(
-    z.string().default(""),
-    content,
-  );
-  if (validatedTitle.error) throw "There was an error parsing title data";
-  if (validatedContent.error) throw "There was an error parsing content data";
-
   //Upload to db
   try {
     const blog = await prisma.blogPost.create({
       data: {
-        title: validatedTitle.data,
+        title: title,
         authorId: session.user.id!,
+        category: category,
         content: {
           create: {
-            content: validatedContent.data,
+            content: content,
           },
         },
       },
     });
     return blog.id;
   } catch (error) {
-    console.log("Blog creation error: ", error);
+    // console.error("Blog creation error: ", error);
     throw "There was an error uploading to the database";
   }
 }
 
-export async function EditBlogPost(id: string, title: string, content: string) {
+export async function EditBlogPost(
+  id: string,
+  title: string,
+  content: string,
+  category: string,
+) {
   //Auth user
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -126,17 +225,6 @@ export async function EditBlogPost(id: string, title: string, content: string) {
     //Not auth to make a list
     throw "401: Not Authorized";
   }
-
-  //Validate
-  const validatedId = await z.safeParseAsync(z.string(), id);
-  const validatedTitle = await z.safeParseAsync(z.string().default(""), title);
-  const validatedContent = await z.safeParseAsync(
-    z.string().default(""),
-    content,
-  );
-  if (validatedId.error) throw "There was an error parsing id data";
-  if (validatedTitle.error) throw "There was an error parsing title data";
-  if (validatedContent.error) throw "There was an error parsing content data";
 
   try {
     //Upload to db
@@ -145,17 +233,18 @@ export async function EditBlogPost(id: string, title: string, content: string) {
         id: id,
       },
       data: {
-        title: validatedTitle.data,
+        title: title,
         authorId: session.user.id,
+        category: category,
       },
     });
     await prisma.blogContent.update({
       where: { blogId: blog.id },
-      data: { content: validatedContent.data },
+      data: { content: content },
     });
     return blog.id;
   } catch (error) {
-    console.log("Blog editing error: ", error);
+    // console.error("Blog editing error: ", error);
     throw "There was an error uploading to the database";
   }
 }
@@ -171,11 +260,6 @@ export async function DeleteBlogPost(id: string) {
     throw "401: Not Authorized";
   }
 
-  //Validate
-  const validatedId = await z.safeParseAsync(z.string(), id);
-
-  if (validatedId.error) throw "There was an error parsing id data";
-
   try {
     //Upload to db
     await prisma.blogPost.delete({
@@ -185,7 +269,7 @@ export async function DeleteBlogPost(id: string) {
     });
     return;
   } catch (error) {
-    console.log("Blog Deletion error: ", error);
+    // console.error("Blog Deletion error: ", error);
     throw "There was an error uploading to the database";
   }
 }
@@ -236,7 +320,7 @@ export async function UpdateSpellAbout(
       });
       return;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw (
         "There was an error creating the about content for spell: " + spellName
       );
@@ -261,7 +345,7 @@ export async function UpdateSpellAbout(
     });
     return;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw (
       "There was an error updating the about content for spell: " + spellName
     );
@@ -332,7 +416,7 @@ export async function UpdateSpellBuild(
 
       return;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw (
         "There was an error creating the build content for spell: " + spellName
       );
@@ -365,11 +449,11 @@ export async function UpdateSpellBuild(
         },
       },
     });
-    console.log("updated new!:" + spellName);
+    // console.log("updated new!:" + spellName);
 
     return;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw (
       "There was an error updating the build content for spell: " + spellName
     );
@@ -416,13 +500,14 @@ export async function UpdateSpellReview(
               pros: data.pros,
               cons: data.cons,
               review: data.review,
+              author: data.author,
             },
           },
         },
       });
       return;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw (
         "There was an error creating the review content for spell: " + spellName
       );
@@ -438,6 +523,7 @@ export async function UpdateSpellReview(
             pros: data.pros,
             cons: data.cons,
             review: data.review,
+            author: data.author,
             updatedAt: new Date(),
           },
         },
@@ -445,7 +531,7 @@ export async function UpdateSpellReview(
     });
     return;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw (
       "There was an error updating the review content for spell: " + spellName
     );

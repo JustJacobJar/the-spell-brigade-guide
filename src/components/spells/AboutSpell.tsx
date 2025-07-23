@@ -1,4 +1,5 @@
 "use client";
+import { MyMDXViewer } from "../markup/ForwardRefEditor";
 import { Section, SubHeader } from "./SpellsFormatting";
 import { SpellAbout } from "@/generated/client";
 
@@ -19,19 +20,21 @@ export function AboutDisplay({ aboutData }: { aboutData?: SpellAbout }) {
   return (
     <div className="flex flex-col gap-8">
       {/* Intro/Mage */}
-      <div className="flex w-full flex-col gap-8 md:flex-row">
+      <div className="flex min-h-32 w-full flex-col gap-8 md:flex-row">
         {/* Intro */}
-        <div className="h-full min-h-32 w-full">
+        {/* <div className="h-full min-h-32 w-full"> */}
+        <Section>
           <SubHeader>Introduction</SubHeader>
           <p>{aboutData.introduction}</p>
-        </div>
+        </Section>
+        {/* </div> */}
         {/* Divider */}
         <div className="divider divider-horizontal hidden md:flex" />
         {/* Wizard */}
-        <div className="h-full min-h-32 w-full">
+        <Section>
           <SubHeader>Mage</SubHeader>
           <p>{aboutData.mageInfo}</p>
-        </div>
+        </Section>
       </div>
 
       {/* Augments Upgrades */}
@@ -58,7 +61,9 @@ export function AboutDisplay({ aboutData }: { aboutData?: SpellAbout }) {
           {/* Overview */}
           <Section>
             <SubHeader>Overview</SubHeader>
-            <p>{aboutData.overview}</p>
+            <div className="flex h-full w-full max-w-full">
+              <MyMDXViewer markdown={aboutData.overview} />
+            </div>
           </Section>
         </div>
       </Section>

@@ -1,6 +1,6 @@
 import { SpellReview } from "@/generated/client";
-import { InitializedMDXViewer } from "../markup/InitializedMDXEditor";
 import { Section, SubHeader } from "./SpellsFormatting";
+import { MyMDXViewer } from "../markup/ForwardRefEditor";
 
 export default function ReviewDisplay({
   reviewData,
@@ -13,6 +13,7 @@ export default function ReviewDisplay({
       cons: ["No", "Data"],
       review: "# No Data",
       spellName: "No data",
+      author: "",
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -23,7 +24,7 @@ export default function ReviewDisplay({
       <Section>
         <SubHeader>Pros / Cons</SubHeader>
         {/* Pro/Con */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {/* Pros */}
           <div className="card bg-base-100 border-base-300 text-success w-full border-2 shadow-sm">
             <div className="p-4">
@@ -51,9 +52,9 @@ export default function ReviewDisplay({
         </div>
       </Section>
       <Section>
-        <SubHeader>Review (By JustExisting)</SubHeader>
+        <SubHeader>Review (By:{reviewData.author})</SubHeader>
         <div className="flex h-full w-full max-w-full">
-          <InitializedMDXViewer markdown={reviewData.review} />
+          <MyMDXViewer markdown={reviewData.review} />
         </div>
       </Section>
     </div>

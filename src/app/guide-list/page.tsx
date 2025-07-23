@@ -1,5 +1,8 @@
+import { Section, SubHeader } from "@/components/spells/SpellsFormatting";
+import { BlogPost } from "@/generated/client";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { GuideCategory, GuideCategorys } from "@/lib/types";
 import { headers } from "next/headers";
 import Link from "next/link";
 
@@ -8,12 +11,69 @@ export default async function GuideListPage() {
     headers: await headers(),
   });
 
-  const roll = session ? session.user.role : "";
+  const roll = session ? (session.user.role ?? "") : "";
   //get all guides
-  const guides = await prisma.blogPost.findMany(); //page this
+  const guides = await prisma.blogPost.findMany(); //page this, probs no need
 
   if (!guides) return <p>No Guides Found</p>;
 
+  return (
+    <div className="flex h-full w-full flex-col gap-4 place-self-center p-2">
+      <h1 className="text-center text-5xl font-bold">Guides</h1>
+      {GuideCategorys.map((cat, index) => (
+        <GuideGroup
+          key={index}
+          filter={cat}
+          guides={guides}
+          roll={roll}
+          title={cat}
+        />
+      ))}
+    </div>
+  );
+}
+
+function GuideGroup({
+  title,
+  guides,
+  filter,
+  roll,
+}: {
+  title: string;
+  guides: BlogPost[];
+  filter: GuideCategory;
+  roll: string;
+}) {
+  return (
+    <Section>
+      <SubHeader>{title}</SubHeader>
+      <div className="flex w-full flex-row flex-wrap gap-8">
+        {guides
+          .filter((guide) => (guide.category as GuideCategory) === filter)
+          .map((post, index) => {
+            return (
+              <GuideItem
+                id={post.id}
+                title={post.title}
+                roll={roll}
+                key={index}
+              />
+            );
+          })}
+      </div>
+    </Section>
+  );
+}
+
+function GuideItem({
+  title,
+  id,
+  roll,
+}: {
+  title?: string;
+  id: string;
+  roll: string;
+}) {
   const editButton = (id: string) => {
     return (
       <Link
@@ -38,28 +98,14 @@ export default async function GuideListPage() {
   };
 
   return (
-    <div className="flex h-full w-full flex-col gap-4 place-self-center p-2">
-      <h1 className="text-center text-5xl font-bold">Guides</h1>
-      <div className="grid h-full w-full max-w-5xl grid-cols-1 md:grid-cols-2 gap-8 place-self-center">
-        {guides.map((post, index) => {
-          return (
-            <div
-              // className="flex h-16 w-full flex-row place-content-between place-items-center overflow-clip rounded-lg bg-neutral-800"
-              className="btn btn-xl bg-neutral"
-              key={index}
-            >
-              <Link
-                className="line-clamp-2 w-full px-2"
-                href={`/guide/${post.id}`}
-              >
-                {post.title}
-              </Link>
-              {roll === "CURATOR" || roll === "ADMIN"
-                ? editButton(post.id)
-                : null}
-            </div>
-          );
-        })}
+    <div className="card bg-base-300 text-base-content card-xl">
+      <Link href={`/guide/${id}`}>
+        <div className="card-body items-center text-center">
+          <div className="card-title">{title}</div>
+        </div>
+      </Link>
+      <div className="card-actions absolute right-0 bottom-0 z-10">
+        {roll === "CURATOR" || roll === "ADMIN" ? editButton(id) : null}
       </div>
     </div>
   );

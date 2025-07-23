@@ -39,6 +39,7 @@ export type SpellReviewInput = {
   pros: string[];
   cons: string[];
   review: string;
+  author: string;
 };
 
 export type BaseSpellElement =
@@ -84,3 +85,17 @@ export const SpellElementList = [
   "Blight",
   "Soulfrost",
 ];
+
+export const GuideCategorys = [
+  "NewPlayer",
+  "Spells",
+  "Mages",
+  "Mechanics",
+  "Enemies",
+  "Realms",
+  "Relics",
+  "Objectives",
+  "Quests",
+  "Upgrades",
+] as const;
+export type GuideCategory = (typeof GuideCategorys)[number];
