@@ -1,5 +1,5 @@
 "use client";
-import TierRow from "@/components/dnd/Tier";
+import TierRowDnd from "@/components/dnd/Tier";
 import { reorderTiers } from "@/lib/tierHelpers";
 import { Tier } from "@/lib/types";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
@@ -33,7 +33,7 @@ export default function TierFormNoSub({ tierData }: TierFormProps) {
     <DragDropContext onDragEnd={onDragEnd}>
       <div>
         {tiers.map((tier, index) => (
-          <TierRow key={index} tier={tier} />
+          <TierRowDnd key={index} tier={tier} />
         ))}
       </div>
     </DragDropContext>

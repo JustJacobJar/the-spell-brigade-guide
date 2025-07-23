@@ -9,7 +9,7 @@ interface TierProps {
   // data: { spellName: string }[]    //List of card data
 }
 
-export default function TierRow({ tier }: TierProps) {
+export default function TierRowDnd({ tier }: TierProps) {
   return (
     <div className="flex min-h-32 w-screen max-w-6xl">
       <div

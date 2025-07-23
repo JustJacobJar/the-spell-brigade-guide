@@ -2,8 +2,7 @@
 import { MyMDXEditor } from "@/components/markup/ForwardRefEditor";
 import { useCreateBlogMutate } from "@/lib/Queries";
 import { GuideCategorys } from "@/lib/types";
-import { MDXEditorMethods } from "@mdxeditor/editor";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 export default function ClientCreateGuidePage() {
   const [title, setTitle] = useState("");

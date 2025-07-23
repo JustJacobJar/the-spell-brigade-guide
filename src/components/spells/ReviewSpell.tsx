@@ -13,6 +13,7 @@ export default function ReviewDisplay({
       cons: ["No", "Data"],
       review: "# No Data",
       spellName: "No data",
+      author: "",
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -51,7 +52,7 @@ export default function ReviewDisplay({
         </div>
       </Section>
       <Section>
-        <SubHeader>Review (By JustExisting)</SubHeader>
+        <SubHeader>Review (By:{reviewData.author})</SubHeader>
         <div className="flex h-full w-full max-w-full">
           <MyMDXViewer markdown={reviewData.review} />
         </div>

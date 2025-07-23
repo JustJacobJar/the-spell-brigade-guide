@@ -69,6 +69,7 @@ model SpellReview {
   pros        String[]
   cons        String[]
   review      String
+  author      String @default("JustExisting")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   parentSpell Spell    @relation(fields: [spellName], references: [name], onDelete: Cascade)

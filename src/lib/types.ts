@@ -39,6 +39,7 @@ export type SpellReviewInput = {
   pros: string[];
   cons: string[];
   review: string;
+  author: string;
 };
 
 export type BaseSpellElement =

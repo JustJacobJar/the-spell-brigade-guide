@@ -10,7 +10,6 @@ import {
 import { LiElement, Section, SubHeader, Toast } from "../SpellsFormatting";
 import { SpellAboutInput } from "@/lib/types";
 import { SpellAbout } from "@/generated/client";
-import { MDXEditorMethods } from "@mdxeditor/editor";
 import { MyMDXEditor } from "@/components/markup/ForwardRefEditor";
 
 export default function AboutSpellForm({
@@ -24,7 +23,6 @@ export default function AboutSpellForm({
   setToastOpen: (value: boolean) => void;
   setToast: (node: ReactNode) => void;
 }) {
-  const editor = useRef<MDXEditorMethods>(null);
   const [intro, setIntro] = useState(
     currentData?.introduction ?? "Spell Intro",
   );

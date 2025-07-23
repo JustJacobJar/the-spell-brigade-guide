@@ -53,7 +53,7 @@ export async function CreateMetaReport(
     });
     return metaReport.id;
   } catch (error) {
-    console.error("Meta report upload error: " + error);
+    // console.error("Meta report upload error: " + error);
     throw "There was an error uploading the meta report to the db";
   }
 }
@@ -102,7 +102,7 @@ export async function EditMetaReport(
     });
     return metaReport.id;
   } catch (error) {
-    console.error("Meta report upload error: " + error);
+    // console.error("Meta report upload error: " + error);
     throw "There was an error uploading the meta report to the db";
   }
 }
@@ -205,7 +205,7 @@ export async function CreateBlogPost(
     });
     return blog.id;
   } catch (error) {
-    console.error("Blog creation error: ", error);
+    // console.error("Blog creation error: ", error);
     throw "There was an error uploading to the database";
   }
 }
@@ -244,7 +244,7 @@ export async function EditBlogPost(
     });
     return blog.id;
   } catch (error) {
-    console.error("Blog editing error: ", error);
+    // console.error("Blog editing error: ", error);
     throw "There was an error uploading to the database";
   }
 }
@@ -269,7 +269,7 @@ export async function DeleteBlogPost(id: string) {
     });
     return;
   } catch (error) {
-    console.error("Blog Deletion error: ", error);
+    // console.error("Blog Deletion error: ", error);
     throw "There was an error uploading to the database";
   }
 }
@@ -320,7 +320,7 @@ export async function UpdateSpellAbout(
       });
       return;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw (
         "There was an error creating the about content for spell: " + spellName
       );
@@ -345,7 +345,7 @@ export async function UpdateSpellAbout(
     });
     return;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw (
       "There was an error updating the about content for spell: " + spellName
     );
@@ -416,7 +416,7 @@ export async function UpdateSpellBuild(
 
       return;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw (
         "There was an error creating the build content for spell: " + spellName
       );
@@ -449,11 +449,11 @@ export async function UpdateSpellBuild(
         },
       },
     });
-    console.log("updated new!:" + spellName);
+    // console.log("updated new!:" + spellName);
 
     return;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw (
       "There was an error updating the build content for spell: " + spellName
     );
@@ -500,13 +500,14 @@ export async function UpdateSpellReview(
               pros: data.pros,
               cons: data.cons,
               review: data.review,
+              author: data.author,
             },
           },
         },
       });
       return;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw (
         "There was an error creating the review content for spell: " + spellName
       );
@@ -522,6 +523,7 @@ export async function UpdateSpellReview(
             pros: data.pros,
             cons: data.cons,
             review: data.review,
+            author: data.author,
             updatedAt: new Date(),
           },
         },
@@ -529,7 +531,7 @@ export async function UpdateSpellReview(
     });
     return;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw (
       "There was an error updating the review content for spell: " + spellName
     );

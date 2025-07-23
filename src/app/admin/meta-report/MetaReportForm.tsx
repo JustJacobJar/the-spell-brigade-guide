@@ -1,5 +1,5 @@
 "use client";
-import TierRow from "@/components/dnd/Tier";
+import TierRowDnd from "@/components/dnd/Tier";
 import { MyMDXEditor } from "@/components/markup/ForwardRefEditor";
 import {
   useCreateMetaReportMutate,
@@ -8,7 +8,6 @@ import {
 import { reorderTiers } from "@/lib/tierHelpers";
 import { Tier } from "@/lib/types";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
-import { MDXEditorMethods } from "@mdxeditor/editor";
 import { useRef, useState } from "react";
 
 //Pass initial tier data to the form (if no data it gets passed blank tier list data)
@@ -28,6 +27,12 @@ import { useRef, useState } from "react";
  *
  */
 
+/**
+ * TODO
+ * add confirmation alert when submitting data
+ * Show tier list -> make it so that each spell can be clicked on/hovered to show more details
+ */
+
 interface TierFormProps {
   tierData: Tier[];
   metaId?: number;
@@ -43,7 +48,6 @@ export default function MetaReportForm({
   metaContent,
   edit = false,
 }: TierFormProps) {
-  const editor = useRef<MDXEditorMethods>(null);
   const [title, setTitle] = useState(metaTitle ?? "");
   const [description, setDescription] = useState(
     metaContent ?? "# Some Description Text",
@@ -100,7 +104,7 @@ export default function MetaReportForm({
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="">
           {tiers.map((tier, index) => (
-            <TierRow key={index} tier={tier} />
+            <TierRowDnd key={index} tier={tier} />
           ))}
         </div>
       </DragDropContext>
