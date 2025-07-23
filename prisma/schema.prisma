@@ -11,13 +11,21 @@ datasource db {
 }
 
 model MetaReport {
-  id String @unique
+  id         Int      @id @default(autoincrement())
+  title      String
+  content    String
+  tierlist   Tierlist @relation(fields: [tierlistId], references: [id], onDelete: Cascade)
+  tierlistId String   @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Spell {
-  name         String      @unique
-  aboutContent SpellAbout?
-  buildContent SpellBuild?
+  name          String       @unique
+  rank          String       @default("?")
+  aboutContent  SpellAbout?
+  buildContent  SpellBuild?
   reviewContent SpellReview?
 }
 
@@ -57,34 +65,32 @@ model SpellBuild {
 }
 
 model SpellReview {
-  spellName    String   @unique
-  pros String[]
-  cons String[]
-  review String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  parentSpell  Spell    @relation(fields: [spellName], references: [name], onDelete: Cascade)
+  spellName   String   @unique
+  pros        String[]
+  cons        String[]
+  review      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  parentSpell Spell    @relation(fields: [spellName], references: [name], onDelete: Cascade)
 
   @@map("spell_review")
 }
 
 model Tierlist {
-  id         String   @id @default(cuid())
-  name       String?
-  descripton String?
-  likes      Int      @default(0)
+  id         String      @id @default(cuid())
   authorId   String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
   tiers      Tier[]
-  author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author     User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  metaReport MetaReport?
 
   @@map("tier_list")
 }
 
 model Tier {
   id          String   @id @default(cuid())
-  tierId      String
+  tierId      String 
   name        String
   listId      String
   spells      String[]
@@ -95,7 +101,7 @@ model BlogPost {
   id       String       @id @default(cuid())
   title    String
   authorId String
-  category String @default("")
+  category String       @default("")
   content  BlogContent?
   author   User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
 

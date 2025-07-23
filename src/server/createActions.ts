@@ -12,6 +12,103 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { getAllSpells } from "./fetchActions";
 
+export async function CreateMetaReport(
+  title: string,
+  content: string,
+  tierList: Tier[],
+) {
+  //Auth user
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    //Not auth to make a list
+    throw "401: Not Authorized";
+  }
+
+  //create meta report in db
+  try {
+    const metaReport = await prisma.metaReport.create({
+      data: {
+        title: title,
+        content: content,
+        tierlist: {
+          create: {
+            authorId: session.user.id,
+            tiers: {
+              create: [
+                ...tierList.map((tier) => {
+                  return {
+                    name: tier.tierName,
+                    tierId: tier.tierId,
+                    spells: [...tier.tierItems.map((data) => data.spellName)],
+                  };
+                }),
+              ],
+            },
+          },
+        },
+      },
+    });
+    return metaReport.id;
+  } catch (error) {
+    console.error("Meta report upload error: " + error);
+    throw "There was an error uploading the meta report to the db";
+  }
+}
+
+export async function EditMetaReport(
+  id: number,
+  title: string,
+  content: string,
+  tierList: Tier[],
+) {
+  //Auth user
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    //Not auth to make a list
+    throw "401: Not Authorized";
+  }
+
+  //create meta report in db
+  try {
+    //Update the report contents
+    const metaReport = await prisma.metaReport.update({
+      where: { id: id },
+      data: {
+        title: title,
+        content: content,
+      },
+    });
+    //Update the metaReport's tier list
+    //get each tiers id
+    const tierRowIds = await prisma.tier.findMany({
+      where: { listId: metaReport.tierlistId },
+    });
+    tierRowIds.forEach(async (tlRow) => {
+      //the spells for the row
+      const newSpells = tierList.find((row) => row.tierId === tlRow.tierId);
+      if (!newSpells) return;
+
+      //Spells exist, update
+      await prisma.tier.update({
+        where: { id: tlRow.id },
+        data: { spells: newSpells.tierItems.map((item) => item.spellName) },
+      });
+    });
+    return metaReport.id;
+  } catch (error) {
+    console.error("Meta report upload error: " + error);
+    throw "There was an error uploading the meta report to the db";
+  }
+}
+
+//redo this
+/*
 export async function createTierlist(
   tierList: Tier[],
   title: string,
@@ -60,6 +157,7 @@ export async function createTierlist(
 
   return "We be gaming";
 }
+*/
 
 const spell = z.object({
   spellName: z.string(),

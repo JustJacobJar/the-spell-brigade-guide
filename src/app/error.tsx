@@ -1,11 +1,21 @@
 "use client";
 
-export default function Error() {
+import { useEffect } from "react";
+
+export default function Error({
+  error,
+}: {
+  error: Error & { digest?: string };
+}) {
+  useEffect(() => {
+    // Log the error to an error reporting service
+    console.error(error);
+  }, [error]);
+
   return (
     <div className="h-full w-full place-content-center place-items-center">
-      <h1>There was an error!</h1>
-      <p>This was most likely due to the database server booting up</p>
-      <p>Please try again after a few seconds.</p>
+      <h1 className="text-2xl font-bold">There was an error!</h1>
+      <p>{error.message}</p>
     </div>
   );
 }

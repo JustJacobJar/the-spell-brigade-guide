@@ -10,8 +10,8 @@ import {
 import { LiElement, Section, SubHeader, Toast } from "../SpellsFormatting";
 import { SpellAboutInput } from "@/lib/types";
 import { SpellAbout } from "@/generated/client";
-import InitializedMDXEditor from "@/components/markup/InitializedMDXEditor";
 import { MDXEditorMethods } from "@mdxeditor/editor";
+import { MyMDXEditor } from "@/components/markup/ForwardRefEditor";
 
 export default function AboutSpellForm({
   spellName,
@@ -179,9 +179,8 @@ export default function AboutSpellForm({
         <Section>
           <SubHeader>Overview</SubHeader>
           <div className="flex h-full w-full max-w-full">
-            <InitializedMDXEditor
+            <MyMDXEditor
               className="dark-theme dark-editor border-base-300 grow border-2"
-              editorRef={editor}
               markdown={overview}
               onChange={(e) => setOverview(e)}
             />

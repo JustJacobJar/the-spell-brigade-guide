@@ -2,8 +2,10 @@
 
 import {
   CreateBlogPost,
+  CreateMetaReport,
   DeleteBlogPost,
   EditBlogPost,
+  EditMetaReport,
   UpdateSpellAbout,
   UpdateSpellBuild,
   UpdateSpellReview,
@@ -13,9 +15,66 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
-import { SpellAboutInput, SpellBuildInput, SpellReviewInput } from "./types";
+import {
+  SpellAboutInput,
+  SpellBuildInput,
+  SpellReviewInput,
+  Tier,
+} from "./types";
 import { getSpellAbout } from "@/server/fetchActions";
 import { useRouter } from "next/navigation";
+
+/// Meta Reports ==================================================
+
+export function useCreateMetaReportMutate() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const mutation = useMutation({
+    mutationFn: async (data: {
+      title: string;
+      content: string;
+      tierlist: Tier[];
+    }) => {
+      return await CreateMetaReport(data.title, data.content, data.tierlist);
+    },
+    onSuccess(id) {
+      queryClient.invalidateQueries({
+        queryKey: ["metas"],
+      });
+      router.replace("/meta-report/" + id);
+    },
+  });
+  return [mutation] as const;
+}
+
+export function useEditMetaReportMutate() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const mutation = useMutation({
+    mutationFn: async (data: {
+      id: number;
+      title: string;
+      content: string;
+      tierlist: Tier[];
+    }) => {
+      return await EditMetaReport(
+        data.id,
+        data.title,
+        data.content,
+        data.tierlist,
+      );
+    },
+    onSuccess(id) {
+      queryClient.invalidateQueries({
+        queryKey: ["metas"],
+      });
+      router.replace("/meta-report/" + id);
+    },
+  });
+  return [mutation] as const;
+}
 
 /// Blog Pages ====================================================
 

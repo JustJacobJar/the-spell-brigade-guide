@@ -1,10 +1,9 @@
 "use client";
 import DeleteButtonModal from "@/components/DeleteButtonModal";
-import InitializedMDXEditor from "@/components/markup/InitializedMDXEditor";
+import { MyMDXEditor } from "@/components/markup/ForwardRefEditor";
 import { useEditBlogMutate } from "@/lib/Queries";
 import { GuideCategorys } from "@/lib/types";
-import { MDXEditorMethods } from "@mdxeditor/editor";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 export default function EditGuideForm({
   id,
@@ -17,7 +16,6 @@ export default function EditGuideForm({
   blogContent: string;
   blogCategory: string;
 }) {
-  const editor = useRef<MDXEditorMethods>(null);
   const [title, setTitle] = useState(blogTitle);
   const [content, setContent] = useState(blogContent);
   const [category, setCategory] = useState(blogCategory);
@@ -58,11 +56,7 @@ export default function EditGuideForm({
           ))}
         </select>
       </div>
-      <InitializedMDXEditor
-        editorRef={editor}
-        markdown={content}
-        onChange={(e) => setContent(e)}
-      />
+      <MyMDXEditor markdown={content} onChange={(e) => setContent(e)} />
       <div className="flex w-full flex-row place-content-end gap-4">
         <button onClick={() => onSubmitData()}>Edit Post</button>
         <DeleteButtonModal id={id} />

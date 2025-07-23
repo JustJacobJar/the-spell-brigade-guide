@@ -1,5 +1,4 @@
 "use client";
-import InitializedMDXEditor from "@/components/markup/InitializedMDXEditor";
 import { LiElement, Section, SubHeader, Toast } from "../SpellsFormatting";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { MDXEditorMethods } from "@mdxeditor/editor";
@@ -7,6 +6,7 @@ import { handleLiChange } from "./AboutSpellForm";
 import { SpellReview } from "@/generated/client";
 import { useUpdateSpellReviewMutate } from "@/lib/Queries";
 import { SpellReviewInput } from "@/lib/types";
+import { MyMDXEditor } from "@/components/markup/ForwardRefEditor";
 
 export default function ReviewSpellForm({
   spellName,
@@ -155,9 +155,8 @@ export default function ReviewSpellForm({
       <Section>
         <SubHeader>Review (By JustExisting)</SubHeader>
         <div className="flex h-full w-full max-w-full">
-          <InitializedMDXEditor
+          <MyMDXEditor
             className="dark-theme dark-editor border-base-300 grow border-2"
-            editorRef={editor}
             markdown={content}
             onChange={(e) => setContent(e)}
           />

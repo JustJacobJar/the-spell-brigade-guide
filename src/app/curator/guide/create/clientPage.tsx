@@ -1,12 +1,11 @@
 "use client";
-import InitializedMDXEditor from "@/components/markup/InitializedMDXEditor";
+import { MyMDXEditor } from "@/components/markup/ForwardRefEditor";
 import { useCreateBlogMutate } from "@/lib/Queries";
 import { GuideCategorys } from "@/lib/types";
 import { MDXEditorMethods } from "@mdxeditor/editor";
 import { useRef, useState } from "react";
 
 export default function ClientCreateGuidePage() {
-  const editor = useRef<MDXEditorMethods>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("# Create a Post!");
   const [category, setCategory] = useState("DEFAULT");
@@ -39,11 +38,7 @@ export default function ClientCreateGuidePage() {
           </option>
         ))}
       </select>
-      <InitializedMDXEditor
-        editorRef={editor}
-        markdown={content}
-        onChange={(e) => setContent(e)}
-      />
+      <MyMDXEditor markdown={content} onChange={(e) => setContent(e)} />
 
       <button onClick={() => onSubmitData()}>Create Post</button>
     </div>

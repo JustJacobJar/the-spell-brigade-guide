@@ -1,18 +1,14 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import TierForm from "./TierForm";
-import { baseTlConstructor, tlConstructor } from "@/server/serverUtils";
+import MetaReportForm from "./MetaReportForm";
+import { baseTlConstructor, checkAuthAdmin, tlConstructor } from "@/server/serverUtils";
 import { prisma } from "@/lib/prisma";
 
 export default async function MetaReportCreatePage() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (!session) redirect("/");
-  if (session.user.role !== "ADMIN") redirect("/"); //Change this to unauth page or signin
-
+  await checkAuthAdmin();
+  
+  /* Fetching id 
   const getTiers = async () => {
     const metaReportId = await prisma.metaReport.findFirst(); //check if there is currently a meta report
 
@@ -30,12 +26,14 @@ export default async function MetaReportCreatePage() {
   const metaTiers = await getTiers();
   //Ensure tier list is populated
   const tiers = metaTiers ? metaTiers : await baseTlConstructor();
+  */
+  const tiers = await baseTlConstructor();
 
   /**
-   * Make this form for both create and delete the page
+   * Make this form for both create and edit the page
    * It should take data from vaiour elements and fill in what I think is currently meta.
    * Things I should define
-   * 
+   *
    * title
    * Who last updated it and when
    * Brief description
@@ -43,12 +41,12 @@ export default async function MetaReportCreatePage() {
    * on edit mode I should be able to edit the tl and save. Modal pops up to confirm it went through
    * explain things about it
    * save button with same modal to confirm it saved
-   * 
+   *
    */
 
   return (
     <div>
-      <TierForm tierData={tiers} edit={true} />
+      <MetaReportForm tierData={tiers} />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import { InitializedMDXViewer } from "../markup/InitializedMDXEditor";
+import { MyMDXViewer } from "../markup/ForwardRefEditor";
 import { Section, SubHeader } from "./SpellsFormatting";
 import { SpellAbout } from "@/generated/client";
 
@@ -62,7 +62,7 @@ export function AboutDisplay({ aboutData }: { aboutData?: SpellAbout }) {
           <Section>
             <SubHeader>Overview</SubHeader>
             <div className="flex h-full w-full max-w-full">
-              <InitializedMDXViewer markdown={aboutData.overview} />
+              <MyMDXViewer markdown={aboutData.overview} />
             </div>
           </Section>
         </div>
