@@ -331,7 +331,7 @@ export function LiElement({
 export function SpellHeader({ spellName }: { spellName: string }) {
   return (
     <Section>
-      <div className={`relative flex h-32`}>
+      <div className={`relative flex h-32 rounded-box overflow-clip`}>
         {/* Spell Image */}
         <div className="z-10 flex h-full w-full flex-row place-items-center md:px-4">
           <div className="aspect-square h-full p-2">

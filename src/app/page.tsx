@@ -11,9 +11,9 @@ export default async function Home() {
         <p>This is a work in progress guide with more features on the way!</p>
         <h2>Currently Planned</h2>
         <ul>
-          <li>Design for mobile view</li>
+          <li className="line-through">Design for mobile view</li>
           <li>Build Creator</li>
-          <li>In depth meta report guide</li>
+          <li className="line-through">In depth meta report guide</li>
           <li>More guides for all kinds of players</li>
           <li>Making it look ✨pretty✨</li>
           <li>Lots more...</li>

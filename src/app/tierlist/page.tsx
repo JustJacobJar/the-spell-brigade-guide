@@ -70,7 +70,7 @@ export default function TierlistPage() {
 
   return (
     <>
-      <div className="place-items-center">
+      <div className="">
         {isLoading ? <TierListSkeleton /> : loadingList()}
       </div>
     </>

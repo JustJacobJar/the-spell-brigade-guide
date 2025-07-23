@@ -1,12 +1,11 @@
 "use client";
-import InitializedMDXEditor from "@/components/markup/InitializedMDXEditor";
 import { LiElement, Section, SubHeader, Toast } from "../SpellsFormatting";
-import { ReactNode, useEffect, useRef, useState } from "react";
-import { MDXEditorMethods } from "@mdxeditor/editor";
+import { ReactNode, useEffect, useState } from "react";
 import { handleLiChange } from "./AboutSpellForm";
 import { SpellReview } from "@/generated/client";
 import { useUpdateSpellReviewMutate } from "@/lib/Queries";
 import { SpellReviewInput } from "@/lib/types";
+import { MyMDXEditor } from "@/components/markup/ForwardRefEditor";
 
 export default function ReviewSpellForm({
   spellName,
@@ -19,13 +18,12 @@ export default function ReviewSpellForm({
   setToastOpen: (value: boolean) => void;
   setToast: (node: ReactNode) => void;
 }) {
-  const editor = useRef<MDXEditorMethods>(null);
-
   const [pros, setPros] = useState(currentData?.pros ?? [""]);
   const [cons, setCons] = useState(currentData?.cons ?? [""]);
   const [content, setContent] = useState(
     currentData?.review ?? "# Some Markdown Content",
   );
+  const [author, setAuthor] = useState(currentData?.author ?? "");
   const [mutateReview] = useUpdateSpellReviewMutate();
 
   useEffect(() => {
@@ -56,6 +54,7 @@ export default function ReviewSpellForm({
       pros: pros,
       cons: cons,
       review: content,
+      author: author,
     };
     mutateReview.mutate({ spellname: spellName, reviewData: data });
   }
@@ -153,11 +152,17 @@ export default function ReviewSpellForm({
         </div>
       </Section>
       <Section>
-        <SubHeader>Review (By JustExisting)</SubHeader>
+        <SubHeader>
+          Review by:
+          <input
+            className="input"
+            value={author}
+            onChange={(e) => setAuthor(e.currentTarget.value)}
+          />
+        </SubHeader>
         <div className="flex h-full w-full max-w-full">
-          <InitializedMDXEditor
+          <MyMDXEditor
             className="dark-theme dark-editor border-base-300 grow border-2"
-            editorRef={editor}
             markdown={content}
             onChange={(e) => setContent(e)}
           />

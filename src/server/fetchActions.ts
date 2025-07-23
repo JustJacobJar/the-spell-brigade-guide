@@ -2,6 +2,7 @@
 
 import { SpellAbout, SpellBuild } from "@/generated/client";
 import { prisma } from "@/lib/prisma";
+import { CapFirstLetter } from "@/lib/utils";
 
 export async function getAllSpells() {
   try {
@@ -40,8 +41,9 @@ export async function getSpellAbout(spellName: string) {
   //verify spellName is in the spells_view list
   const spells = await getAllSpells();
   const spellList = spells.map((s) => s.name);
-  if (!spellList.includes(spellName)) {
+  if (!spellList.includes(CapFirstLetter(spellName))) {
     //not in there, spell does not exist throw error
+    console.error(`Input Spell "${spellName}" does not exist!`);
     throw `Input Spell "${spellName}" does not exist!`;
   }
 
@@ -53,7 +55,7 @@ export async function getSpellAbout(spellName: string) {
     });
     return spellAbout as SpellAbout;
   } catch (error) {
-    console.log(error);
+    console.error("Unable to find about data for spell: " + spellName, error);
     throw "Unable to find about data for spell: " + spellName;
   }
 }
@@ -64,6 +66,7 @@ export async function getSpellBuild(spellName: string) {
   const spellList = spells.map((s) => s.name);
   if (!spellList.includes(spellName)) {
     //not in there, spell does not exist throw error
+    console.error(`Input Spell "${spellName}" does not exist!`);
     throw `Input Spell "${spellName}" does not exist!`;
   }
 
@@ -75,7 +78,7 @@ export async function getSpellBuild(spellName: string) {
     });
     return spellBuild as SpellBuild;
   } catch (error) {
-    console.log(error);
+    console.error("Unable to find build data for spell: " + spellName, error);
     throw "Unable to find build data for spell: " + spellName;
   }
 }
