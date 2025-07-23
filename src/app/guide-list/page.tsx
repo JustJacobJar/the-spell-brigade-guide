@@ -98,16 +98,15 @@ function GuideItem({
   };
 
   return (
-    <Link
-      className="card bg-base-300 text-base-content card-xl"
-      href={`/guide/${id}`}
-    >
-      <div className="card-body items-center text-center">
-        <div className="card-title">{title}</div>
-        <div className="card-actions">
-          {roll === "CURATOR" || roll === "ADMIN" ? editButton(id) : null}
+    <div className="card bg-base-300 text-base-content card-xl">
+      <Link href={`/guide/${id}`}>
+        <div className="card-body items-center text-center">
+          <div className="card-title">{title}</div>
         </div>
+      </Link>
+      <div className="card-actions absolute right-0 bottom-0 z-10">
+        {roll === "CURATOR" || roll === "ADMIN" ? editButton(id) : null}
       </div>
-    </Link>
+    </div>
   );
 }

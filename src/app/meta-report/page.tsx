@@ -27,9 +27,13 @@ export default async function MetaReportPage() {
       <div className="rounded-box border-base-200 bg-base-300 flex flex-col gap-2 border-2 p-2">
         <div className="pl-1">
           <h1 className="text-2xl">{metaReport.title}</h1>
-          <h2 className="text-lg">
-            Author: {author ? author.name : "Unknown"}
-          </h2>
+          <div className="flex flex-row gap-2 place-items-baseline">
+            <h2 className="text-lg">
+              Author: {author ? author.name : "Unknown"}
+            </h2>
+            <span>•</span>
+            <p>Updated: {metaReport.updatedAt.toLocaleDateString()}</p>
+          </div>
         </div>
         {/* Table */}
         <div className="join join-vertical">
