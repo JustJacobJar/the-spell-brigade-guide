@@ -27,7 +27,7 @@ export default async function MetaReportEditPage({
   const tiers = await tlConstructor(metaReport.tierlistId);
 
   return (
-    <div>
+    <div className="w-full max-w-5xl p-2">
       <MetaReportForm
         tierData={tiers}
         metaId={metaReport.id}
