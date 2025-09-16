@@ -114,14 +114,14 @@ export default function AboutSpellForm({
             })}
             <div className="flex flex-row gap-2 p-2">
               <button
-                className="btn btn-neutral btn-wide"
+                className="btn btn-neutral w-1/2 max-w-64"
                 type="button"
                 onClick={() => setAugmentList([...augmentList, ""])}
               >
                 Add Item
               </button>
               <button
-                className="btn btn-error btn-wide"
+                className="btn btn-error w-1/2 max-w-64"
                 type="button"
                 onClick={() => {
                   const arr = [...augmentList];
@@ -150,14 +150,14 @@ export default function AboutSpellForm({
             })}
             <div className="flex flex-row gap-2 p-2">
               <button
-                className="btn btn-neutral btn-wide"
+                className="btn btn-neutral w-1/2 max-w-64"
                 type="button"
                 onClick={() => setUpgradeList([...upgradeList, ""])}
               >
                 Add Item
               </button>
               <button
-                className="btn btn-error btn-wide"
+                className="btn btn-error w-1/2 max-w-64"
                 type="button"
                 onClick={() => {
                   const arr = [...upgradeList];
