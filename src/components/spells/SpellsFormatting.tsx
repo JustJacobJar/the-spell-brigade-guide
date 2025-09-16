@@ -76,7 +76,7 @@ export function CheckboxContent({
     <div className="collapse-arrow join-item bg-base-100 border-base-300 collapse border">
       <input type="checkbox" />
       <div className="collapse-title flex flex-row place-items-center gap-4 font-semibold">
-        <div className="bg-primary rounded-selector grid aspect-square h-full place-content-center">
+        <div className="bg-neutral rounded-selector grid aspect-square h-full place-content-center">
           {index}
         </div>
         <div>

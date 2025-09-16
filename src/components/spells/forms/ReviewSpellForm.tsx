@@ -86,14 +86,14 @@ export default function ReviewSpellForm({
                 })}
                 <div className="flex flex-row gap-2 p-2">
                   <button
-                    className="btn btn-neutral btn-wide"
+                    className="btn btn-neutral w-1/2 max-w-64"
                     type="button"
                     onClick={() => setPros([...pros, ""])}
                   >
                     Add Item
                   </button>
                   <button
-                    className="btn btn-error btn-wide"
+                    className="btn btn-error w-1/2 max-w-64"
                     type="button"
                     onClick={() => {
                       const arr = [...pros];
@@ -128,14 +128,14 @@ export default function ReviewSpellForm({
                 })}
                 <div className="flex flex-row gap-2 p-2">
                   <button
-                    className="btn btn-neutral btn-wide"
+                    className="btn btn-neutral w-1/2 max-w-64"
                     type="button"
                     onClick={() => setCons([...cons, ""])}
                   >
                     Add Item
                   </button>
                   <button
-                    className="btn btn-error btn-wide"
+                    className="btn btn-error w-1/2 max-w-64"
                     type="button"
                     onClick={() => {
                       const arr = [...cons];

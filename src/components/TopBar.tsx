@@ -1,6 +1,7 @@
 "use client";
 import { ReactNode, useState } from "react";
 import SideBar from "./SideBar";
+import Footer from "./footer";
 
 export default function TopBar({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -8,7 +9,7 @@ export default function TopBar({ children }: { children: ReactNode }) {
   return (
     <>
       {/* TopBar */}
-      <div className="bg-base-100 border-base-200 fixed top-0 z-50 flex h-16 w-screen items-center border-b-2 px-4 shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),_0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)] md:px-0">
+      <div className="bg-base-50 border-base-200 fixed top-0 z-50 flex h-16 w-screen items-center px-4 shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),_0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)] md:px-0">
         <button
           className="btn btn-ghost btn-square block md:hidden"
           onClick={() => setOpen(!open)}
@@ -34,8 +35,10 @@ export default function TopBar({ children }: { children: ReactNode }) {
       <div className="hidden md:block">
         <SideBar open={true} openFn={setOpen} desktop={true} />
       </div>
-      <div className="bg-base-200 scrollbar mt-16 ml-0 w-full place-items-center md:ml-64">
+      {/* Content */}
+      <div className="bg-base-200 scrollbar mt-16 ml-0 w-full place-items-start md:ml-64">
         {children}
+        <Footer />
       </div>
     </>
   );

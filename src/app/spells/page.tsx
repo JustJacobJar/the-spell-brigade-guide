@@ -15,7 +15,7 @@ export default async function SpellsPage() {
 
   return (
     <Suspense fallback={<p>LOADING...</p>}>
-      <div className="flex max-w-7xl flex-wrap place-content-center gap-4 p-4">
+      <div className="flex max-w-7xl flex-wrap gap-4 p-4">
         {spellButtons()}
       </div>
     </Suspense>

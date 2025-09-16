@@ -77,7 +77,7 @@ function GuideItem({
   const editButton = (id: string) => {
     return (
       <Link
-        className="btn btn-square btn-soft bg-secondary stroke-secondary-content"
+        className="btn btn-square btn-soft btn-neutral stroke-neutral-content"
         href={`/curator/guide/edit/${id}`}
       >
         <svg
@@ -98,9 +98,9 @@ function GuideItem({
   };
 
   return (
-    <div className="card bg-base-300 text-base-content card-xl">
+    <div className="btn w-80 min-h-24 btn-soft btn-secondary card-xl relative">
       <Link href={`/guide/${id}`}>
-        <div className="card-body items-center text-center">
+        <div className="items-center text-center">
           <div className="card-title">{title}</div>
         </div>
       </Link>
