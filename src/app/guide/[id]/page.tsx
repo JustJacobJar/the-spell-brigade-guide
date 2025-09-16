@@ -16,7 +16,7 @@ export default async function GuideViewPage({
 
   return (
     <div className="flex h-full w-full max-w-7xl">
-      <MyMDXViewer markdown={blog.content.content} />
+      <MyMDXViewer className="p-2" markdown={blog.content.content} />
     </div>
   );
 }

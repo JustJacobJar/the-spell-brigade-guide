@@ -21,7 +21,7 @@ export const MyMDXEditor = forwardRef<MDXEditorMethods, MDXEditorProps>(
 );
 
 export const MyMDXViewer = forwardRef<MDXEditorMethods, MDXEditorProps>(
-  (props, ref) => <Viewer {...props} />,
+  (props, ref) => <Viewer {...props} editorRef={ref}  />,
 );
 
 // TS complains without the following line

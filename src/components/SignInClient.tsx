@@ -5,7 +5,7 @@ import { signIn } from "@/lib/auth-client";
 export default function SignInClient() {
   return (
     <button
-      className="btn"
+      className="btn btn-wide btn-info"
       onClick={() => signIn.social({ provider: "github" })}
     >
       Github

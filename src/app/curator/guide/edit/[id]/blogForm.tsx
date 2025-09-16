@@ -1,6 +1,7 @@
 "use client";
 import DeleteButtonModal from "@/components/DeleteButtonModal";
 import { MyMDXEditor } from "@/components/markup/ForwardRefEditor";
+// import { TextEditor } from "@/components/markup/TextEditor";
 import { useEditBlogMutate } from "@/lib/Queries";
 import { GuideCategorys } from "@/lib/types";
 import { useState } from "react";
@@ -32,7 +33,7 @@ export default function EditGuideForm({
   }
 
   return (
-    <div className="flex w-5xl flex-col place-self-center">
+    <div className="flex max-w-5xl flex-col place-self-center">
       <div>
         <input
           className="w-96 rounded-xl bg-neutral-700 p-2"
@@ -44,7 +45,6 @@ export default function EditGuideForm({
           className="w-96 rounded-xl bg-neutral-700 p-2"
           value={category}
           onChange={(e) => setCategory(e.currentTarget.value)}
-          defaultValue={category}
         >
           <option disabled value={"DEFAULT"}>
             Pick a Category
@@ -56,9 +56,16 @@ export default function EditGuideForm({
           ))}
         </select>
       </div>
+      {/* <TextEditor></TextEditor> */}
       <MyMDXEditor markdown={content} onChange={(e) => setContent(e)} />
       <div className="flex w-full flex-row place-content-end gap-4">
-        <button onClick={() => onSubmitData()}>Edit Post</button>
+        <button
+          className="btn btn-secondary"
+          disabled={mutateEdit.isPending}
+          onClick={() => onSubmitData()}
+        >
+          Edit Post
+        </button>
         <DeleteButtonModal id={id} />
       </div>
     </div>

@@ -13,7 +13,7 @@ export default function EditGuidePageClient({
   blogCategory: string;
 }) {
   return (
-    <div className="w-full">
+    <div>
       <EditGuideForm
         id={id}
         blogTitle={blogTitle}

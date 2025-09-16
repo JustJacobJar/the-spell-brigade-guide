@@ -12,16 +12,19 @@ export default async function SignInPage(props: {
     <div className="grid h-full w-full grid-rows-[20px_.5fr_1fr_20px] flex-col place-items-center pt-16 pb-20">
       <div className="row-start-2 flex flex-col place-items-center gap-16 text-center">
         <h1 className="place-self-center text-center text-5xl font-black">
-          Spell Brig Guide
+          Admin Signin
         </h1>
         {/* Logo */}
-        <div className="stroke-foreground size-64">Logo Area</div>
+        <div className="stroke-foreground w-96">
+          <p className="text-lg">Please <b>do not</b> signin!</p>
+          <p>This is for admin users only</p>
+          <p>If you signed in anyway and wish for your account data to be deleted, please join the discord and request</p>
+        </div>
       </div>
       {/* Buttons */}
-      <div className="row-start-3 my-16 flex flex-col place-items-center gap-6 self-start">
+      <div className="card border-2 border-base-300 bg-base-100 row-start-3 my-16 flex w-64 flex-col place-items-center gap-6 self-start p-2">
         <h4 className="text-lg">Sign in using</h4>
         <SignInClient />
-
         {/* <Suspense fallback={<p>Loading...</p>}>
           {Object.values(providerMap).map((provider) => (
             <form
@@ -37,14 +40,13 @@ export default async function SignInPage(props: {
           ))}
         </Suspense> */}
         <Link
-          className="bg-card text-card-foreground min-w-full rounded-md border-2 p-2 px-4 text-center text-xl font-bold transition-all duration-150 hover:inset-ring-1 hover:brightness-75 disabled:brightness-50"
+          className="btn btn-neutral btn-wide"
           href={"/dashboard"}
         >
           Go Back
         </Link>
+        <SignOutClient />
       </div>
-      <div className="flex flex-row justify-center gap-8"></div>
-      <SignOutClient />
     </div>
   );
 }
