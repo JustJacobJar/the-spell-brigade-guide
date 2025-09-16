@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode, RefObject, useCallback, useEffect, useRef } from "react";
+import ProfileNav from "./ProfileNav";
 
 export default function SideBar({
   open,
@@ -137,6 +138,8 @@ export default function SideBar({
             );
           })}
         </nav>
+        {/* Profile or signin button */}
+        <ProfileNav/>
       </div>
     </ChildrenBlur>
   );

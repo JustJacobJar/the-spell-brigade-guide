@@ -3,7 +3,7 @@ import ImageUnop from "./ImageUnop";
 
 export default function Footer() {
   return (
-    <div className="flex w-full flex-col gap-2 p-4">
+    <div className="bg-inherit flex w-full flex-col gap-2 p-4">
       <div>
         <p className="text-xs text-neutral-400">
           The Spell Brigade Guide is not affiliated with Bolt Blaster Games

@@ -6,13 +6,18 @@ import {
   listsPlugin,
   markdownShortcutPlugin,
   MDXEditor,
+  MDXEditorMethods,
   MDXEditorProps,
   quotePlugin,
   tablePlugin,
   thematicBreakPlugin,
 } from "@mdxeditor/editor";
+import { ForwardedRef } from "react";
 
-export default function InitializedMDXViewer({ ...props }: MDXEditorProps) {
+export default function InitializedMDXViewer({
+  editorRef,
+  ...props
+}: { editorRef: ForwardedRef<MDXEditorMethods> | null } & MDXEditorProps) {
   return (
     <MDXEditor
       className="dark-theme dark-editor bg-base-300 rounded-field flex flex-grow"
@@ -33,6 +38,7 @@ export default function InitializedMDXViewer({ ...props }: MDXEditorProps) {
         // InsertFrontmatter(),
       ]}
       {...props}
+      ref={editorRef}
     />
   );
 }

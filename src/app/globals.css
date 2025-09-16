@@ -11,6 +11,10 @@
     dark --default;
 }
 
+.my-bold{
+  color: red;
+}
+
 @theme{
   --color-base-50: #ffffff;
 }
