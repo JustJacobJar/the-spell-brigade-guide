@@ -164,7 +164,7 @@ export function BuildDisplay({ buildData }: { buildData?: SpellBuild }) {
       {/* Synergy Builds */}
       <Section>
         <SubHeader>Synergy</SubHeader>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div className="card bg-base-300 grid min-h-16 place-content-center">
             Some build showing 4 spells
           </div>
@@ -312,5 +312,9 @@ export function BuildDisplaySkelton() {
 }
 
 function BuildGrid({ children }: { children: ReactNode }) {
-  return <div className="grid grid-rows-3 grid-cols-1 md:grid-rows-1 md:grid-cols-3 gap-4">{children}</div>;
+  return (
+    <div className="grid grid-cols-1 grid-rows-3 gap-4 md:grid-cols-3 md:grid-rows-1">
+      {children}
+    </div>
+  );
 }
