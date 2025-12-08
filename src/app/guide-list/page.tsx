@@ -98,7 +98,7 @@ function GuideItem({
   };
 
   return (
-    <div className="btn w-80 min-h-24 btn-soft btn-secondary card-xl relative">
+    <div className="btn btn-soft btn-secondary card-xl relative min-h-24 w-80">
       <Link href={`/guide/${id}`}>
         <div className="items-center text-center">
           <div className="card-title">{title}</div>
